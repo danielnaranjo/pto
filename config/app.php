@@ -177,8 +177,17 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        /* sentry.io */
-        Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
+        /* models*/
+        Reliese\Coders\CodersServiceProvider::class,
+        Orangehill\Iseed\IseedServiceProvider::class,
+        /* laravelcollective forms & html helpers */
+        Collective\Html\HtmlServiceProvider::class,
+        /* Scout / Argolia */
+        Laravel\Scout\ScoutServiceProvider::class,
+        /* Mailgun*/
+        Bogardo\Mailgun\MailgunServiceProvider::class,
+        /* Rollbar */
+        Rollbar\Laravel\RollbarServiceProvider::class,
 
     ],
 
@@ -228,8 +237,14 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        /* sentry.io */
-        'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
+        
+        /* laravelcollective forms & html helpers */
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
+        /* Mailgun */
+        'Mailgun' => Bogardo\Mailgun\Facades\Mailgun::class,
+        /* Date/Fecha */
+        'Date' => Jenssegers\Date\Date::class,
     ],
 
 ];
