@@ -11,7 +11,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class UserImage
- * 
+ *
  * @property int $user_id
  * @property int $image_id
  *
@@ -27,4 +27,8 @@ class UserImage extends Eloquent
 		'user_id' => 'int',
 		'image_id' => 'int'
 	];
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
 }

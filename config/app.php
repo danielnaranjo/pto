@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Paqueto'),
 
     /*
     |--------------------------------------------------------------------------
@@ -188,7 +188,14 @@ return [
         Bogardo\Mailgun\MailgunServiceProvider::class,
         /* Rollbar */
         Rollbar\Laravel\RollbarServiceProvider::class,
+        /* Socialite */
+        Laravel\Socialite\SocialiteServiceProvider::class,
+        /* Passport */
+        Laravel\Passport\PassportServiceProvider::class,
 
+        /* Generar migrations de mYsql */
+        Way\Generators\GeneratorsServiceProvider::class,
+        Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider::class,
     ],
 
     /*
@@ -237,7 +244,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        
+
         /* laravelcollective forms & html helpers */
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
@@ -245,6 +252,8 @@ return [
         'Mailgun' => Bogardo\Mailgun\Facades\Mailgun::class,
         /* Date/Fecha */
         'Date' => Jenssegers\Date\Date::class,
+        /* Socialite */
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ],
 
 ];

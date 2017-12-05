@@ -11,7 +11,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class Message
- * 
+ *
  * @property int $message_id
  * @property int $user_id
  * @property int $to_id
@@ -45,4 +45,8 @@ class Message extends Eloquent
 		'createdAt',
 		'status'
 	];
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
 }

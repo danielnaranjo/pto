@@ -11,7 +11,9 @@
         "guzzlehttp/guzzle": "^6.3",
         "jenssegers/date": "^3.2",
         "laravel/framework": "5.4.*",
+        "laravel/passport": "^4.0",
         "laravel/scout": "^3.0",
+        "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.4.0",
         "orangehill/iseed": "^2.5",
@@ -23,7 +25,8 @@
     "require-dev": {
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~5.7"
+        "phpunit/phpunit": "~5.7",
+        "xethron/migrations-generator": "^2.0"
     },
     "autoload": {
         "classmap": [

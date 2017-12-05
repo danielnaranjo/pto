@@ -11,7 +11,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class User
- * 
+ *
  * @property int $id
  * @property string $name
  * @property string $lastname
@@ -27,7 +27,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  */
 class User extends Eloquent
 {
-	protected $table = 'user';
+	protected $table = 'users';
 	public $timestamps = false;
 
 	protected $dates = [
@@ -50,4 +50,37 @@ class User extends Eloquent
 		'registered',
 		'verified'
 	];
+
+    public function info()
+    {
+        return $this->hasOne('App\Models\UserInfo','user_id');
+    }
+    public function image()
+    {
+        return $this->hasOne('App\Models\Image','user_id');
+    }
+    public function docs()
+    {
+        return $this->hasOne('App\Models\UserImage','user_id');
+    }
+    public function comment()
+    {
+        return $this->hasOne('App\Models\Comment','user_id');
+    }
+    public function message()
+    {
+        return $this->hasOne('App\Models\Message','user_id');
+    }
+    public function package()
+    {
+        return $this->hasOne('App\Models\Package','user_id');
+    }
+    public function vote()
+    {
+        return $this->hasOne('App\Models\Vote','user_id');
+    }
+    public function withdraw()
+    {
+        return $this->hasOne('App\Models\Withdraw','user_id');
+    }
 }

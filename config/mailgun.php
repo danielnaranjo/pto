@@ -22,7 +22,7 @@ return [
      * Mailgun (private) API key
      *
      */
-    'api_key' => '',
+    'api_key' => env('MAILGUN_SECRET', ''),
 
     /*
      * Mailgun public API key
@@ -37,8 +37,8 @@ return [
      *
      */
     'from' => [
-        'address' => '',
-        'name' => ''
+        'address' => 'no-responder@paqueto.com.ve',
+        'name' => 'Daniel @ Paqueto'
     ],
 
     /*

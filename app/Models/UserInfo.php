@@ -11,7 +11,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class UserInfo
- * 
+ *
  * @property int $user_info_id
  * @property int $dni
  * @property \Carbon\Carbon $birthdate
@@ -44,4 +44,8 @@ class UserInfo extends Eloquent
 		'province',
 		'country'
 	];
+    public function info()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
 }

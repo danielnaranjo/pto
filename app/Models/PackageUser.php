@@ -11,7 +11,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class PackageUser
- * 
+ *
  * @property int $package_id
  * @property int $user_id
  *
@@ -32,4 +32,13 @@ class PackageUser extends Eloquent
 		'package_id',
 		'user_id'
 	];
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+    public function balance()
+    {
+        return $this->hasOne('App\Models\Balance','package_id');
+    }
 }

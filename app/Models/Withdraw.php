@@ -11,7 +11,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class Withdraw
- * 
+ *
  * @property int $withdraw_id
  * @property int $user_id
  * @property int $package_id
@@ -46,4 +46,8 @@ class Withdraw extends Eloquent
 		'status',
 		'requested'
 	];
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
 }

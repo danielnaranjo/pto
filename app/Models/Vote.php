@@ -11,7 +11,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class Vote
- * 
+ *
  * @property int $vote_id
  * @property int $user_id
  * @property string $downvotes
@@ -40,4 +40,8 @@ class Vote extends Eloquent
 		'upvotes',
 		'createdAt'
 	];
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
 }

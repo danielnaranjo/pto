@@ -11,7 +11,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class Comment
- * 
+ *
  * @property int $comment_id
  * @property int $user_id
  * @property int $from_id
@@ -43,4 +43,8 @@ class Comment extends Eloquent
 		'createdAt',
 		'status'
 	];
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
 }

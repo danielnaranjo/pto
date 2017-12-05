@@ -11,7 +11,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class Balance
- * 
+ *
  * @property int $balance_id
  * @property int $package_id
  * @property int $user_id
@@ -41,4 +41,12 @@ class Balance extends Eloquent
 		'amount',
 		'created'
 	];
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+    public function package()
+    {
+        return $this->belongsTo('App\Models\Package');
+    }
 }
