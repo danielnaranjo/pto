@@ -26,7 +26,7 @@
 		<link href="/assets/demo/demo2/base/style.bundle.css" rel="stylesheet" type="text/css" />
 		<!--end::Base Styles -->
 		<link rel="shortcut icon" href="/assets/demo/demo2/media/img/logo/favicon.ico" />
-        <link rel="stylesheet" href="/css/tuconsorcio.css">
+        <link rel="stylesheet" href="/css/paqueto.css">
         <link rel="stylesheet" href="/assets/fullcalendar/fullcalendar.min.css">
 	</head>
 	<!-- end::Head -->
@@ -102,7 +102,7 @@
                                                                         </span>
                                                                     </li>
                                                                     <li class="m-nav__item">
-                                                                        <a href="/inmobiliarias/{{ Session::get('inmobiliaria')->inm_id }}/edit" class="m-nav__link">
+                                                                        <a href="#" class="m-nav__link">
                                                                             <i class="m-nav__link-icon fa fa-pencil"></i>
                                                                             <span class="m-nav__link-title">
                                                                                 <span class="m-nav__link-wrap">
@@ -141,7 +141,7 @@
                                                                 <div class="m-scrollable" data-scrollable="true" data-max-height="250" data-mobile-max-height="200">
                                                                     <div class="m-list-timeline m-list-timeline--skin-light">
                                                                         <div class="m-list-timeline__items">
-                                                                            @include('components.timeline')
+                                                                            {{--@include('components.timeline')--}}
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -326,7 +326,7 @@
 
         @if(preg_match( "/localhost/i", $_SERVER['SERVER_NAME']) || preg_match( "/127.0.0.1/i", $_SERVER['SERVER_NAME']))
         <script type="text/javascript">
-            console.log('result', '{{$results}}', '{{$_SERVER['SERVER_NAME']}}');
+            console.log('result', '{{$results or ""}}', '{{$_SERVER['SERVER_NAME']}}');
             Pusher.logToConsole = true;
         </script>
         @endif
