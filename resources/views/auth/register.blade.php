@@ -37,13 +37,21 @@
 						<div class="m-stack__item m-stack__item--fluid">
 							<div class="m-login__wrapper">
 								<div class="m-login__signin">
-									<div class="m-login__head">
+									<!-- <div class="m-login__head">
 										<h3 class="m-login__title">
 											Nuevo usuario
 										</h3>
-									</div>
+									</div> -->
                                     {!! Form::open(['route' => 'register', 'class' => 'm-login__form m-form ']) !!}
-										<div class="form-group m-form__group{{ $errors->has('email') ? ' has-error' : '' }}">
+                                        <div class="form-group m-form__group{{ $errors->has('name') ? ' has-error' : '' }}">
+                                            <input class="form-control m-input"  id="name" type="text" name="name" value="{{ old('name') }}" required autofocus placeholder="Nombre" >
+                                            @if ($errors->has('name'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('name') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                        <div class="form-group m-form__group{{ $errors->has('email') ? ' has-error' : '' }}">
 											<input class="form-control m-input" id="email" type="email" name="email" value="{{ old('email') }}" required autofocus placeholder="E-mail" >
                                             @if ($errors->has('email'))
                                                 <span class="help-block">
@@ -52,7 +60,7 @@
                                             @endif
 										</div>
 										<div class="form-group m-form__group{{ $errors->has('password') ? ' has-error' : '' }}">
-											<input class="form-control m-input m-login__form-input--last" type="password" placeholder="Contraseña" name="password" required>
+											<input class="form-control m-input" type="password" placeholder="Contraseña" name="password" required>
                                             @if ($errors->has('password'))
                                                 <span class="help-block">
                                                     <strong>{{ $errors->first('password') }}</strong>

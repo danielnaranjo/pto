@@ -7,8 +7,16 @@
             </span>
         </a>
     </li>
+    <li class="m-menu__item ">
+        <a  href="/explorar" class="m-menu__link m-menu__toggle">
+            <span class="m-menu__item-here"></span>
+            <span class="m-menu__link-text">
+                Explorar
+            </span>
+        </a>
+    </li>
     <li class="m-menu__item m-menu__item--rel" >
-        <a  href="/consorcios" class="m-menu__link m-menu__toggle">
+        <a  href="/envios" class="m-menu__link m-menu__toggle">
             <span class="m-menu__item-here"></span>
             <span class="m-menu__link-text">
                 Paqueto Envios
@@ -16,55 +24,61 @@
         </a>
     </li>
     <li class="m-menu__item ">
-        <a  href="/ultimosenvios" class="m-menu__link m-menu__toggle">
+        <a  href="/viajeros" class="m-menu__link m-menu__toggle">
             <span class="m-menu__item-here"></span>
             <span class="m-menu__link-text">
                 Paqueto Viajeros
             </span>
         </a>
     </li>
-    <li class="m-menu__item ">
-        <a  href="/utiles" class="m-menu__link m-menu__toggle">
-            <span class="m-menu__item-here"></span>
-            <span class="m-menu__link-text">
-                Explorar
-            </span>
-        </a>
-    </li>
-    <li class="m-menu__item m-menu__item--submenu m-menu__item--rel m-menu__item--open-dropdown m-menu__item--hover" data-menu-submenu-toggle="click" aria-haspopup="true">
+    <!-- <li class="m-menu__item m-menu__item--submenu m-menu__item--rel m-menu__item--open-dropdown m-menu__item--hover" data-menu-submenu-toggle="click" aria-haspopup="true">
 		<a href="javascript:;" class="m-menu__link m-menu__toggle">
 			<span class="m-menu__item-here"></span>
 			<span class="m-menu__link-text">
-				Masivos
+				Mi Actividad
 			</span>
 			<i class="m-menu__hor-arrow la la-angle-down"></i>
 			<i class="m-menu__ver-arrow la la-angle-right"></i>
 		</a>
 		<div class="m-menu__submenu m-menu__submenu--classic m-menu__submenu--left">
-			<span class="m-menu__arrow m-menu__arrow--adjust" style="left: 58px;"></span>
+			<span class="m-menu__arrow m-menu__arrow--adjust" style="left: 58px;color:#368ee0"></span>
 			<ul class="m-menu__subnav">
 				<li class="m-menu__item " aria-haspopup="true">
-					<a href="/masivos" class="m-menu__link ">
+					<a href="/" class="m-menu__link ">
 						<span class="m-menu__link-title">
-						Alerta Masiva
+    						Conversaciones
 						</span>
 					</a>
 				</li>
                 <li class="m-menu__item " aria-haspopup="true">
-					<a href="/docmas" class="m-menu__link ">
+					<a href="/" class="m-menu__link ">
 						<span class="m-menu__link-title">
-						Documentos Masivos
+    						Pagos recibidos
+						</span>
+					</a>
+				</li>
+                <li class="m-menu__item " aria-haspopup="true">
+					<a href="/" class="m-menu__link ">
+						<span class="m-menu__link-title">
+    						Paquetes enviados
+						</span>
+					</a>
+				</li>
+                <li class="m-menu__item " aria-haspopup="true">
+					<a href="/" class="m-menu__link ">
+						<span class="m-menu__link-title">
+    						Viajes realizados
 						</span>
 					</a>
 				</li>
 			</ul>
 		</div>
-	</li>
+	</li> -->
     <li class="m-menu__item ">
-        <a  href="/utiles" class="m-menu__link m-menu__toggle">
+        <a  href="/user" class="m-menu__link m-menu__toggle">
             <span class="m-menu__item-here"></span>
             <span class="m-menu__link-text">
-                Perfil
+                Mi Perfil
             </span>
         </a>
     </li>
