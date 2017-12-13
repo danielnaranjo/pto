@@ -8,32 +8,32 @@ v2.
 */
 
 .colorprincipal {
-    background-color:#6B297E !important;
+    background-color:#368ee0 !important;
 }
 
 /* SOBREESCRIBIR COLORES POR DEFECTO */
 .btn-info {
-    background-color: #6B297E !important;
-    border-color: #6B297E !important;
+    /*background-color: #6B297E !important;*/
+    /*border-color: #6B297E !important;*/
 }
 .btn-secondary {
-    background-color: #a8a7c1 !important;
-    border-color: #a8a7c1 !important;
-    color: #fff !important;
+    /*background-color: #a8a7c1 !important;*/
+    /*border-color: #a8a7c1 !important;*/
+    /*color: #fff !important;*/
 }
 
 .btn-danger, .alert-danger {
-    background-color: #C6032F !important;
-    border-color: #C6032F !important;
+    /*background-color: #C6032F !important;*/
+    /*border-color: #C6032F !important;*/
 }
 .btn-success {
-    background-color: #FF6501  !important;
-    border-color: #FF6501  !important;
+    /*background-color: #FF6501  !important;*/
+    /*border-color: #FF6501  !important;*/
 }
 .btn-focus {
-    background-color: #6B297E !important;
+    background-color: #368ee0 !important;
     color: #fff !important;
-    border-color: #6B297E !important;
+    border-color: #368ee0 !important;
 }
 .btn-focus.m-btn--air, .btn-outline-focus.m-btn--air {
     -webkit-box-shadow: none !important;
@@ -46,10 +46,11 @@ v2.
 }
 
 .m-topbar .m-topbar__nav.m-nav>.m-nav__item.m-topbar__user-profile.m-topbar__user-profile--img.m-dropdown--arrow .m-dropdown__arrow, .m-topbar .m-topbar__nav.m-nav>.m-nav__item.m-topbar__notifications.m-topbar__notifications--img.m-dropdown--arrow .m-dropdown__arrow, .m-topbar .m-topbar__nav.m-nav>.m-nav__item.m-topbar__quick-actions.m-topbar__quick-actions--img.m-dropdown--arrow .m-dropdown__arrow, .m-nav>.m-nav__item>.m-nav__link .m-nav__link-icon {
-    color: #6B297E !important;
+    color: #368ee0 !important;
 }
 .m--font-brand, .m-link, .m-link:hover, .m-nav-grid .m-nav-grid__row .m-nav-grid__item .m-nav-grid__text {
-    color: #6B297E !important;
+    color: #368ee0 !important;
+    border: none !important;
 }
 .m-header-search .m-header-search__icon-search>i, .m-topbar .m-topbar__nav.m-nav>.m-nav__item>.m-nav__link .m-nav__link-icon .m-nav__link-icon-wrapper>i, .m-topbar .m-topbar__nav.m-nav>.m-nav__item.m-topbar__user-profile>.m-nav__link .m-topbar__welcome, .m-topbar__username:hover, .m-menu__link-text {
     color: #fff !important;
@@ -58,24 +59,24 @@ v2.
     background-color: #fff !important;
 }
 .m-header .m-header__top, .m-brand {
-    background-color: #6B297E !important;
+    background-color: #368ee0 !important;
 }
 .m-header .m-header__bottom {
-    background-color: #461D58 !important;
+    background-color: #1c5f9e !important;
     color: #fff !important;
 }
 .m-menu__item-here {
-    color: #461D58 !important;
+    color: #1c5f9e !important;
 }
 .m-header-search__wrapper {
-    background-color: #6B297E !important;
+    background-color: #368ee0 !important;
 }
 .m-header-search__input {
     color: #fff !important;
 }
 
 .m-aside-header-menu-mobile.m-aside-header-menu-mobile--skin-light .m-menu__nav>.m-menu__item:hover>.m-menu__heading, .m-aside-header-menu-mobile.m-aside-header-menu-mobile--skin-light .m-menu__nav>.m-menu__item:hover>.m-menu__link {
-    background-color: #461D58 !important;
+    background-color: #1c5f9e !important;
 }
 
 /* MENU NOTIFICACIONES
@@ -119,7 +120,7 @@ ul.pagination li {
     width: 15px;
 }
 ul.pagination li a {
-    color: #6B297E;
+    /*color: #6B297E;*/
     font-weight: bold;
 }
 label {
@@ -132,10 +133,10 @@ label {
 /* Menu Responsive */
 @media (max-width: 992px) {
     .m-aside-header-menu-mobile.m-aside-header-menu-mobile--skin-light, .m-aside-header-menu-mobile.m-aside-header-menu-mobile--skin-light .m-menu__nav>.m-menu__item.m-menu__item--active>.m-menu__heading, .m-aside-header-menu-mobile.m-aside-header-menu-mobile--skin-light .m-menu__nav>.m-menu__item.m-menu__item--active>.m-menu__link {
-        background-color: #461D58 !important;
+        background-color: #1c5f9e !important;
     }
     .m-aside-header-menu-mobile-close.m-aside-header-menu-mobile-close--skin-light {
-        background-color: #461D58 !important;
+        background-color: #1c5f9e !important;
     }
     .m-aside-header-menu-mobile-close.m-aside-header-menu-mobile-close--skin-light>i, .m-brand__icon .m--visible-tablet-and-mobile-inline-block > .flaticon-more, .m-brand .m-brand__tools .m-brand__icon:hover>i, .m-brand .m-brand__tools .m-brand__icon>i {
         color: white !important;
