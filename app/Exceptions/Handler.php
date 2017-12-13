@@ -33,7 +33,7 @@ class Handler extends ExceptionHandler
     public function report(Exception $exception)
     {
         // Rollbar
-        \Log::error($exception); //rollbar
+        // \Log::error($exception); //rollbar
         parent::report($exception);
     }
 
@@ -46,7 +46,31 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        return parent::render($request, $exception);
+        // https://laracasts.com/discuss/channels/laravel/session-timeout-and-forwarding-back-to-login-page
+        if ( $exception instanceof \Illuminate\Session\TokenMismatchException ) {
+            //return redirect('/')->action('HomeController@index')->with('error', 'Ha ocurrido un error, por favor, verifica los datos de acceso');//TODO
+            // \Log::warning('TokenMismatchException: '.$exception); //rollbar
+            return redirect('/');
+        }
+        //
+        // https://laracasts.com/discuss/channels/requests/how-can-i-redirect-all-request-of-notfoundhttpexception-to-the-home-page
+        if ($exception instanceof ModelNotFoundException) {
+            // \Log::notice('QueryException: '.$exception);
+            $exception = new NotFoundHttpException($exception->getMessage(), $exception);
+        }
+        if ($exception instanceof NotFoundHttpException) {
+            // \Log::notice('QueryException: '.$exception);
+            return redirect('/');
+        }
+
+        if ($exception instanceof QueryException) {
+            // \Log::critical('QueryException: '.$exception);
+            return redirect('/');
+        }
+        if ($exception instanceof MethodNotAllowedHttpException) {
+            // \Log::notice('QueryException: '.$exception);
+            return redirect('/');
+        }return parent::render($request, $exception);
     }
 
     /**
