@@ -66,7 +66,7 @@
                                                             </span>
                                                         </li>
                                                         <li class="m-nav__item">
-                                                            <a href="#" class="m-nav__link">
+                                                            <a href="/user/{{ Auth::user()->id }}/edit" class="m-nav__link">
                                                                 <i class="m-nav__link-icon fa fa-pencil"></i>
                                                                 <span class="m-nav__link-title">
                                                                     <span class="m-nav__link-wrap">

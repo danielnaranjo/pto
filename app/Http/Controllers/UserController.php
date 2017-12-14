@@ -43,7 +43,15 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $data['_id'] = '';
+        $data['_controller'] = 'UserController';
+        $data['titulo'] = "Nuevo";
+        $data['ruta'] = 'users';
+        $data['results'] = DB::table('users')
+            ->select('id','name', 'email')
+            ->limit(1)
+            ->get();
+        return view('pages.autoform', $data );
     }
 
     /**
@@ -54,7 +62,26 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $input = Request::all();
         //
+        $forms = DB::table('users')
+            ->select('id','name', 'email')
+            ->limit(1)
+            ->get();
+        foreach ($forms[0] as $key => $value) {
+            if (preg_match("/name/i", $key) || preg_match("/email/i", $key)) { // Customizar
+                $label = $key; //substr ( $key, 4, strlen($key) );
+                $fields[$label] = 'required';
+            }
+        }
+        $mgs = [ 'required' => ':attribute es requerido.' ];
+        $validator = Validator::make(Request::all(), $fields, $mgs);
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+        //
+        User::create($input);
+        return redirect()->action('UserController@index')->with('status', 'Información actualizada!');
     }
 
     /**
@@ -77,7 +104,16 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        $data['_id'] = $user;
+        $data['_controller'] = 'UserController';
+        $data['id'] = $user;
+        $data['titulo'] = "Editar";
+        $data['ruta'] = 'users';
+        $data['results'] = DB::table('users')
+            ->select('*')
+            ->where('id', '=', $data['id'])
+            ->get();
+        return view('pages.autoform', $data );
     }
 
     /**
@@ -89,7 +125,11 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $data = User::findOrFail($user);
+        $input = Request::all();
+        $data->update($input);
+
+        return redirect()->action('UserController@index')->with('status', 'Información actualizada!');
     }
 
     /**
@@ -100,6 +140,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $data = User::findOrFail($user);
+        $data->delete();
+        return redirect()->action('UserController@index')->with('status', 'Información actualizada!');
     }
 }

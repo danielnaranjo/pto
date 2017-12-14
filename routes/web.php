@@ -18,7 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 //Route::get('/home', 'HomeController@index')->name('home');
 //Route::get('/', 'HomeController@index');
-Route::get('/home', 'InmobiliariaController@admin');
+Route::get('/home', 'userController@index');
 
 
 Route::resource('balance', 'BalanceController');
