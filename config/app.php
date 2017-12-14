@@ -186,8 +186,8 @@ return [
         Laravel\Scout\ScoutServiceProvider::class,
         /* Mailgun*/
         Bogardo\Mailgun\MailgunServiceProvider::class,
-        /* Rollbar */
-        Rollbar\Laravel\RollbarServiceProvider::class,
+        /* Sentry */
+        Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
         /* Socialite */
         Laravel\Socialite\SocialiteServiceProvider::class,
         /* Passport */
@@ -254,6 +254,8 @@ return [
         'Date' => Jenssegers\Date\Date::class,
         /* Socialite */
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        /* Sentry */
+        'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
     ],
 
 ];

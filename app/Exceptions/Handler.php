@@ -32,8 +32,9 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $exception)
     {
-        // Rollbar
-        // \Log::error($exception); //rollbar
+        if (app()->bound('sentry') && $this->shouldReport($exception)) {
+            app('sentry')->captureException($exception);
+        }
         parent::report($exception);
     }
 
