@@ -28,7 +28,7 @@ class UserController extends Controller
     public function index()
     {
         $data['results']   = User::all();
-        $data['titulo'] = "Vista General";
+        $data['titulo'] = "Mi Perfil";
         $data['mailgun'] = ['total'=>100, 'sent'=>80, 'opened'=>15,'bounced'=>5];// TODO, viene de Mailgun
         Date::setLocale('es');
         $data['todayis'] = Date::now()->format('l j F Y');
@@ -92,8 +92,10 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $response = User::find($user);//->user;
-        return $response;
+        $data['titulo'] = "Mi Perfil";
+        $data['results'] = User::find($user);//->user;
+        //return $response;
+        return view('pages.profile', $data);
     }
 
     /**
