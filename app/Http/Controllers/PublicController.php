@@ -2,7 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Schema;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
+use Cookie;
+use Session;
+use Log;
+use Validator;
+use MessageBag;
+use Carbon\Carbon;
+use Date;
 
 class PublicController extends Controller
 {
@@ -13,7 +27,12 @@ class PublicController extends Controller
      */
     public function index()
     {
-        //
+        $data['results']   = User::all();
+        $data['titulo'] = "Bienvenido";
+        $data['mailgun'] = ['total'=>100, 'sent'=>80, 'opened'=>15,'bounced'=>5];// TODO, viene de Mailgun
+        Date::setLocale('es');
+        $data['todayis'] = Date::now()->format('l j F Y');
+        return view('dashboard.principal', $data);
     }
 
     /**

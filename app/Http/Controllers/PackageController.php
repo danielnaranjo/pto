@@ -2,7 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Package;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Schema;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
+use Cookie;
+use Session;
+use Log;
+use Validator;
+use MessageBag;
+use Carbon\Carbon;
+use Date;
 
 class PackageController extends Controller
 {
@@ -13,7 +27,9 @@ class PackageController extends Controller
      */
     public function index()
     {
-        //
+        $data['titulo'] = "Explorar";
+        $data['results'] = Package::all();
+        return view('pages.grids', $data);
     }
 
     /**

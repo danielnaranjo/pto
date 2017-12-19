@@ -33,7 +33,7 @@ class UserController extends Controller
         Date::setLocale('es');
         $data['todayis'] = Date::now()->format('l j F Y');
 
-        return view('dashboard.principal', $data);
+        return view('pages.listado', $data);
     }
 
     /**

@@ -1,8 +1,21 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Vote;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Schema;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
+use Cookie;
+use Session;
+use Log;
+use Validator;
+use MessageBag;
+use Carbon\Carbon;
+use Date;
 
 class VoteController extends Controller
 {
