@@ -7,14 +7,6 @@
             </span>
         </a>
     </li>
-    <li class="m-menu__item ">
-        <a  href="/explorar" class="m-menu__link m-menu__toggle">
-            <span class="m-menu__item-here"></span>
-            <span class="m-menu__link-text">
-                Explorar
-            </span>
-        </a>
-    </li>
     <li class="m-menu__item m-menu__item--rel" >
         <a  href="/envios" class="m-menu__link m-menu__toggle">
             <span class="m-menu__item-here"></span>

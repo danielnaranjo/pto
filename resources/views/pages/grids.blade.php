@@ -15,16 +15,32 @@
 							<div class="m-portlet__head m-portlet__head--fit">
 								<div class="m-portlet__head-caption">
 									<div class="m-portlet__head-action">
-										<button type="button" class="btn btn-sm m-btn--pill">
-											Categoria
-										</button>
+										<a class="btn btn-sm m-btn--pill" href="/ver/{{ strtolower($result->type) }}">
+											{{ $result->type }}
+										</a>
 									</div>
 								</div>
+                                @if($result->user_id==Auth::user()->id)
+                                <div class="m-portlet__head-tools">
+									<ul class="m-portlet__nav">
+										<li class="m-portlet__nav-item">
+											<a href="/package/{{$result->package_id}}/edit" class="m-portlet__nav-link">
+												<i class="fa fa-pencil"></i>
+											</a>
+										</li>
+                                        <li class="m-portlet__nav-item">
+											<a href="javascript:borrar('package',{{$result->package_id}})" class="m-portlet__nav-link">
+												<i class="fa fa-trash"></i>
+											</a>
+										</li>
+									</ul>
+								</div>
+                                @endif
 							</div>
 							<div class="m-portlet__body">
 								<div class="m-widget19">
 									<div class="m-widget19__pic m-portlet-fit--top m-portlet-fit--sides" style="min-height-: 286px">
-										<img src="assets/app/media/img//blog/blog1.jpg" alt="">
+                                        <img src="assets/app/media/img//blog/blog1.jpg" alt="{{$result->title}}">
 										<h3 class="m-widget19__title m--font-light">
 											{{$result->title}}
 										</h3>
@@ -33,23 +49,25 @@
 									<div class="m-widget19__content">
 										<div class="m-widget19__header">
 											<div class="m-widget19__user-img">
-												<img class="m-widget19__img" src="assets/app/media/img//users/user1.jpg" alt="">
+                                                <a href="/user/{{$result->id}}">
+                                                    <img class="m-widget19__img" src="assets/app/media/img//users/user1.jpg" alt="{{$result->name}}">
+                                                </a>
 											</div>
 											<div class="m-widget19__info">
 												<span class="m-widget19__username">
-													Carol Carvajal
+													{{$result->name}}
 												</span>
 												<br>
 												<span class="m-widget19__time">
-													Buenos Aires, Argentina
+													{{$result->address}}
 												</span>
 											</div>
 											<div class="m-widget19__stats">
 												<span class="m-widget19__number m--font-brand">
-													18
+													{{$result->destination}}
 												</span>
 												<span class="m-widget19__comment">
-													Comentarios
+													{{$result->origin}}
 												</span>
 											</div>
 										</div>
@@ -58,9 +76,17 @@
 										</div>
 									</div>
 									<div class="m-widget19__action">
-										<button type="button" class="btn m-btn--pill btn-secondary m-btn m-btn--hover-brand m-btn--custom">
-											Contactar
-										</button>
+                                        <a href="/package/{{$result->package_id}}">Ver más</a>
+                                        @if($result->user_id==Auth::user()->id)
+                                        [
+                                            <a href="/package/{{$result->package_id}}/edit">
+                                                Editar
+                                            </a>
+    										<a href="javascript:borrar('package',{{$result->package_id}})">
+                                                Borrar
+                                            </a>
+                                        ]
+                                        @endif
 									</div>
 								</div>
 							</div>

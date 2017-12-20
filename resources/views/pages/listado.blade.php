@@ -16,7 +16,9 @@
                             <!--begin::Widget 14 Item-->
                             <div class="m-widget4__item">
                                 <div class="m-widget4__img m-widget4__img--pic">
-                                    <img src="assets/app/media/img/users/100_4.jpg" alt="">
+                                    <a href="/user/{{$result->id}}">
+                                        <img src="assets/app/media/img/users/100_4.jpg" alt="{{$result->name}}">
+                                    </a>
                                 </div>
                                 <div class="m-widget4__info">
                                     <span class="m-widget4__title">
@@ -24,7 +26,7 @@
                                     </span>
                                     <br>
                                     <span class="m-widget4__sub">
-                                        Capital Federal
+                                        {{$result->address}}
                                     </span>
                                 </div>
                                 <div class="m-widget4__ext">

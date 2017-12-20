@@ -21,7 +21,7 @@
 			<div class="m-content">
 				<!--Begin::Main Portlet-->
 				<div class="row">
-					<div class="col-xl-8 col-md-8">
+					<div class="col-xl-7 col-md-7">
 						<!--begin:: Widgets/Application Sales-->
 						<div class="m-portlet m-portlet--full-height ">
 							<div class="m-portlet__head">
@@ -52,7 +52,7 @@
                                                 @foreach ($errors->all() as $message)
                                                 <div class="alert alert-danger alert-dismissible">
                                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                    {{ substr ( $message, 4, strlen($message) ) }}
+                                                    {{ $message  }}
                                                 </div>
                                                 @endforeach
                                             @endif
@@ -95,11 +95,11 @@
 
                                                         <div class='form-group'>
 
-                                                            @if (!preg_match("/_id/i", $f) &&
+                                                            @if (!preg_match("/id/i", $f) &&
                                                                     !preg_match("/fechaenvio/i", $f)
                                                                 )
                                                                 {{-- label --}}
-                                                        	   {!! Form::label( substr ( $f, 4, strlen($f) ) , substr ( $f, 4, strlen($f)) ) !!}
+                                                        	   {!! Form::label( $f, $f) !!}
                                                             @endif
 
                                                             @php
@@ -112,13 +112,13 @@
 
                                                             @if ( strlen($result->$f) >= 200 || preg_match("/firma/i", $f) || preg_match("/cuerpo/i", $f))
                                                                 {{-- textearea --}}
-                                                    	        {!! Form::textarea(safeInputs($f), $valor, ['class' => 'form-control summernote', 'id' => safeInputs($f), 'rows'=> '10', 'placeholder'=> substr ( $f, 4, strlen($f) )]) !!}
+                                                    	        {!! Form::textarea(safeInputs($f), $valor, ['class' => 'form-control summernote', 'id' => safeInputs($f), 'rows'=> '10', 'placeholder'=> $f]) !!}
                                                             @elseif ( preg_match("/fecha/i", $f))
                                                                 {{-- date --}}
                                                     	        {!! Form::text(safeInputs($f), $valor, ['class' => 'form-control m_datetimepicker_2', 'id' => safeInputs($f), 'placeholder'=>'AAAA-MM-DD']) !!}
                                                             @elseif ( preg_match("/email/i", $f))
                                                                 {{-- email --}}
-                                                    	        {!! Form::email(safeInputs($f), $valor, ['class' => 'form-control', 'id' => safeInputs($f), 'placeholder'=> substr ( $f, 4, strlen($f) )]) !!}
+                                                    	        {!! Form::email(safeInputs($f), $valor, ['class' => 'form-control', 'id' => safeInputs($f), 'placeholder'=> $f ]) !!}
                                                             @elseif ( preg_match("/enviado/i", $f) || preg_match("/leido/i", $f))
                                                                 {{-- select --}}
                                                                 {!! Form::select(safeInputs($f), [0 => 'No', '1' => 'Si'], $valor, ['class' => 'form-control', 'id' => safeInputs($f)]) !!}
@@ -160,7 +160,7 @@
                                                                 {!! Form::select(safeInputs($f), $valores, $valor, ['placeholder' => 'Seleccionar', 'class' => 'form-control', 'id' => safeInputs($f)]) !!}
                                                             @else
                                                                 {{-- input[text] --}}
-                                                                {!! Form::text(safeInputs($f), $valor, ['class' => 'form-control', 'id' => safeInputs($f), 'placeholder'=> substr ( $f, 4, strlen($f) )]) !!}
+                                                                {!! Form::text(safeInputs($f), $valor, ['class' => 'form-control', 'id' => safeInputs($f), 'placeholder'=> $f]) !!}
                                                             @endif
                                                         </div>
 
