@@ -21,7 +21,8 @@ Auth::routes();
 //Route::get('/home', 'HomeController@index')->name('home');
 //Route::get('/', 'HomeController@index');
 Route::get('/home', 'PublicController@index');
-Route::get('/explorar', 'PackageController@index');
+Route::get('/ver/{$categoria?}', 'PackageController@categorias');
+Route::get('/explorar/{$pais?}', 'PackageController@pais');
 Route::get('/envios', 'PackageController@index');
 Route::get('/viajeros', 'UserController@index');
 
