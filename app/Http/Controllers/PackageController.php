@@ -28,7 +28,11 @@ class PackageController extends Controller
     public function index()
     {
         $data['titulo'] = "Explorar";
-        $data['results'] = Package::all();
+        $data['results'] = DB::table('package')
+            ->select('package.*','service.*','users.*')
+            ->leftJoin('service','package.service_id','=','service.service_id')
+            ->leftJoin('users','package.user_id','=','users.id')
+            ->paginate(15);
         return view('pages.grids', $data);
     }
 
@@ -39,7 +43,15 @@ class PackageController extends Controller
      */
     public function create()
     {
-        //
+        $data['_id'] = '';
+        $data['_controller'] = 'PackageController';
+        $data['titulo'] = "Nuevo Paqueto Envio";
+        $data['ruta'] = 'package';
+        $data['results'] = DB::table('package')
+            ->select('origin','destination','title','description','price')
+            ->limit(1)
+            ->get();
+        return view('pages.autoform', $data );
     }
 
     /**
@@ -50,7 +62,26 @@ class PackageController extends Controller
      */
     public function store(Request $request)
     {
+        $input = Request::all();
+        $forms = DB::table('package')
+            ->select('origin','destination','title','description','price')
+            ->limit(1)
+            ->get();
+        foreach ($forms[0] as $key => $value) {
+            if (preg_match("/nombre/i", $key) || preg_match("/tipo/i", $key)){
+                $label = $key;
+                $fields[$label] = 'required';
+            }
+        }
+        $mgs = [ 'required' => ':attribute es requerido.' ];
+        $validator = Validator::make(Request::all(), $fields, $mgs);
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
         //
+        Package::create($input);
+        return redirect()->action('PackageController@index')->with('status', 'Nuevo servicio agregado!');
+        //return redirect('/propietarios/utiles/'.$input['uti_consorcio'])->with('status', 'Información actualizada!');
     }
 
     /**
@@ -61,7 +92,15 @@ class PackageController extends Controller
      */
     public function show($id)
     {
-        //
+        $data['_id'] = $id;
+        $data['_controller'] = 'PackageController';
+        $data['id'] = $id;
+        $data['titulo'] = "Editar";
+        $data['ruta'] = 'package';
+        $data['results'] = DB::table('package')
+            ->select('origin','destination','title','description','price')
+            ->where('package_id', '=', $id)
+            ->get();
     }
 
     /**
@@ -72,7 +111,17 @@ class PackageController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data['_id'] = $id;
+        $data['_controller'] = 'PackageController';
+        $data['id'] = $id;
+        $data['titulo'] = "Editar";
+        $data['ruta'] = 'package';
+        $data['results'] = DB::table('package')
+            ->select('origin','destination','title','description','price')
+            ->where('package_id', '=', $id)
+            ->get();
+        return view('pages.autoform', $data );
+        //return response()->json($data);
     }
 
     /**
@@ -84,7 +133,10 @@ class PackageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data= Package::findOrFail($package->id);
+        $input = Request::all();
+        $data->update($input);
+        return redirect()->action('PackageController@index')->with('status', 'Información actualizada!');
     }
 
     /**
@@ -95,6 +147,34 @@ class PackageController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Package::findOrFail($id);
+        $data->delete();
+        return redirect()->action('PackageController@index')->with('status', 'Información actualizada!');
+    }
+
+    public function categorias($categoria=null)
+    {
+        $data['titulo'] = "Explorar";
+        $data['results'] = DB::table('package')
+            ->select('package.*','service.*','users.*')
+            ->leftJoin('service','package.service_id','=','service.service_id')
+            ->leftJoin('users','package.user_id','=','users.id')
+            ->where('service.type','=',$categoria)
+            ->get();
+        //return view('pages.grids', $data);
+        return response()->json($data);
+    }
+    public function pais($pais=null)
+    {
+        $data['titulo'] = "Explorar";
+        $data['results'] = DB::table('package')
+            ->select('package.*','service.*','users.*')
+            ->leftJoin('service','package.service_id','=','service.service_id')
+            ->leftJoin('users','package.user_id','=','users.id')
+            ->where('package.origin','=',$pais)
+            ->whereOr('package.destination','=',$pais)
+            ->paginate(15);
+        //return view('pages.grids', $data);
+        return response()->json($data);
     }
 }

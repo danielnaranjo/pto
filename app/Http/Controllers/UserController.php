@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
+#use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema;
@@ -17,6 +17,7 @@ use Validator;
 use MessageBag;
 use Carbon\Carbon;
 use Date;
+use Request;
 
 class UserController extends Controller
 {
@@ -29,10 +30,9 @@ class UserController extends Controller
     {
         $data['results']   = User::all();
         $data['titulo'] = "Mi Perfil";
-        $data['mailgun'] = ['total'=>100, 'sent'=>80, 'opened'=>15,'bounced'=>5];// TODO, viene de Mailgun
-        Date::setLocale('es');
-        $data['todayis'] = Date::now()->format('l j F Y');
-
+        // $data['mailgun'] = ['total'=>100, 'sent'=>80, 'opened'=>15,'bounced'=>5];// TODO, viene de Mailgun
+        // Date::setLocale('es');
+        // $data['todayis'] = Date::now()->format('l j F Y');
         return view('pages.listado', $data);
     }
 
@@ -106,16 +106,17 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        $data['_id'] = $user;
+        $data['_id'] = $user->id;
         $data['_controller'] = 'UserController';
-        $data['id'] = $user;
+        $data['id'] = $user->id;
         $data['titulo'] = "Editar";
         $data['ruta'] = 'users';
         $data['results'] = DB::table('users')
-            ->select('*')
-            ->where('id', '=', $data['id'])
+            ->select('name','email','address','phone')
+            ->where('id', '=', $user->id)
             ->get();
         return view('pages.autoform', $data );
+        //return response()->json($data);
     }
 
     /**
@@ -127,10 +128,9 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $data = User::findOrFail($user);
+        $data= User::findOrFail($user->id);
         $input = Request::all();
         $data->update($input);
-
         return redirect()->action('UserController@index')->with('status', 'Información actualizada!');
     }
 

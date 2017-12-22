@@ -26,7 +26,14 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        $data['titulo'] = "";
+        $data['_id'] = '';
+        $data['results']  = DB::table('comment')
+            ->select('comment.comment_id','comment.comment', 'comment.createdAt')
+            ->leftJoin('users','comment.user_id','=','users.id')
+            ->orderBy('comment.createdAt','DESC')
+            ->paginate(15);
+        return view('pages.general', $data);
     }
 
     /**
@@ -36,7 +43,16 @@ class CommentController extends Controller
      */
     public function create()
     {
-        //
+        $data['_id'] = '';
+        $data['id'] = 0;
+        $data['_controller'] = 'InmobiliariaController';
+        $data['titulo'] = "Nueva administración";
+        $data['ruta'] = 'inmobiliarias';
+        $data['results'] = DB::table('inmobiliaria')
+            ->select('inm_id','inm_nombre','inm_responsable','inm_telefono as inm_teléfono','inm_direccion as inm_dirección','inm_email','inm_asunto','inm_cuerpo','inm_firma','inm_usuario','inm_password','inm_emailresp','inm_logo','inm_web')
+            ->limit(1)
+            ->get();
+        return view('pages.autoform', $data );
     }
 
     /**
