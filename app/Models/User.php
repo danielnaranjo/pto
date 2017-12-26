@@ -67,6 +67,10 @@ class User extends Eloquent
     {
         return $this->hasOne('App\Models\Comment','user_id');
     }
+    public function from()
+    {
+        return $this->hasOne('App\Models\Comment','from_id');
+    }
     public function message()
     {
         return $this->hasOne('App\Models\Message','user_id');

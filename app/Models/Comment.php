@@ -47,4 +47,8 @@ class Comment extends Eloquent
     {
         return $this->belongsTo('App\Models\User');
     }
+    public function from()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
 }
