@@ -40,7 +40,7 @@
 							<div class="m-portlet__body">
 								<div class="m-widget19">
 									<div class="m-widget19__pic m-portlet-fit--top m-portlet-fit--sides" style="min-height-: 286px">
-                                        <img src="assets/app/media/img//blog/blog1.jpg" alt="{{$result->title}}">
+                                        <img src="/assets/app/media/img/blog/blog1.jpg" alt="{{$result->title}}">
 										<h3 class="m-widget19__title m--font-light">
 											{{$result->title}}
 										</h3>
@@ -50,7 +50,7 @@
 										<div class="m-widget19__header">
 											<div class="m-widget19__user-img">
                                                 <a href="/user/{{$result->id}}">
-                                                    <img class="m-widget19__img" src="assets/app/media/img//users/user1.jpg" alt="{{$result->name}}">
+                                                    <img class="m-widget19__img" src="/assets/app/media/img/users/user1.jpg" alt="{{$result->name}}">
                                                 </a>
 											</div>
 											<div class="m-widget19__info">
