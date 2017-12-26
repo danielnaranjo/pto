@@ -74,7 +74,8 @@ class MessageController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = Message::find($id);
+        return response()->json($data);
     }
 
     /**

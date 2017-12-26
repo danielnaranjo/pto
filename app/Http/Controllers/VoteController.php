@@ -74,7 +74,8 @@ class VoteController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = VOte::find($id);
+        return response()->json($data);
     }
 
     /**

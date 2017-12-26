@@ -101,6 +101,7 @@ class PackageController extends Controller
             ->select('origin','destination','title','description','price')
             ->where('package_id', '=', $id)
             ->get();
+        return response()->json($data);
     }
 
     /**
@@ -161,8 +162,8 @@ class PackageController extends Controller
             ->leftJoin('users','package.user_id','=','users.id')
             ->where('service.type','=',$categoria)
             ->get();
-        //return view('pages.grids', $data);
-        return response()->json($data);
+        return view('pages.grids', $data);
+        //return response()->json($data);
     }
     public function pais($pais=null)
     {

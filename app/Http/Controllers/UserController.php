@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Comment;
+use App\Models\Message;
+use App\Models\Package;
+
 #use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
@@ -94,6 +98,9 @@ class UserController extends Controller
     {
         $data['titulo'] = "Mi Perfil";
         $data['results'] = User::find($user);//->user;
+        // $data['comment'] = Comment::where('user_id', $user);//->user;
+        // $data['message'] = Message::where('user_id', $user);//->user;
+        // $data['package'] = Package::where('user_id', $user);//->user;
         //return $response;
         return view('pages.profile', $data);
     }

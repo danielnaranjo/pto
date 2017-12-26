@@ -74,7 +74,8 @@ class CommentController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = Comment::find($id);
+        return response()->json($data);
     }
 
     /**
