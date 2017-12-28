@@ -11,7 +11,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class Country
- * 
+ *
  * @property string $code
  * @property int $lat
  * @property int $lng
@@ -24,6 +24,7 @@ class Country extends Eloquent
 {
 	public $incrementing = false;
 	public $timestamps = false;
+    protected $primaryKey = 'country_id';
 
 	protected $casts = [
 		'lat' => 'int',
@@ -35,6 +36,6 @@ class Country extends Eloquent
 		'lat',
 		'lng',
 		'name',
-		'status'
+        'status'
 	];
 }

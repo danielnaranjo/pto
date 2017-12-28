@@ -29,7 +29,8 @@ class UserInfo extends Eloquent
 	public $timestamps = false;
 
 	protected $casts = [
-		'dni' => 'int'
+		'dni' => 'int',
+        'country' => 'int'
 	];
 
 	protected $dates = [
@@ -42,10 +43,14 @@ class UserInfo extends Eloquent
 		'gender',
 		'city',
 		'province',
-		'country'
+
 	];
     public function info()
     {
         return $this->belongsTo('App\Models\User');
+    }
+    public function country()
+    {
+        return $this->belongsTo('App\Models\Country','country_id');
     }
 }

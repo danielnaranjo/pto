@@ -20,7 +20,7 @@ class CreateUserInfoTable extends Migration {
 			$table->enum('gender', array('NA','M','F'))->nullable();
 			$table->string('city', 500)->nullable();
 			$table->string('province', 500)->nullable();
-			$table->string('country', 500)->nullable();
+			$table->integer('country')->nullable();
 		});
 	}
 

@@ -16,8 +16,8 @@ class CreatePackageTable extends Migration {
 		{
 			$table->bigInteger('package_id', true);
 			$table->bigInteger('user_id')->default(0);
-			$table->string('origin', 50);
-			$table->char('destination', 2);
+			$table->integer('origin');
+			$table->integer('destination');
 			$table->integer('service_id');
 			$table->string('tracking', 50);
 			$table->string('title', 50);
@@ -26,6 +26,7 @@ class CreatePackageTable extends Migration {
 			$table->dateTime('delivery');
 			$table->enum('auction', array('N','Y'))->default('N');
 			$table->decimal('price', 10, 0)->nullable();
+            $table->string('currency', 3)->default('USD');
 			$table->char('status', 1)->default(0)->comment('0=libre, 1=tomado, 2=revision, 3=entregado');
 		});
 	}

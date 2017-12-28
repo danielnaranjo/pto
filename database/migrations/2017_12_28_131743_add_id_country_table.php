@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddPackageToCommentTable extends Migration
+class AddIdCountryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class AddPackageToCommentTable extends Migration
      */
     public function up()
     {
-        // Schema::table('comment', function (Blueprint $table) {
-        //     $table->string('package_id')->after('from_id')->nullable();
-        // });
+        Schema::table('countries', function (Blueprint $table) {
+            $table->increments('country_id');
+        });
     }
 
     /**
@@ -25,8 +25,8 @@ class AddPackageToCommentTable extends Migration
      */
     public function down()
     {
-        // Schema::table('comment', function (Blueprint $table) {
-        //     $table->dropColumn('package_id');
-        // });
+        Schema::table('countries', function (Blueprint $table) {
+            $table->dropColumn('country_id');
+        });
     }
 }

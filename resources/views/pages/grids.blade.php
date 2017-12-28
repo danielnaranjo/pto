@@ -15,8 +15,8 @@
 							<div class="m-portlet__head m-portlet__head--fit">
 								<div class="m-portlet__head-caption">
 									<div class="m-portlet__head-action">
-										<a class="btn btn-sm m-btn--pill" href="/ver/{{ strtolower($result->type) }}">
-											{{ $result->type }}
+										<a class="btn btn-sm m-btn--pill" href="/ver/{{ strtolower($result->service->type ) }}">
+											{{ $result->service->type }}
 										</a>
 									</div>
 								</div>
@@ -42,32 +42,32 @@
 									<div class="m-widget19__pic m-portlet-fit--top m-portlet-fit--sides" style="min-height-: 286px">
                                         <img src="/assets/app/media/img/blog/blog1.jpg" alt="{{$result->title}}">
 										<h3 class="m-widget19__title m--font-light">
-											{{$result->title}}
+											{{ $result->title }}
 										</h3>
 										<div class="m-widget19__shadow"></div>
 									</div>
 									<div class="m-widget19__content">
 										<div class="m-widget19__header">
 											<div class="m-widget19__user-img">
-                                                <a href="/user/{{$result->id}}">
-                                                    <img class="m-widget19__img" src="/assets/app/media/img/users/user1.jpg" alt="{{$result->name}}">
+                                                <a href="/user/{{$result->user->id}}">
+                                                    <img class="m-widget19__img" src="/assets/app/media/img/users/user1.jpg" alt="{{$result->user->name}}">
                                                 </a>
 											</div>
 											<div class="m-widget19__info">
 												<span class="m-widget19__username">
-													{{$result->name}}
+													{{ $result->user->name }}
 												</span>
 												<br>
 												<span class="m-widget19__time">
-													{{$result->address}}
+													{{ $result->user->address }}
 												</span>
 											</div>
 											<div class="m-widget19__stats">
 												<span class="m-widget19__number m--font-brand">
-													{{$result->destination}}
+													{{ $result->from->code }}
 												</span>
 												<span class="m-widget19__comment">
-													{{$result->origin}}
+													{{ $result->to->code }}
 												</span>
 											</div>
 										</div>
@@ -112,6 +112,7 @@
                     @endforelse
 
                     <div class="col-xl-12">
+                        {{ $results->links() }}
                         <p>
                             <a class="btn m-btn--pill btn-secondary m-btn m-btn--custom" href="{{ url()->previous() }}">
                                 Volver atras

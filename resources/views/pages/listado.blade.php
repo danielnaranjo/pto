@@ -22,7 +22,7 @@
 													<i class="flaticon-map-location"></i>
 												</span>
 												<h3 class="m-portlet__head-text">
-													{{$result->address}}
+													{{$result->city}} {{$result->country}}
 												</h3>
 											</div>
 										</div>
@@ -59,9 +59,20 @@
                                                     {{$result->name}}
                                                 </span>
                                                 <br>
+                                                @if($result->verified==1)
                                                 <span class="m-widget4__sub">
-                                                    {{$result->address}}
+                                                    Usuario verificado
+                                                    <i class="fa fa-check"></i>
                                                 </span>
+                                                <br>
+                                                @endif
+                                                @if($result->verified==1)
+                                                <span class="m-widget4__sub">
+                                                    <!-- Reputación:  -->
+                                                    <i class="fa fa-thumbs-o-up"></i>
+                                                    {{$result->upvotes}}
+                                                </span>
+                                                @endif
                                             </div>
                                             <div class="m-widget4__ext">
                                                 <a href="/user/{{$result->id}}" class="m-btn m-btn--pill m-btn--hover-brand btn btn-sm btn-secondary">
@@ -94,6 +105,14 @@
                     @endforelse
 				</div>
 				<!--End::Main Portlet-->
+                <div class="col-xl-12">
+                    {{ $results->links() }}
+                    <!-- <p>
+                        <a class="btn m-btn--pill btn-secondary m-btn m-btn--custom" href="{{ url()->previous() }}">
+                            Volver atras
+                        </a>
+                    </p> -->
+                </div>
 			</div>
 		</div>
 	</div>

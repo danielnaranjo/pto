@@ -66,12 +66,12 @@
 			</ul>
 		</div>
 	</li> -->
-    <li class="m-menu__item ">
+    <!-- <li class="m-menu__item ">
         <a  href="/user" class="m-menu__link m-menu__toggle">
             <span class="m-menu__item-here"></span>
             <span class="m-menu__link-text">
                 Mi Perfil
             </span>
         </a>
-    </li>
+    </li> -->
 </ul>

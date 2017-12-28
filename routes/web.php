@@ -51,3 +51,8 @@ Route::get('/service/{id}/delete', ['as' => 'service.destroy', 'uses' => 'Servic
 Route::get('/user/{id}/delete', ['as' => 'user.destroy', 'uses' => 'UserController@destroy']);
 Route::get('/vote/{id}/delete', ['as' => 'vote.destroy', 'uses' => 'VoteController@destroy']);
 Route::get('/withdraw/{id}/delete', ['as' => 'withdraw.destroy', 'uses' => 'WithdrawController@destroy']);
+
+
+Route::prefix('api')->group(function() {
+    Route::get('message/{id}', 'MessageController@display');
+});

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Package;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
@@ -27,8 +28,9 @@ class PublicController extends Controller
      */
     public function index()
     {
-        $data['results']   = User::all();
-        $data['titulo'] = "Bienvenido";
+        $data['results']   = User::paginate(6);
+        $data['package']   = Package::inRandomOrder()->first();
+        $data['titulo'] = "Hola ".Auth::user()->name;
         $data['mailgun'] = ['total'=>100, 'sent'=>80, 'opened'=>15,'bounced'=>5];// TODO, viene de Mailgun
         Date::setLocale('es');
         $data['todayis'] = Date::now()->format('l j F Y');

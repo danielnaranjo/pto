@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Package;
+use App\Models\Service;
+use App\Models\Country;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
@@ -27,12 +29,14 @@ class PackageController extends Controller
      */
     public function index()
     {
-        $data['titulo'] = "Explorar";
-        $data['results'] = DB::table('package')
-            ->select('package.*','service.*','users.*')
-            ->leftJoin('service','package.service_id','=','service.service_id')
-            ->leftJoin('users','package.user_id','=','users.id')
-            ->paginate(15);
+        $data['titulo'] = "Envios";
+        // $data['results'] = DB::table('package')
+        //     ->select('package.*','service.*','users.*','countries.code as country')
+        //     ->leftJoin('service','package.service_id','=','service.service_id')
+        //     ->leftJoin('users','package.user_id','=','users.id')
+        //     ->leftJoin('countries','package.destination','=','countries.country_id')
+        //     ->paginate(16);
+        $data['results'] = Package::paginate(16);
         return view('pages.grids', $data);
     }
 
@@ -95,13 +99,24 @@ class PackageController extends Controller
         $data['_id'] = $id;
         $data['_controller'] = 'PackageController';
         $data['id'] = $id;
-        $data['titulo'] = "Editar";
         $data['ruta'] = 'package';
-        $data['results'] = DB::table('package')
-            ->select('origin','destination','title','description','price')
-            ->where('package_id', '=', $id)
+        // $data['results'] = DB::table('package')
+        //     ->select('package.*','users.*')//,'countries.name as country'
+        //     //->leftJoin('countries','countries.code','=','package.destination')
+        //     ->leftJoin('users','package.user_id','=','users.id')
+        //     ->where('package.package_id', '=', $id)
+        //     ->get();
+        $data['results'] = Package::find($id);
+        $data['images'] = DB::table('package_image')
+            ->select('image.*')
+            ->leftJoin('package','package.package_id','=','package_image.package_id')
+            ->leftJoin('image','package_image.image_id','=','image.image_id')
+            ->where('package.package_id', '=', $id)
             ->get();
-        return response()->json($data);
+        $data['titulo'] = $data['results']->title;
+        //return response()->json($data);
+        Date::setLocale('es');
+        return view('pages.single', $data );
     }
 
     /**
@@ -156,25 +171,30 @@ class PackageController extends Controller
     public function categorias($categoria=null)
     {
         $data['titulo'] = "Explorar";
-        $data['results'] = DB::table('package')
-            ->select('package.*','service.*','users.*')
-            ->leftJoin('service','package.service_id','=','service.service_id')
-            ->leftJoin('users','package.user_id','=','users.id')
-            ->where('service.type','=',$categoria)
-            ->get();
-        return view('pages.grids', $data);
+        // $data['results'] = DB::table('package')
+        //     ->select('package.*','service.*','users.*')
+        //     ->leftJoin('service','package.service_id','=','service.service_id')
+        //     ->leftJoin('users','package.user_id','=','users.id')
+        //     ->where('service.type','=',$categoria)
+        //     ->get();
+
+        $category = Service::where('type','=',$categoria)->get();
+        $data['results'] = Package::where('service_id','=',$category[0]->service_id)->paginate(16);
         //return response()->json($data);
+        return view('pages.grids', $data);
     }
     public function pais($pais=null)
     {
         $data['titulo'] = "Explorar";
-        $data['results'] = DB::table('package')
-            ->select('package.*','service.*','users.*')
-            ->leftJoin('service','package.service_id','=','service.service_id')
-            ->leftJoin('users','package.user_id','=','users.id')
-            ->where('package.origin','=',$pais)
-            ->whereOr('package.destination','=',$pais)
-            ->paginate(15);
+        // $data['results'] = DB::table('package')
+        //     ->select('package.*','service.*','users.*')
+        //     ->leftJoin('service','package.service_id','=','service.service_id')
+        //     ->leftJoin('users','package.user_id','=','users.id')
+        //     ->where('package.origin','=',$pais)
+        //     ->whereOr('package.destination','=',$pais)
+        //     ->paginate(15);
+        $country = Country::where('code','=',$pais)->get();
+        $data['results'] = Package::where('origin','=',$country[0]->country_id)->whereOr('destination','=',$country[0]->country_id)->paginate(16);
         //return view('pages.grids', $data);
         return response()->json($data);
     }

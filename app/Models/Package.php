@@ -37,6 +37,8 @@ class Package extends Eloquent
 	protected $casts = [
 		'user_id' => 'int',
 		'service_id' => 'int',
+        'origin' => 'int',
+		'destination' => 'int',
 		'price' => 'float'
 	];
 
@@ -56,7 +58,8 @@ class Package extends Eloquent
 		'created',
 		'delivery',
 		'auction',
-		'price',
+        'price',
+		'currency',
 		'status'
 	];
     public function user()
@@ -66,5 +69,13 @@ class Package extends Eloquent
     public function service()
     {
         return $this->belongsTo('App\Models\Service','service_id');
+    }
+    public function from()
+    {
+        return $this->hasOne('App\Models\Country','country_id','origin');
+    }
+    public function to()
+    {
+        return $this->hasOne('App\Models\Country','country_id','destination');
     }
 }

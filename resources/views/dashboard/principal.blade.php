@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $titulo or 'Vista General')
+@section('title', $titulo)
 
 @section('content')
 <div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body">
@@ -23,7 +23,7 @@
 								<div class="m-portlet__head-tools titulares">
                                     <div class="m-widget11__action m--align-right">
                                         <i class="fa fa-calendar"></i>
-                                        {{ $todayis or '' }}
+                                        {{ $todayis }}
                                     </div>
 								</div>
 							</div>
@@ -225,7 +225,7 @@
                                     <div class="m-widget19__pic m-portlet-fit--top m-portlet-fit--sides" style="min-height-: 286px">
                                         <img src="assets/app/media/img//blog/blog1.jpg" alt="">
                                         <h3 class="m-widget19__title m--font-light">
-                                            Introducing New Feature
+                                            {{ $package->title }}
                                         </h3>
                                         <div class="m-widget19__shadow"></div>
                                     </div>
@@ -236,31 +236,28 @@
                                             </div>
                                             <div class="m-widget19__info">
                                                 <span class="m-widget19__username">
-                                                    Anna Krox
+                                                    {{ $package->user->name }}
                                                 </span>
                                                 <br>
                                                 <span class="m-widget19__time">
-                                                    UX/UI Designer, Google
+                                                    {{ $package->user->info->city }}
                                                 </span>
                                             </div>
                                             <div class="m-widget19__stats">
                                                 <span class="m-widget19__number m--font-brand">
-                                                    18
+                                                    {{ $package->from->code }}
                                                 </span>
                                                 <span class="m-widget19__comment">
-                                                    Comments
+                                                    {{ $package->to->code }}
                                                 </span>
                                             </div>
                                         </div>
                                         <div class="m-widget19__body">
-                                            Lorem Ipsum is simply dummy text of the printing and typesetting industry scrambled it to make text of the printing and typesetting industry scrambled a type specimen book text of the dummy text of the printing printing and typesetting industry scrambled dummy text of the printing.
-                                            {{ Auth::user()->name }}
+                                            {{ $package->description }}
                                         </div>
                                     </div>
                                     <div class="m-widget19__action">
-                                        <button type="button" class="btn m-btn--pill btn-secondary m-btn m-btn--hover-brand m-btn--custom">
-                                            Read More
-                                        </button>
+                                        <a href="/package/{{$package->package_id}}">Ver más</a>
                                     </div>
                                 </div>
                             </div>
@@ -279,14 +276,14 @@
 									</div>
 								</div>
 								<div class="m-portlet__head-tools">
-									<ul class="nav nav-pills nav-pills--brand m-nav-pills--align-right m-nav-pills--btn-pill m-nav-pills--btn-sm" role="tablist">
+									<ul class="nav nav-pills nav-pills--info m-nav-pills--align-right m-nav-pills--btn-pill m-nav-pills--btn-sm" role="tablist">
 										<li class="nav-item m-tabs__item">
-											<a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_widget4_tab1_content" role="tab">
+											<a class="nav-link m-tabs__link active" data-toggle="tab" href="#hoy" role="tab">
 												Hoy
 											</a>
 										</li>
 										<li class="nav-item m-tabs__item">
-											<a class="nav-link m-tabs__link" data-toggle="tab" href="#m_widget4_tab2_content" role="tab">
+											<a class="nav-link m-tabs__link" data-toggle="tab" href="#estemes" role="tab">
 												Este mes
 											</a>
 										</li>
@@ -295,227 +292,40 @@
 							</div>
 							<div class="m-portlet__body">
 								<div class="tab-content">
-									<div class="tab-pane active" id="m_widget4_tab1_content">
+									<div class="tab-pane active" id="hoy">
 										<!--begin::Widget 14-->
-										<div class="m-widget4">
-											<!--begin::Widget 14 Item-->
-											<div class="m-widget4__item">
-												<div class="m-widget4__img m-widget4__img--pic">
-													<img src="assets/app/media/img/users/100_4.jpg" alt="">
-												</div>
-												<div class="m-widget4__info">
-													<span class="m-widget4__title">
-														Anna Strong
-													</span>
-													<br>
-													<span class="m-widget4__sub">
-														Visual Designer,Google Inc
-													</span>
-												</div>
-												<div class="m-widget4__ext">
-													<a href="#" class="m-btn m-btn--pill m-btn--hover-brand btn btn-sm btn-secondary">
-														Follow
-													</a>
-												</div>
-											</div>
-											<!--end::Widget 14 Item-->
-											<!--begin::Widget 14 Item-->
-											<div class="m-widget4__item">
-												<div class="m-widget4__img m-widget4__img--pic">
-													<img src="assets/app/media/img/users/100_14.jpg" alt="">
-												</div>
-												<div class="m-widget4__info">
-													<span class="m-widget4__title">
-														Milano Esco
-													</span>
-													<br>
-													<span class="m-widget4__sub">
-														Product Designer, Apple Inc
-													</span>
-												</div>
-												<div class="m-widget4__ext">
-													<a href="#" class="m-btn m-btn--pill m-btn--hover-brand btn btn-sm btn-secondary">
-														Follow
-													</a>
-												</div>
-											</div>
-											<!--end::Widget 14 Item-->
-											<!--begin::Widget 14 Item-->
-											<div class="m-widget4__item">
-												<div class="m-widget4__img m-widget4__img--pic">
-													<img src="assets/app/media/img/users/100_11.jpg" alt="">
-												</div>
-												<div class="m-widget4__info">
-													<span class="m-widget4__title">
-														Nick Bold
-													</span>
-													<br>
-													<span class="m-widget4__sub">
-														Web Developer, Facebook Inc
-													</span>
-												</div>
-												<div class="m-widget4__ext">
-													<a href="#" class="m-btn m-btn--pill m-btn--hover-brand btn btn-sm btn-secondary">
-														Follow
-													</a>
-												</div>
-											</div>
-											<!--end::Widget 14 Item-->
-											<!--begin::Widget 14 Item-->
-											<div class="m-widget4__item">
-												<div class="m-widget4__img m-widget4__img--pic">
-													<img src="assets/app/media/img/users/100_1.jpg" alt="">
-												</div>
-												<div class="m-widget4__info">
-													<span class="m-widget4__title">
-														Wiltor Delton
-													</span>
-													<br>
-													<span class="m-widget4__sub">
-														Project Manager, Amazon Inc
-													</span>
-												</div>
-												<div class="m-widget4__ext">
-													<a href="#" class="m-btn m-btn--pill m-btn--hover-brand btn btn-sm btn-secondary">
-														Follow
-													</a>
-												</div>
-											</div>
-											<!--end::Widget 14 Item-->
-											<!--begin::Widget 14 Item-->
-											<div class="m-widget4__item">
-												<div class="m-widget4__img m-widget4__img--pic">
-													<img src="assets/app/media/img/users/100_5.jpg" alt="">
-												</div>
-												<div class="m-widget4__info">
-													<span class="m-widget4__title">
-														Nick Stone
-													</span>
-													<br>
-													<span class="m-widget4__sub">
-														Visual Designer, Github Inc
-													</span>
-												</div>
-												<div class="m-widget4__ext">
-													<a href="#" class="m-btn m-btn--pill m-btn--hover-brand btn btn-sm btn-secondary">
-														Follow
-													</a>
-												</div>
-											</div>
-											<!--end::Widget 14 Item-->
-										</div>
+                                        <div class="m-widget4">
+                                            <!--begin::Widget 14 Item-->
+                                            @forelse ($results as $result)
+                                            <div class="m-widget4__item">
+                                                <div class="m-widget4__img m-widget4__img--pic">
+                                                    <img src="assets/app/media/img/users/100_4.jpg" alt="{{ $result->name }}">
+                                                </div>
+                                                <div class="m-widget4__info">
+                                                    <span class="m-widget4__title">
+                                                        {{ $result->name }}
+                                                    </span>
+                                                    <br>
+                                                    <span class="m-widget4__sub">
+                                                        {{ $result->info->city }}
+                                                    </span>
+                                                </div>
+                                                <div class="m-widget4__ext">
+                                                    <a href="/user/{{ $result->id }}" class="m-btn m-btn--pill m-btn--hover-brand btn btn-sm btn-secondary">
+                                                        Seguir
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            @empty
+                                                No hay viajeros disponibles
+                                            @endforelse
+                                            <!--end::Widget 14 Item-->
+                                        </div>
 										<!--end::Widget 14-->
 									</div>
-									<div class="tab-pane" id="m_widget4_tab2_content">
+									<div class="tab-pane" id="estemes">
 										<!--begin::Widget 14-->
-										<div class="m-widget4">
-											<!--begin::Widget 14 Item-->
-											<div class="m-widget4__item">
-												<div class="m-widget4__img m-widget4__img--pic">
-													<img src="assets/app/media/img/users/100_2.jpg" alt="">
-												</div>
-												<div class="m-widget4__info">
-													<span class="m-widget4__title">
-														Kristika Bold
-													</span>
-													<br>
-													<span class="m-widget4__sub">
-														Product Designer,Apple Inc
-													</span>
-												</div>
-												<div class="m-widget4__ext">
-													<a href="#" class="m-btn m-btn--pill m-btn--hover-brand btn btn-sm btn-secondary">
-														Follow
-													</a>
-												</div>
-											</div>
-											<!--end::Widget 14 Item-->
-											<!--begin::Widget 14 Item-->
-											<div class="m-widget4__item">
-												<div class="m-widget4__img m-widget4__img--pic">
-													<img src="assets/app/media/img/users/100_13.jpg" alt="">
-												</div>
-												<div class="m-widget4__info">
-													<span class="m-widget4__title">
-														Ron Silk
-													</span>
-													<br>
-													<span class="m-widget4__sub">
-														Release Manager, Loop Inc
-													</span>
-												</div>
-												<div class="m-widget4__ext">
-													<a href="#" class="m-btn m-btn--pill m-btn--hover-brand btn btn-sm btn-secondary">
-														Follow
-													</a>
-												</div>
-											</div>
-											<!--end::Widget 14 Item-->
-											<!--begin::Widget 14 Item-->
-											<div class="m-widget4__item">
-												<div class="m-widget4__img m-widget4__img--pic">
-													<img src="assets/app/media/img/users/100_9.jpg" alt="">
-												</div>
-												<div class="m-widget4__info">
-													<span class="m-widget4__title">
-														Nick Bold
-													</span>
-													<br>
-													<span class="m-widget4__sub">
-														Web Developer, Facebook Inc
-													</span>
-												</div>
-												<div class="m-widget4__ext">
-													<a href="#" class="m-btn m-btn--pill m-btn--hover-brand btn btn-sm btn-secondary">
-														Follow
-													</a>
-												</div>
-											</div>
-											<!--end::Widget 14 Item-->
-											<!--begin::Widget 14 Item-->
-											<div class="m-widget4__item">
-												<div class="m-widget4__img m-widget4__img--pic">
-													<img src="assets/app/media/img/users/100_2.jpg" alt="">
-												</div>
-												<div class="m-widget4__info">
-													<span class="m-widget4__title">
-														Wiltor Delton
-													</span>
-													<br>
-													<span class="m-widget4__sub">
-														Project Manager, Amazon Inc
-													</span>
-												</div>
-												<div class="m-widget4__ext">
-													<a href="#" class="m-btn m-btn--pill m-btn--hover-brand btn btn-sm btn-secondary">
-														Follow
-													</a>
-												</div>
-											</div>
-											<!--end::Widget 14 Item-->
-											<!--end::Widget 14 Item-->
-											<!--begin::Widget 14 Item-->
-											<div class="m-widget4__item">
-												<div class="m-widget4__img m-widget4__img--pic">
-													<img src="assets/app/media/img/users/100_8.jpg" alt="">
-												</div>
-												<div class="m-widget4__info">
-													<span class="m-widget4__title">
-														Nick Bold
-													</span>
-													<br>
-													<span class="m-widget4__sub">
-														Web Developer, Facebook Inc
-													</span>
-												</div>
-												<div class="m-widget4__ext">
-													<a href="#" class="m-btn m-btn--pill m-btn--hover-brand btn btn-sm btn-secondary">
-														Follow
-													</a>
-												</div>
-											</div>
-											<!--end::Widget 14 Item-->
-										</div>
+                                        <usuarios></usuarios>
 										<!--end::Widget 14-->
 									</div>
 								</div>

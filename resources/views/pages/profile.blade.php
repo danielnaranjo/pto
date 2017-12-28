@@ -36,8 +36,8 @@
 											Section
 										</span>
 									</li>
-									<li class="m-nav__item">
-										<a href="../header/profile&amp;demo=default.html" class="m-nav__link">
+									<!-- <li class="m-nav__item">
+										<a href="#" class="m-nav__link">
 											<i class="m-nav__link-icon flaticon-profile-1"></i>
 											<span class="m-nav__link-title">
 												<span class="m-nav__link-wrap">
@@ -47,20 +47,28 @@
 												</span>
 											</span>
 										</a>
-									</li>
-									<li class="m-nav__item">
-										<a href="../header/profile&amp;demo=default.html" class="m-nav__link">
-											<i class="m-nav__link-icon flaticon-share"></i>
+									</li> -->
+                                    <li class="m-nav__item">
+										<a href="#" class="m-nav__link">
+											<i class="m-nav__link-icon fa fa-check-circle-o"></i>
 											<span class="m-nav__link-text">
-												Actividad
+												Usuario verificado
 											</span>
 										</a>
 									</li>
 									<li class="m-nav__item">
-										<a href="../header/profile&amp;demo=default.html" class="m-nav__link">
-											<i class="m-nav__link-icon flaticon-chat-1"></i>
+										<a href="#" class="m-nav__link">
+											<i class="m-nav__link-icon fa fa-globe"></i>
 											<span class="m-nav__link-text">
-												Mensajes
+												Ubicación verificada
+											</span>
+										</a>
+									</li>
+									<li class="m-nav__item">
+										<a href="#" class="m-nav__link">
+											<i class="m-nav__link-icon fa fa-id-card-o"></i>
+											<span class="m-nav__link-text">
+												Documentación enviada
 											</span>
                                             <span class="m-nav__link-badge">
                                                 <span class="m-badge m-badge--success">
@@ -102,276 +110,128 @@
 								<div class="tab-pane active" id="reputacion" style="padding:20px;">
                                     <!-- reputacion -->
                                     <div class="m-widget3">
-                                        @foreach( $results[0]->comment as $comentario )
-										<div class="m-widget3__item">
-											<div class="m-widget3__header">
-												<div class="m-widget3__user-img">
-													<img class="m-widget3__img" src="/assets/app/media/img/users/user1.jpg" alt="">
-												</div>
-												<div class="m-widget3__info">
-													<span class="m-widget3__username">
-														Melania Trump {{$comentario}}
-													</span>
-													<br>
-													<span class="m-widget3__time">
-														{{--$comentario->createdAt--}}
-													</span>
-												</div>
-												<span class="m-widget3__status m--font-info">
-													Pending
-												</span>
-											</div>
-											<div class="m-widget3__body">
-												<p class="m-widget3__text">
-													{{--$comentario->comment--}}
-												</p>
-											</div>
-										</div>
-                                            <!-- <h5>No hay información disponible</h5> -->
-                                        @endforeach
+                                        @forelse( $comments as $com )
+    										<div class="m-widget3__item">
+    											<div class="m-widget3__header">
+    												<div class="m-widget3__user-img">
+    													<img class="m-widget3__img" src="/assets/app/media/img/users/user1.jpg" alt="">
+    												</div>
+    												<div class="m-widget3__info">
+    													<span class="m-widget3__username">
+    														 {{ $com->from->name }}
+    													</span>
+    													<br>
+    													<span class="m-widget3__time">
+
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+    													</span>
+    												</div>
+    												<span class="m-widget3__status m--font-info">
+                                                        {{ Date::parse($com->createdAt)->format('d/m/Y') }}
+    												</span>
+    											</div>
+    											<div class="m-widget3__body">
+    												<p class="m-widget3__text">
+    													{{ $com->comment }}
+    												</p>
+    											</div>
+    										</div>
+                                        @empty
+                                            <h5>No hay reputación disponible</h5>
+                                        @endforelse
 									</div>
                                     <!-- reputacion -->
 								</div>
 								<div class="tab-pane" id="envios" style="padding:20px;">
                                     <!-- timeline viajes -->
                                     <div class="m-widget5">
-                                        @foreach( $results[0]->package as $pack )
-										<div class="m-widget5__item">
-											<div class="m-widget5__pic">
-												<img class="m-widget7__img" src="/assets/app/media/img/products/product6.jpg" alt="">
-											</div>
-											<div class="m-widget5__content">
-												<h4 class="m-widget5__title">
-													{{ $pack}}
-												</h4>
-												<span class="m-widget5__desc">
-			                                        {{--$pack->description--}}
-												</span>
-												<div class="m-widget5__info">
-													<span class="m-widget5__author">
-														Enviado:
-													</span>
-													<span class="m-widget5__info-label">
-														author:
-													</span>
-													<span class="m-widget5__info-author-name">
-														{{--$pack->service->type--}}
-													</span>
-													<span class="m-widget5__info-label">
-														Entregado
-													</span>
-													<span class="m-widget5__info-date m--font-info">
-														{{--$pack->created--}}
-													</span>
-												</div>
-											</div>
-											<div class="m-widget5__stats1">
-												<span class="m-widget5__number">
-													{{--$pack->price--}}
-												</span>
-												<br>
-												<span class="m-widget5__sales">
-													Monto
-												</span>
-											</div>
-										</div>
-                                            <!-- <h5>No hay información disponible</h5> -->
-                                        @endforeach
+                                        @forelse( $packages as $pack )
+    										<div class="m-widget5__item">
+    											<div class="m-widget5__pic">
+    												<img class="m-widget7__img" src="/assets/app/media/img/products/product6.jpg" alt="{{ $pack->title }}">
+    											</div>
+    											<div class="m-widget5__content">
+    												<h4 class="m-widget5__title">
+    													<a href="/package/{{ $pack->package_id }}">
+                                                            {{ $pack->title }}
+                                                        </a>
+    												</h4>
+    												<span class="m-widget5__desc">
+    			                                        {{ $pack->description }}
+    												</span>
+    												<div class="m-widget5__info">
+    													<!-- <span class="m-widget5__author">
+    														Enviado:
+    													</span> -->
+    													<span class="m-widget5__info-label">
+    														Tipo de envio:
+    													</span>
+    													<span class="m-widget5__info-author-name">
+    														{{ $pack->service->type }}
+    													</span>
+                                                        @if($pack->status>0)
+    													<span class="m-widget5__info-label">
+    														Entregado
+    													</span>
+    													<span class="m-widget5__info-date m--font-info">
+    														{{ Date::parse($pack->created)->format('d/m/Y H:i') }}
+    													</span>
+                                                        @endif
+    												</div>
+    											</div>
+    											<div class="m-widget5__stats1">
+    												<span class="m-widget5__number">
+                                                        @if($pack->price>0)
+        													{{ $divisa or '$' }}
+                                                            {{ $pack->price }}
+                                                        @else
+                                                            Gratis
+                                                        @endif
+    												</span>
+    												<br>
+    												<span class="m-widget5__sales">
+    													@if($pack->auction=='Y')
+                                                            Ofertado
+                                                        @else
+                                                            @if($pack->price>0)
+                                                                Monto fijo
+                                                            @endif
+                                                        @endif
+    												</span>
+    											</div>
+    										</div>
+                                        @empty
+                                            <h5>No hay información de paquetes disponible</h5>
+                                        @endforelse
 									</div>
 								</div>
                                 <div class="tab-pane" id="viajes" style="padding:20px;">
                                     <!-- timeline viajes -->
                                     <div class="m-list-timeline m-list-timeline--skin-light">
 										<div class="m-list-timeline__items">
+                                            @forelse( $travel as $t )
 											<div class="m-list-timeline__item">
 												<span class="m-list-timeline__badge m-list-timeline__badge--success"></span>
 												<span class="m-list-timeline__text">
-													12 new users registered
+													{{$t->title}}
+                                                    @if($t->restrictions)
+                                                    <span class="m-badge m-badge--info m-badge--wide">
+                                                        Ciertas restricciones aplica
+                                                    </span>
+                                                    @endif
+                                                    <br>Espacio: {{$t->dimensions}}
 												</span>
 												<span class="m-list-timeline__time">
-													Just now
+													{{ Date::parse($t->date)->format('d/m/Y') }}
 												</span>
 											</div>
-											<div class="m-list-timeline__item">
-												<span class="m-list-timeline__badge m-list-timeline__badge--info"></span>
-												<span class="m-list-timeline__text">
-													System shutdown
-													<span class="m-badge m-badge--success m-badge--wide">
-														pending
-													</span>
-												</span>
-												<span class="m-list-timeline__time">
-													14 mins
-												</span>
-											</div>
-											<div class="m-list-timeline__item">
-												<span class="m-list-timeline__badge m-list-timeline__badge--danger"></span>
-												<span class="m-list-timeline__text">
-													New invoice received
-												</span>
-												<span class="m-list-timeline__time">
-													20 mins
-												</span>
-											</div>
-											<div class="m-list-timeline__item">
-												<span class="m-list-timeline__badge m-list-timeline__badge--accent"></span>
-												<span class="m-list-timeline__text">
-													DB overloaded 80%
-													<span class="m-badge m-badge--info m-badge--wide">
-														settled
-													</span>
-												</span>
-												<span class="m-list-timeline__time">
-													1 hr
-												</span>
-											</div>
-											<div class="m-list-timeline__item">
-												<span class="m-list-timeline__badge m-list-timeline__badge--warning"></span>
-												<span class="m-list-timeline__text">
-													System error -
-													<a href="#" class="m-link">
-														Check
-													</a>
-												</span>
-												<span class="m-list-timeline__time">
-													2 hrs
-												</span>
-											</div>
-											<div class="m-list-timeline__item">
-												<span class="m-list-timeline__badge m-list-timeline__badge--brand"></span>
-												<span class="m-list-timeline__text">
-													Production server down
-												</span>
-												<span class="m-list-timeline__time">
-													3 hrs
-												</span>
-											</div>
-											<div class="m-list-timeline__item">
-												<span class="m-list-timeline__badge m-list-timeline__badge--info"></span>
-												<span class="m-list-timeline__text">
-													Production server up
-												</span>
-												<span class="m-list-timeline__time">
-													5 hrs
-												</span>
-											</div>
-											<div class="m-list-timeline__item">
-												<span class="m-list-timeline__badge m-list-timeline__badge--success"></span>
-												<span href="" class="m-list-timeline__text">
-													New order received
-													<span class="m-badge m-badge--danger m-badge--wide">
-														urgent
-													</span>
-												</span>
-												<span class="m-list-timeline__time">
-													7 hrs
-												</span>
-											</div>
-											<div class="m-list-timeline__item">
-												<span class="m-list-timeline__badge m-list-timeline__badge--success"></span>
-												<span class="m-list-timeline__text">
-													12 new users registered
-												</span>
-												<span class="m-list-timeline__time">
-													Just now
-												</span>
-											</div>
-											<div class="m-list-timeline__item">
-												<span class="m-list-timeline__badge m-list-timeline__badge--info"></span>
-												<span class="m-list-timeline__text">
-													System shutdown
-													<span class="m-badge m-badge--success m-badge--wide">
-														pending
-													</span>
-												</span>
-												<span class="m-list-timeline__time">
-													14 mins
-												</span>
-											</div>
-											<div class="m-list-timeline__item">
-												<span class="m-list-timeline__badge m-list-timeline__badge--danger"></span>
-												<span class="m-list-timeline__text">
-													New invoice received
-												</span>
-												<span class="m-list-timeline__time">
-													20 mins
-												</span>
-											</div>
-											<div class="m-list-timeline__item">
-												<span class="m-list-timeline__badge m-list-timeline__badge--accent"></span>
-												<span class="m-list-timeline__text">
-													DB overloaded 80%
-													<span class="m-badge m-badge--info m-badge--wide">
-														settled
-													</span>
-												</span>
-												<span class="m-list-timeline__time">
-													1 hr
-												</span>
-											</div>
-											<div class="m-list-timeline__item">
-												<span class="m-list-timeline__badge m-list-timeline__badge--danger"></span>
-												<span class="m-list-timeline__text">
-													New invoice received
-												</span>
-												<span class="m-list-timeline__time">
-													20 mins
-												</span>
-											</div>
-											<div class="m-list-timeline__item">
-												<span class="m-list-timeline__badge m-list-timeline__badge--accent"></span>
-												<span class="m-list-timeline__text">
-													DB overloaded 80%
-													<span class="m-badge m-badge--info m-badge--wide">
-														settled
-													</span>
-												</span>
-												<span class="m-list-timeline__time">
-													1 hr
-												</span>
-											</div>
-											<div class="m-list-timeline__item">
-												<span class="m-list-timeline__badge m-list-timeline__badge--warning"></span>
-												<span class="m-list-timeline__text">
-													System error -
-													<a href="#" class="m-link">
-														Check
-													</a>
-												</span>
-												<span class="m-list-timeline__time">
-													2 hrs
-												</span>
-											</div>
-											<div class="m-list-timeline__item">
-												<span class="m-list-timeline__badge m-list-timeline__badge--brand"></span>
-												<span class="m-list-timeline__text">
-													Production server down
-												</span>
-												<span class="m-list-timeline__time">
-													3 hrs
-												</span>
-											</div>
-											<div class="m-list-timeline__item">
-												<span class="m-list-timeline__badge m-list-timeline__badge--info"></span>
-												<span class="m-list-timeline__text">
-													Production server up
-												</span>
-												<span class="m-list-timeline__time">
-													5 hrs
-												</span>
-											</div>
-											<div class="m-list-timeline__item">
-												<span class="m-list-timeline__badge m-list-timeline__badge--success"></span>
-												<span href="" class="m-list-timeline__text">
-													New order received
-													<span class="m-badge m-badge--danger m-badge--wide">
-														urgent
-													</span>
-												</span>
-												<span class="m-list-timeline__time">
-													7 hrs
-												</span>
-											</div>
+                                            @empty
+                                                <h5>No hay información de viajes</h5>
+                                            @endforelse
 										</div>
 									</div>
                                     <!-- timeline viajes -->
@@ -385,20 +245,29 @@
 								<div class="m-portlet__head-caption">
 									<div class="m-portlet__head-title">
 										<h3 class="m-portlet__head-text">
-											Información
+											Enviar un mensaje a {{$results[0]->name}}
 										</h3>
 									</div>
 								</div>
 							</div>
 							<div class="m-portlet__body">
-								aqui
-                                {{$results[0]->info->city}}
+                                {!! Form::open(['url' => '', 'id'=>'message']) !!}
+                                {!! Form::hidden('_id', '0', ['id' => '_id']) !!}
+                                <div class='form-group'>
+                                    <!-- {!! Form::label('comentarios', 'comentarios') !!} -->
+                                    {!! Form::textarea('email', null, ['class' => 'form-control', 'id' => 'email', 'placeholder'=>'Quisiera saber...', 'rows'=>'10']) !!}
+                                    <p class="help-block">
+                                        Por tu seguridad, No envies datos personales o información de contacto.
+                                    </p>
+                                </div>
+                                {{ Form::submit('Enviar mensaje', ['class'=>'btn btn-info btn-block m-btn--pill', 'id'=>'btnMessage']) }}
+                                {!! Form::close() !!}
 							</div>
 						</div>
                     </div>
                     <div class="col-xl-12">
                         <p>
-                            <a class="btn m-btn--pill btn-secondary m-btn m-btn--custom" href="{{ url()->previous() }}">
+                            <a class="btn m-btn--pill btn-secondary m-btn m-btn--custom" href="/viajeros">
                                 Volver atras
                             </a>
                         </p>

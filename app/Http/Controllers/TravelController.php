@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Message;
+use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
@@ -17,7 +17,7 @@ use MessageBag;
 use Carbon\Carbon;
 use Date;
 
-class MessageController extends Controller
+class TravelController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,14 +26,7 @@ class MessageController extends Controller
      */
     public function index()
     {
-        $data['titulo'] = "";
-        $data['_id'] = '';
-        $data['results']  = DB::table('message')
-            ->select('message.message_id','message.comment', 'message.createdAt')
-            ->leftJoin('users','message.user_id','=','users.id')
-            ->orderBy('message.createdAt','DESC')
-            ->paginate(15);
-        return view('pages.general', $data);
+        //
     }
 
     /**
@@ -43,16 +36,7 @@ class MessageController extends Controller
      */
     public function create()
     {
-        $data['_id'] = '';
-        $data['id'] = 0;
-        $data['_controller'] = 'InmobiliariaController';
-        $data['titulo'] = "Nueva administración";
-        $data['ruta'] = 'inmobiliarias';
-        $data['results'] = DB::table('inmobiliaria')
-            ->select('inm_id','inm_nombre','inm_responsable','inm_telefono as inm_teléfono','inm_direccion as inm_dirección','inm_email','inm_asunto','inm_cuerpo','inm_firma','inm_usuario','inm_password','inm_emailresp','inm_logo','inm_web')
-            ->limit(1)
-            ->get();
-        return view('pages.autoform', $data );
+        //
     }
 
     /**
@@ -74,8 +58,7 @@ class MessageController extends Controller
      */
     public function show($id)
     {
-        $data = Message::find($id);
-        return response()->json($data);
+        //
     }
 
     /**
@@ -110,9 +93,5 @@ class MessageController extends Controller
     public function destroy($id)
     {
         //
-    }
-    public function display($id){
-        $data['results'] = Message::where('user_id', $id)->get();
-        return response()->json($data);
     }
 }

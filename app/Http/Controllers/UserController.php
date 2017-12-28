@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Comment;
 use App\Models\Message;
 use App\Models\Package;
+use App\Models\Travel;
 
 #use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -32,8 +33,14 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data['results']   = User::all();
-        $data['titulo'] = "Mi Perfil";
+        //$data['results']   = User::all();
+        $data['results']   = DB::table('users')
+            ->select('users.id','users.name','users.verified','countries.name as country','user_info.city','vote.upvotes')
+            ->leftJoin('user_info','users.id','=','user_info.user_id')
+            ->leftJoin('countries','countries.country_id','=','user_info.country')
+            ->leftJoin('vote','users.id','=','vote.user_id')
+            ->paginate(16);
+        $data['titulo'] = "Viajeros";
         // $data['mailgun'] = ['total'=>100, 'sent'=>80, 'opened'=>15,'bounced'=>5];// TODO, viene de Mailgun
         // Date::setLocale('es');
         // $data['todayis'] = Date::now()->format('l j F Y');
@@ -96,13 +103,14 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $data['titulo'] = "Mi Perfil";
+        Date::setLocale('es');
         $data['results'] = User::find($user);//->user;
-        // $data['comment'] = Comment::where('user_id', $user);//->user;
-        // $data['message'] = Message::where('user_id', $user);//->user;
-        // $data['package'] = Package::where('user_id', $user);//->user;
-        //return $response;
+        $data['comments'] = Comment::where('user_id', $user->id)->get();
+        $data['travel'] = Travel::where('user_id', $user->id)->get();
+        $data['packages'] = Package::where('user_id', $user->id)->get();
+        $data['titulo'] = $data['results'][0]->name;
         return view('pages.profile', $data);
+        //return response()->json($data);
     }
 
     /**
@@ -116,12 +124,12 @@ class UserController extends Controller
         $data['_id'] = $user->id;
         $data['_controller'] = 'UserController';
         $data['id'] = $user->id;
-        $data['titulo'] = "Editar";
         $data['ruta'] = 'users';
         $data['results'] = DB::table('users')
             ->select('name','email','address','phone')
             ->where('id', '=', $user->id)
             ->get();
+        $data['titulo'] = "Editando ".$data['results'][0]->name;
         return view('pages.autoform', $data );
         //return response()->json($data);
     }

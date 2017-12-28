@@ -16,6 +16,8 @@ window.Vue = require('vue');
  */
 
 Vue.component('example', require('./components/Example.vue'));
+// Personalizados
+Vue.component('usuarios', require('./components/Usuarios.vue'));
 
 const app = new Vue({
     el: '#app'

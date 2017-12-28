@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddPackageToCommentTable extends Migration
+class CreatePackageImageTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class AddPackageToCommentTable extends Migration
      */
     public function up()
     {
-        // Schema::table('comment', function (Blueprint $table) {
-        //     $table->string('package_id')->after('from_id')->nullable();
-        // });
+        Schema::create('package_image', function(Blueprint $table)
+        {
+            $table->bigInteger('package_id', true);
+            $table->bigInteger('image_id');
+        });
     }
 
     /**
@@ -25,8 +27,6 @@ class AddPackageToCommentTable extends Migration
      */
     public function down()
     {
-        // Schema::table('comment', function (Blueprint $table) {
-        //     $table->dropColumn('package_id');
-        // });
+        Schema::drop('package_image');
     }
 }
