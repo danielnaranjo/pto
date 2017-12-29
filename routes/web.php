@@ -22,9 +22,9 @@ Auth::routes();
 //Route::get('/', 'HomeController@index');
 Route::get('/home', 'PublicController@index');
 Route::get('/ver/{categoria?}', 'PackageController@categorias');
-Route::get('/explorar/{pais?}', 'PackageController@pais');
+Route::get('/explorar/{pais?}/{id?}', 'PackageController@pais');
 Route::get('/envios', 'PackageController@index');
-Route::get('/viajeros', 'UserController@index');
+Route::get('/viajeros', 'TravelController@index');
 
 // Recursos
 Route::resource('balance', 'BalanceController');

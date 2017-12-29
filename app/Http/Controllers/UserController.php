@@ -103,8 +103,11 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        $res = User::where('slug','=', $user->slug)->firstOrFail();
+        $id = $res->id;
+        //Post::where('slug','=', $slug)->firstOrFail();
         Date::setLocale('es');
-        $data['results'] = User::find($user);//->user;
+        $data['results'] = User::find($user);
         $data['comments'] = Comment::where('user_id', $user->id)->get();
         $data['travel'] = Travel::where('user_id', $user->id)->get();
         $data['packages'] = Package::where('user_id', $user->id)->get();

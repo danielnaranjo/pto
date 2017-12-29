@@ -109,12 +109,10 @@
 </template>
 
 <script>
-    // export default {
-    //     mounted() {
-    //         console.log('Component mounted.')
-    //     }
-    // }
     export default {
+        mounted() {
+            console.log('Component mounted.')
+        },
         data() {
             return {
                 list: []

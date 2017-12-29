@@ -9,14 +9,14 @@
 			<div class="m-content">
 				<!--Begin::Main Portlet-->
 				<div class="row">
-					<div class="col-xl-7">
+					<div class="col-xl-6">
 						<!--begin:: Widgets/Application Sales-->
 						<div class="m-portlet m-portlet--full-height ">
 							<div class="m-portlet__head">
 								<div class="m-portlet__head-caption">
 									<div class="m-portlet__head-title">
 										<h3 class="m-portlet__head-text">
-											Envio de {{ $results->from->name }} a {{ $results->to->name }}
+											Envio de {{ $results->from->name }} ({{ $results->from->code }}) a {{ $results->to->name }} ({{ $results->to->code }})
                                             @if($results->user_id==Auth::user()->id)
                                             [
                                                 <a href="/package/{{$results->package_id}}/edit">
@@ -32,7 +32,21 @@
 								</div>
 							</div>
 							<div class="m-portlet__body">
-								<!-- <div class="tab-content"> -->
+                                @if(count($images)>0)
+                                    <!--begin::Widget 11-->
+                                    <div class="m-widget6">
+                                        <div class="row">
+                                            @foreach($images as $image)
+                                            <div class="col-md-4 col-sm-6 col-lg-3" style="padding-bottom:20px;">
+                                                <a href="#">
+                                                    <img src="/{{$image->name}}" alt="{{ $results->title }}" class="img-fluid rounded">
+                                                </a>
+                                            </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    <!--end::Widget 11-->
+                                @endif
 								<!--begin::Widget 11-->
 								<div class="m-widget6">
                                     <h5>{{ $results->title }}</h5>
@@ -48,18 +62,103 @@
                                     </p>
 								</div>
 								<!--end::Widget 11-->
-								<!-- </div> -->
 							</div>
 						</div>
 						<!--end:: Widgets/Application Sales-->
 					</div>
-                    <div class="col-xl-5">
+                    <div class="col-xl-3">
+                        <div class="m-portlet m-portlet--full-height ">
+                            <div class="m-portlet__head">
+                                <div class="m-portlet__head-caption">
+                                    <div class="m-portlet__head-title">
+                                        <h3 class="m-portlet__head-text">
+                                            Sobre el envio
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-portlet__body">
+                                <!--begin::Widget 11-->
+                                <div class="m-widget6">
+                                    <h5>
+                                        @if($results->price>0)
+                                            Precio
+                                            @if($results->auction=='Y')
+                                                desde
+                                            @endif
+                                            {{ $results->currency or '$' }}
+                                            {{ $results->price }}
+                                        @else
+                                            Gratis
+                                        @endif
+                                    </h5>
+                                    <p>
+                                        <!-- Acepta ofertas: {{ $results->auction }} <br> -->
+                                        @if($results->auction=='Y')
+                                            Negociable
+                                        @else
+                                            @if($results->price>0)
+                                                Monto fijo
+                                            @endif
+                                        @endif
+                                        <br><br>
+                                        @if($results->status>0)
+                                            Tracking:<br>
+                                            <a href="#">{{ $results->tracking }}</a><br><br>
+                                        @endif
+
+                                        @if($results->status==3)
+                                            @component('components.alert')
+                                                @slot('class')
+                                                    success
+                                                @endslot
+                                                @slot('text')
+                                                    Estado del envio: Entregado
+                                                @endslot
+                                            @endcomponent
+                                        @elseif($results->status==2)
+                                            @component('components.alert')
+                                                @slot('class')
+                                                    warning
+                                                @endslot
+                                                @slot('text')
+                                                    Estado del envio: En revisión
+                                                @endslot
+                                            @endcomponent
+                                        @elseif($results->status==1)
+                                            @component('components.alert')
+                                                @slot('class')
+                                                    info
+                                                @endslot
+                                                @slot('text')
+                                                    Estado del envio: En transito
+                                                @endslot
+                                            @endcomponent
+                                        @else
+                                            Estado del envio: <strong>Disponible</strong><br><br><br>
+                                            <button type="button" class="btn btn-success btn-block">Tomar este Paqueto Envio</button>
+                                        @endif
+                                    </p>
+                                    <p>
+                                        Compartir en:
+                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                            <button type="button" class="btn btn-secondary">Facebook</button>
+                                            <button type="button" class="btn btn-secondary">Twitter</button>
+                                        </div>
+                                    </p>
+                                </div>
+                                <!--end::Widget 11-->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3">
                         <div class="m-portlet m-portlet--full-height ">
 							<div class="m-portlet__head">
 								<div class="m-portlet__head-caption">
 									<div class="m-portlet__head-title">
 										<h3 class="m-portlet__head-text">
-											Información
+											Sobre el anunciante
 										</h3>
 									</div>
 								</div>
@@ -68,7 +167,7 @@
 								<!-- <div class="tab-content"> -->
 									<!--begin::Widget 11-->
 									<div class="m-widget6">
-                                        <h5>Sobre el anunciante</h5>
+                                        <!-- <h5>Sobre el anunciante</h5> -->
 										<p>
                                             Publicado por: <a href="/user/{{ $results->user->id }}">{{ $results->user->name }}</a><br>
                                             Ubicación: {{ $results->user->info->city }} <br>
@@ -85,42 +184,12 @@
                                                 {{ $results->user->phone }}
                                             </a>
                                         </p>
-                                        <h5>Sobre el envio</h5>
-										<p>
-                                            Estado del envio: {{ $results->status }} <br>
-                                            Tracking: {{ $results->tracking }} <br>
-                                            Acepta ofertas: {{ $results->auction }} <br>
-                                            Precio: {{ $results->currency }} {{ $results->price }} <br>
-                                        </p>
 									</div>
 									<!--end::Widget 11-->
 								<!-- </div> -->
 							</div>
 						</div>
                     </div>
-                    @if(count($images)>0)
-                    <div class="col-xl-7">
-						<!--begin:: Widgets/Application Sales-->
-						<div class="m-portlet m-portlet--full-height ">
-							<div class="m-portlet__body">
-								<!-- <div class="tab-content"> -->
-								<!--begin::Widget 11-->
-								<div class="m-widget6">
-                                    <div class="row">
-                                        @foreach($images as $image)
-                                        <div class="col-md-4 col-sm-6 col-lg-3" style="padding-bottom:20px;">
-                                            <img src="/{{$image->name}}" alt="{{ $results->title }}" class="img-fluid">
-                                        </div>
-                                        @endforeach
-                                    </div>
-								</div>
-								<!--end::Widget 11-->
-								<!-- </div> -->
-							</div>
-						</div>
-						<!--end:: Widgets/Application Sales-->
-					</div>
-                    @endif
 
                     <div class="col-xl-12">
                         <p>

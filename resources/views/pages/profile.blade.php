@@ -25,8 +25,7 @@
 										<span class="m-card-profile__name">
 											{{$results[0]->name}}
 										</span>
- 											{{$results[0]->info->city}}
-										</a>
+ 										Usuario desde {{ Date::parse($results[0]->created_at)->format('F Y') }}
 									</div>
 								</div>
 								<ul class="m-nav m-nav--hover-bg m-portlet-fit--sides">
@@ -156,7 +155,7 @@
     											</div>
     											<div class="m-widget5__content">
     												<h4 class="m-widget5__title">
-    													<a href="/package/{{ $pack->package_id }}">
+    													<a href="/package/{{ $pack->tracking }}">
                                                             {{ $pack->title }}
                                                         </a>
     												</h4>

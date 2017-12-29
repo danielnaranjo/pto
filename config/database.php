@@ -50,7 +50,7 @@ return [
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
-            'strict' => true,
+            'strict' => false,//https://stackoverflow.com/questions/40917189/laravel-syntax-error-or-access-violation-1055-error
             'engine' => null,
         ],
 

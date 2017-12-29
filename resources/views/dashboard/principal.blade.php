@@ -16,7 +16,10 @@
 								<div class="m-portlet__head-caption">
 									<div class="m-portlet__head-title">
 										<h3 class="m-portlet__head-text">
-											{{$titulo or 'Vista General'}}
+											{{$titulo or ''}}
+                                            @if (Auth::check())
+                                                {{ Auth::user()->name }}
+                                            @endif
 										</h3>
 									</div>
 								</div>
@@ -232,7 +235,9 @@
                                     <div class="m-widget19__content">
                                         <div class="m-widget19__header">
                                             <div class="m-widget19__user-img">
-                                                <img class="m-widget19__img" src="assets/app/media/img//users/user1.jpg" alt="">
+                                                <a href="/user/{{ $package->user->id }}">
+                                                    <img class="m-widget19__img" src="assets/app/media/img//users/user1.jpg" alt="">
+                                                </a>
                                             </div>
                                             <div class="m-widget19__info">
                                                 <span class="m-widget19__username">
@@ -257,7 +262,7 @@
                                         </div>
                                     </div>
                                     <div class="m-widget19__action">
-                                        <a href="/package/{{$package->package_id}}">Ver más</a>
+                                        <a href="/package/{{$package->tracking}}">Ver más</a>
                                     </div>
                                 </div>
                             </div>
@@ -299,7 +304,9 @@
                                             @forelse ($results as $result)
                                             <div class="m-widget4__item">
                                                 <div class="m-widget4__img m-widget4__img--pic">
-                                                    <img src="assets/app/media/img/users/100_4.jpg" alt="{{ $result->name }}">
+                                                    <a href="/user/{{ $result->id }}">
+                                                        <img src="assets/app/media/img/users/100_4.jpg" alt="{{ $result->name }}">
+                                                    </a>
                                                 </div>
                                                 <div class="m-widget4__info">
                                                     <span class="m-widget4__title">

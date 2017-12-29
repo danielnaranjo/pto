@@ -30,7 +30,7 @@ class PublicController extends Controller
     {
         $data['results']   = User::paginate(6);
         $data['package']   = Package::inRandomOrder()->first();
-        $data['titulo'] = "Hola ".Auth::user()->name;
+        $data['titulo'] = "Hola ";
         $data['mailgun'] = ['total'=>100, 'sent'=>80, 'opened'=>15,'bounced'=>5];// TODO, viene de Mailgun
         Date::setLocale('es');
         $data['todayis'] = Date::now()->format('l j F Y');

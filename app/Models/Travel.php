@@ -37,10 +37,10 @@ class Travel extends Eloquent
     }
     public function from()
     {
-        return $this->belongsTo('App\Models\Country','country_id');
+        return $this->hasOne('App\Models\Country','country_id','origin');
     }
     public function to()
     {
-        return $this->belongsTo('App\Models\Country','country_id');
+        return $this->hasOne('App\Models\Country','country_id','destination');
     }
 }

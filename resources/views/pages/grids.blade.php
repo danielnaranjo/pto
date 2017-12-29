@@ -7,6 +7,34 @@
 	<div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver m-container m-container--responsive m-container--xxl m-page__container">
 		<div class="m-grid__item m-grid__item--fluid m-wrapper">
 			<div class="m-content">
+                <!--Begin::Main Portlet-->
+                <div class="row">
+                    <div class="col-xl-12">
+                        <!--begin:: Widgets/Application Sales-->
+                        <div class="m-portlet m-portlet--full-height ">
+                            <div class="m-portlet__head">
+                                <div class="m-portlet__head-caption">
+                                    <div class="m-portlet__head-title">
+                                        <h3 class="m-portlet__head-text">
+                                            Consigue lo que sea del mundo por un viajero de forma segura
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="m-portlet__head-tools">
+									<ul class="nav nav-pills nav-pills--success m-nav-pills--align-right m-nav-pills--btn-pill">
+										<li class="nav-item m-tabs__item">
+											<a class="nav-link m-tabs__link active">
+												Publicar
+											</a>
+										</li>
+									</ul>
+								</div>
+                            </div>
+                        </div>
+                        <!--end:: Widgets/Application Sales-->
+                    </div>
+                </div>
+                <!--End::Main Portlet-->
 				<!--Begin::Main Portlet-->
 				<div class="row">
                     @forelse ($results as $result)
@@ -49,7 +77,7 @@
 									<div class="m-widget19__content">
 										<div class="m-widget19__header">
 											<div class="m-widget19__user-img">
-                                                <a href="/user/{{$result->user->id}}">
+                                                <a href="/user/{{$result->user->slug}}">
                                                     <img class="m-widget19__img" src="/assets/app/media/img/users/user1.jpg" alt="{{$result->user->name}}">
                                                 </a>
 											</div>
@@ -76,7 +104,7 @@
 										</div>
 									</div>
 									<div class="m-widget19__action">
-                                        <a href="/package/{{$result->package_id}}">Ver más</a>
+                                        <a href="/package/{{$result->tracking}}">Ver más</a>
                                         @if($result->user_id==Auth::user()->id)
                                         [
                                             <a href="/package/{{$result->package_id}}/edit">
