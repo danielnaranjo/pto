@@ -11,6 +11,10 @@ v2.
     background-color:#368ee0 !important;
 }
 
+.m-portlet--skin-dark {
+    background-color:#368ee0 !important;
+}
+
 /* SOBREESCRIBIR COLORES POR DEFECTO */
 .btn-info {
     /*background-color: #6B297E !important;*/
