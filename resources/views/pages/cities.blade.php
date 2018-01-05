@@ -22,13 +22,13 @@
                                     </div>
                                 </div>
                                 <div class="m-portlet__head-tools">
-									<!-- <ul class="nav nav-pills nav-pills--success m-nav-pills--align-right m-nav-pills--btn-pill">
+                                    <ul class="nav nav-pills nav-pills--info m-nav-pills--align-right m-nav-pills--btn-pill">
 										<li class="nav-item m-tabs__item">
-											<a class="nav-link m-tabs__link active">
-												Publicar
+											<a class="nav-link m-tabs__link active" href="/travel/create">
+												Agregar mi viaje
 											</a>
 										</li>
-									</ul> -->
+									</ul>
 								</div>
                             </div>
                         </div>
@@ -39,9 +39,10 @@
 				<!--Begin::Main Portlet-->
 				<div class="row">
                     @forelse ($results as $result)
-                    <div class="col-xl-3">
+                    <div class="col-xl-3" id="{{ $result->to->code }}">
                         <!--begin:: Widgets/Announcements 1-->
-                        <div class="m-portlet m--bg-accent m-portlet--bordered-semi m-portlet--full-height m-portlet--skin-dark" style="background-image:url('/assets/app/media/img/products/product4.jpg');background-repeat:cover;">
+                        <!-- style="background-image:url('/assets/app/media/img/products/product4.jpg');background-repeat:cover;" -->
+                        <div class="m-portlet m--bg-accent m-portlet--bordered-semi m-portlet--full-height m-portlet--skin-dark">
                             <div class="m-portlet__head">
                                 <div class="m-portlet__head-caption">
                                     <div class="m-portlet__head-title">
@@ -55,7 +56,7 @@
                                 <!--begin::Widget 7-->
                                 <div class="m-widget7 m-widget7--skin-dark">
                                     <div class="m-widget7__desc">
-                                        Envios XXXX - $0000 en recomp
+                                        Envios <span id="envios">0</span> - <span id="dinero">0</span> en recompensas
                                     </div>
                                     <div class="m-widget7__user">
                                         <div class="m-widget7__user-img">
@@ -72,7 +73,7 @@
                                         </div>
                                     </div>
                                     <div class="m-widget7__button">
-                                        <a class="m-btn m-btn--pill btn btn-success" href="/explorar/{{ $result->to->name }}/{{ $result->destination }}" role="button">
+                                        <a class="m-btn m-btn--pill btn btn-info" href="/explorar/{{ $result->to->name }}/{{ $result->destination }}" role="button">
                                             Explorar
                                         </a>
                                     </div>

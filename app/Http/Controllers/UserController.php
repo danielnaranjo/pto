@@ -103,8 +103,8 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $res = User::where('slug','=', $user->slug)->firstOrFail();
-        $id = $res->id;
+        //$data = DB::table('users')->select('id')->where('slug','=', $user)->toSql();
+        // $id = $res->id;
         //Post::where('slug','=', $slug)->firstOrFail();
         Date::setLocale('es');
         $data['results'] = User::find($user);
@@ -163,5 +163,23 @@ class UserController extends Controller
         $data = User::findOrFail($user);
         $data->delete();
         return redirect()->action('UserController@index')->with('status', 'Información actualizada!');
+    }
+    public function slug($slug, $format=null)
+    {
+        $user = User::where('slug','=', $slug)->firstOrFail();
+        $id = $user->id;
+
+        Date::setLocale('es');
+        $data['results'] = User::find($user);
+        $data['comments'] = Comment::where('user_id', $user->id)->get();
+        $data['travel'] = Travel::where('user_id', $user->id)->get();
+        $data['packages'] = Package::where('user_id', $user->id)->get();
+        if(!$format) {
+            $data['titulo'] = $data['results'][0]->name;
+            return view('pages.profile', $data);
+        } else {
+            return response()->json($data);
+        }
+
     }
 }

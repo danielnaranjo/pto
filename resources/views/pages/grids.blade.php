@@ -21,10 +21,10 @@
                                     </div>
                                 </div>
                                 <div class="m-portlet__head-tools">
-									<ul class="nav nav-pills nav-pills--success m-nav-pills--align-right m-nav-pills--btn-pill">
+									<ul class="nav nav-pills nav-pills--info m-nav-pills--align-right m-nav-pills--btn-pill">
 										<li class="nav-item m-tabs__item">
-											<a class="nav-link m-tabs__link active">
-												Publicar
+											<a class="nav-link m-tabs__link active" href="/package/create">
+												Crear un Paqueto Envio
 											</a>
 										</li>
 									</ul>
@@ -77,7 +77,7 @@
 									<div class="m-widget19__content">
 										<div class="m-widget19__header">
 											<div class="m-widget19__user-img">
-                                                <a href="/user/{{$result->user->slug}}">
+                                                <a href="/u/{{$result->user->slug}}">
                                                     <img class="m-widget19__img" src="/assets/app/media/img/users/user1.jpg" alt="{{$result->user->name}}">
                                                 </a>
 											</div>

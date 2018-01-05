@@ -169,7 +169,7 @@
 									<div class="m-widget6">
                                         <!-- <h5>Sobre el anunciante</h5> -->
 										<p>
-                                            Publicado por: <a href="/user/{{ $results->user->id }}">{{ $results->user->name }}</a><br>
+                                            Publicado por: <a href="/u/{{ $results->user->slug }}">{{ $results->user->name }}</a><br>
                                             Ubicación: {{ $results->user->info->city }} <br>
                                             Publicado: {{ Date::parse($results->created)->diffForHumans() }}
                                         </p>

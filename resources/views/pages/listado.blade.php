@@ -78,7 +78,7 @@
                                         <!--begin::Widget 14 Item-->
                                         <div class="m-widget4__item">
                                             <div class="m-widget4__img m-widget4__img--pic">
-                                                <a href="/user/{{$result->id}}">
+                                                <a href="/u/{{$result->user->slug}}">
                                                     <img src="assets/app/media/img/users/100_4.jpg" alt="{{$result->name}}">
                                                 </a>
                                             </div>

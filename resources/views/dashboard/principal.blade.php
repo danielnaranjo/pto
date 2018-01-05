@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $titulo)
+@section('title', 'Principal')
 
 @section('content')
 <div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body">
@@ -235,7 +235,7 @@
                                     <div class="m-widget19__content">
                                         <div class="m-widget19__header">
                                             <div class="m-widget19__user-img">
-                                                <a href="/user/{{ $package->user->id }}">
+                                                <a href="/u/{{ $package->user->slug }}">
                                                     <img class="m-widget19__img" src="assets/app/media/img//users/user1.jpg" alt="">
                                                 </a>
                                             </div>
@@ -304,7 +304,7 @@
                                             @forelse ($results as $result)
                                             <div class="m-widget4__item">
                                                 <div class="m-widget4__img m-widget4__img--pic">
-                                                    <a href="/user/{{ $result->id }}">
+                                                    <a href="/u/{{ $result->slug }}">
                                                         <img src="assets/app/media/img/users/100_4.jpg" alt="{{ $result->name }}">
                                                     </a>
                                                 </div>
@@ -318,7 +318,7 @@
                                                     </span>
                                                 </div>
                                                 <div class="m-widget4__ext">
-                                                    <a href="/user/{{ $result->id }}" class="m-btn m-btn--pill m-btn--hover-brand btn btn-sm btn-secondary">
+                                                    <a href="/u/{{ $result->slug }}" class="m-btn m-btn--pill m-btn--hover-brand btn btn-sm btn-secondary">
                                                         Seguir
                                                     </a>
                                                 </div>
