@@ -119,33 +119,9 @@
         </script>
         @endif
 
-        <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
-        <script>
-            var pusher = new Pusher('9494a97e796d153cd2b7', {
-                cluster: 'us2',
-                encrypted: true
-            });
-            var channel = pusher.subscribe('my-channel');
-            channel.bind('my-event', function(data) {
-                toastr.info(data.message,'Notificaciones en Tiempo Real');
-                @if(preg_match( "/localhost/i", $_SERVER['SERVER_NAME']))
-                alert(data.message);
-                @endif
-            });
-            channel.bind('connected', function(states) {
-                // states = {previous: 'oldState', current: 'newState'}
-                toastr.info("Conectado");
-            });
-            channel.bind('connecting_in', function(delay) {
-                alert("I haven't been able to establish a connection for this feature.  " +
-                    "I will try again in " + delay + " seconds.")
-            });
-        </script>
-
         @if(preg_match( "/localhost/i", $_SERVER['SERVER_NAME']) || preg_match( "/127.0.0.1/i", $_SERVER['SERVER_NAME']))
         <script type="text/javascript">
-            console.log('result', '{{$results or ""}}', '{{$_SERVER['SERVER_NAME']}}');
-            Pusher.logToConsole = true;
+            console.log('@result@', '{{ $results }}', '{{$_SERVER['SERVER_NAME']}}');
         </script>
         @endif
 	</body>
