@@ -117,7 +117,9 @@
                                 <div class="m-portlet__head-caption">
                                     <div class="m-portlet__head-title">
                                         <h3 class="m-portlet__head-text">
-                                            Redes Sociales
+                                            Viajando de
+                                            {{ $travel->to->name or 'No disponible' }} a
+                                            {{ $travel->from->name or 'No disponible' }}
                                         </h3>
                                     </div>
                                 </div>
@@ -184,7 +186,16 @@
                                 <!--begin::Widget 7-->
                                 <div class="m-widget7 m-widget7--skin-dark">
                                     <div class="m-widget7__desc">
-                                        Lorem ipsum dolor sit amet,consectetuer edipiscing elit,sed diam nonummy euismod tinciduntut laoreet doloremagna
+                                        Tengo disponible
+                                        @if($travel->weight)
+                                            <span class="destacar">{{ $travel->weight }}</span>
+                                        @endif
+                                        @if($travel->dimensions)
+                                            para llevar <span class="destacar">{{ $travel->dimensions }}</em>
+                                        @endif
+                                        @if($travel->restrictions)
+                                            pero no llevo <span class="destacar">{{ $travel->restrictions }}</span>
+                                        @endif
                                     </div>
                                     <div class="m-widget7__user">
                                         <div class="m-widget7__user-img">
@@ -192,17 +203,17 @@
                                         </div>
                                         <div class="m-widget7__info">
                                             <span class="m-widget7__username">
-                                                Dan Bold
+                                                {{ $travel->user->name }}
                                             </span>
                                             <br>
                                             <span class="m-widget7__time">
-                                                3 days ago
+                                                {{ Date::parse($travel->date)->diffForHumans() }}
                                             </span>
                                         </div>
                                     </div>
                                     <div class="m-widget7__button">
-                                        <a class="m-btn m-btn--pill btn btn-danger" href="#" role="button">
-                                            All Feeds
+                                        <a class="m-btn m-btn--pill btn btn-info" href="/u/{{ $travel->user->slug }}" role="button">
+                                            Contactar a {{ $travel->user->name }}
                                         </a>
                                     </div>
                                 </div>
@@ -299,35 +310,7 @@
 								<div class="tab-content">
 									<div class="tab-pane active" id="hoy">
 										<!--begin::Widget 14-->
-                                        <div class="m-widget4">
-                                            <!--begin::Widget 14 Item-->
-                                            @forelse ($results as $result)
-                                            <div class="m-widget4__item">
-                                                <div class="m-widget4__img m-widget4__img--pic">
-                                                    <a href="/u/{{ $result->slug }}">
-                                                        <img src="assets/app/media/img/users/100_4.jpg" alt="{{ $result->name }}">
-                                                    </a>
-                                                </div>
-                                                <div class="m-widget4__info">
-                                                    <span class="m-widget4__title">
-                                                        {{ $result->name }}
-                                                    </span>
-                                                    <br>
-                                                    <span class="m-widget4__sub">
-                                                        {{ $result->info->city }}
-                                                    </span>
-                                                </div>
-                                                <div class="m-widget4__ext">
-                                                    <a href="/u/{{ $result->slug }}" class="m-btn m-btn--pill m-btn--hover-brand btn btn-sm btn-secondary">
-                                                        Seguir
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            @empty
-                                                No hay viajeros disponibles
-                                            @endforelse
-                                            <!--end::Widget 14 Item-->
-                                        </div>
+                                        <ultimos></ultimos>
 										<!--end::Widget 14-->
 									</div>
 									<div class="tab-pane" id="estemes">

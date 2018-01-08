@@ -7,8 +7,8 @@
             </span>
         </a>
     </li>
-    <li class="m-menu__item m-menu__item--rel" >
-        <a  href="/envios" class="m-menu__link m-menu__toggle">
+    <li class="m-menu__item" >
+        <a  href="/envios" class="m-menu__link">
             <span class="m-menu__item-here"></span>
             <span class="m-menu__link-text">
                 Paqueto Envios
@@ -16,7 +16,7 @@
         </a>
     </li>
     <li class="m-menu__item ">
-        <a  href="/viajeros" class="m-menu__link m-menu__toggle">
+        <a  href="/viajeros" class="m-menu__link">
             <span class="m-menu__item-here"></span>
             <span class="m-menu__link-text">
                 Paqueto Viajeros
@@ -74,4 +74,17 @@
             </span>
         </a>
     </li> -->
+    <li class="m-menu__item d-block d-sm-none">
+        <a  href="{{ route('logout') }}"
+            onclick="event.preventDefault();
+                     document.getElementById('logout-form').submit();" class="m-menu__link">
+            <span class="m-menu__item-here"></span>
+            <span class="m-menu__link-text">
+                Salir
+            </span>
+        </a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            {{ csrf_field() }}
+        </form>
+    </li>
 </ul>

@@ -1,109 +1,30 @@
 <template>
     <div class="m-widget4">
         <!--begin::Widget 14 Item-->
-        <div class="m-widget4__item">
+        <div class="m-widget4__item" v-for="result in list">
             <div class="m-widget4__img m-widget4__img--pic">
-                <img src="assets/app/media/img/users/100_4.jpg" alt="">
+                <a :href="'/u/'+ result.slug">
+                    <img src="assets/app/media/img/users/100_4.jpg" :alt="result.name ">
+                </a>
             </div>
             <div class="m-widget4__info">
                 <span class="m-widget4__title">
-                    Anna Strong
+                    {{ result.name }}
                 </span>
                 <br>
                 <span class="m-widget4__sub">
-                    Visual Designer,Google Inc
+                    {{ result.city }} {{ result.country }}
                 </span>
             </div>
             <div class="m-widget4__ext">
-                <a href="#" class="m-btn m-btn--pill m-btn--hover-brand btn btn-sm btn-secondary">
-                    Follow
+                <a :href="'/u/'+ result.slug" class="m-btn m-btn--pill m-btn--hover-brand btn btn-sm btn-secondary">
+                    Seguir
                 </a>
             </div>
         </div>
-        <!--end::Widget 14 Item-->
-        <!--begin::Widget 14 Item-->
-        <div class="m-widget4__item">
-            <div class="m-widget4__img m-widget4__img--pic">
-                <img src="assets/app/media/img/users/100_14.jpg" alt="">
-            </div>
-            <div class="m-widget4__info">
-                <span class="m-widget4__title">
-                    Milano Esco
-                </span>
-                <br>
-                <span class="m-widget4__sub">
-                    Product Designer, Apple Inc
-                </span>
-            </div>
-            <div class="m-widget4__ext">
-                <a href="#" class="m-btn m-btn--pill m-btn--hover-brand btn btn-sm btn-secondary">
-                    Follow
-                </a>
-            </div>
-        </div>
-        <!--end::Widget 14 Item-->
-        <!--begin::Widget 14 Item-->
-        <div class="m-widget4__item">
-            <div class="m-widget4__img m-widget4__img--pic">
-                <img src="assets/app/media/img/users/100_11.jpg" alt="">
-            </div>
-            <div class="m-widget4__info">
-                <span class="m-widget4__title">
-                    Nick Bold
-                </span>
-                <br>
-                <span class="m-widget4__sub">
-                    Web Developer, Facebook Inc
-                </span>
-            </div>
-            <div class="m-widget4__ext">
-                <a href="#" class="m-btn m-btn--pill m-btn--hover-brand btn btn-sm btn-secondary">
-                    Follow
-                </a>
-            </div>
-        </div>
-        <!--end::Widget 14 Item-->
-        <!--begin::Widget 14 Item-->
-        <div class="m-widget4__item">
-            <div class="m-widget4__img m-widget4__img--pic">
-                <img src="assets/app/media/img/users/100_1.jpg" alt="">
-            </div>
-            <div class="m-widget4__info">
-                <span class="m-widget4__title">
-                    Wiltor Delton
-                </span>
-                <br>
-                <span class="m-widget4__sub">
-                    Project Manager, Amazon Inc
-                </span>
-            </div>
-            <div class="m-widget4__ext">
-                <a href="#" class="m-btn m-btn--pill m-btn--hover-brand btn btn-sm btn-secondary">
-                    Follow
-                </a>
-            </div>
-        </div>
-        <!--end::Widget 14 Item-->
-        <!--begin::Widget 14 Item-->
-        <div class="m-widget4__item">
-            <div class="m-widget4__img m-widget4__img--pic">
-                <img src="assets/app/media/img/users/100_5.jpg" alt="">
-            </div>
-            <div class="m-widget4__info">
-                <span class="m-widget4__title">
-                    Nick Stone
-                </span>
-                <br>
-                <span class="m-widget4__sub">
-                    Visual Designer, Github Inc
-                </span>
-            </div>
-            <div class="m-widget4__ext">
-                <a href="#" class="m-btn m-btn--pill m-btn--hover-brand btn btn-sm btn-secondary">
-                    Follow
-                </a>
-            </div>
-        </div>
+        <h4 v-if='list.length === 0'>
+            No hay viajeros disponibles
+        </h4>
         <!--end::Widget 14 Item-->
     </div>
 </template>
@@ -111,7 +32,7 @@
 <script>
     export default {
         mounted() {
-            console.log('Component mounted.')
+            console.log('Usuarios mounted.')
         },
         data() {
             return {
@@ -125,7 +46,7 @@
 
         methods: {
             fetchTaskList() {
-                axios.get('api/message/1').then((res) => {
+                axios.get('api/users/thismonth').then((res) => {
                     this.list = res.data;
                 });
             }

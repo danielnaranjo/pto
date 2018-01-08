@@ -54,11 +54,15 @@
                                         El paquete contiene: {{ $results->description }}
                                     </p>
                                     <p>
-                                        Fecha prevista de entrega
-                                        <strong>
-                                        {{ Date::parse($results->delivery)->diffForHumans() }}
-                                        </strong>
-                                        ({{ Date::parse($results->delivery)->format('d/m/Y H:i') }})
+                                        @if($disponible)
+                                            No tiene fecha prevista de entrega, es decir, puede recibirse en cualquier epoca del año.
+                                        @else
+                                            Fecha prevista de entrega
+                                            <strong>
+                                            {{ Date::parse($results->delivery)->diffForHumans() }}
+                                            </strong>
+                                            ({{ Date::parse($results->delivery)->format('d/m/Y H:i') }})
+                                        @endif
                                     </p>
 								</div>
 								<!--end::Widget 11-->
@@ -136,10 +140,11 @@
                                             @endcomponent
                                         @else
                                             Estado del envio: <strong>Disponible</strong><br><br><br>
-                                            <button type="button" class="btn btn-success btn-block">Tomar este Paqueto Envio</button>
+                                            <button type="button" class="btn btn-success btn-block m-btn--pill">Tomar este Paqueto Envio</button>
                                         @endif
                                     </p>
                                     <p>
+                                        <br><br>
                                         Compartir en:
                                         <div class="btn-group" role="group" aria-label="Basic example">
                                             <button type="button" class="btn btn-secondary">Facebook</button>
@@ -153,7 +158,8 @@
                     </div>
 
                     <div class="col-xl-3">
-                        <div class="m-portlet m-portlet--full-height ">
+                        @if(count($taken)>0)
+                        <div class="m-portlet m-portlet--full-height">
 							<div class="m-portlet__head">
 								<div class="m-portlet__head-caption">
 									<div class="m-portlet__head-title">
@@ -173,7 +179,7 @@
                                             Ubicación: {{ $results->user->info->city }} <br>
                                             Publicado: {{ Date::parse($results->created)->diffForHumans() }}
                                         </p>
-                                        <p>
+                                        <!-- <p>
                                             E-mail:
                                             <a class="" href="mailto:{{ $results->user->email }}">
                                                 {{ $results->user->email }}
@@ -183,13 +189,42 @@
                                             <a class="" href="tel:{{ $results->user->phone }}">
                                                 {{ $results->user->phone }}
                                             </a>
-                                        </p>
+                                        </p> -->
 									</div>
 									<!--end::Widget 11-->
 								<!-- </div> -->
 							</div>
 						</div>
+                        @else
+                        <div class="m-portlet m-portlet--full-height ">
+                            <div class="m-portlet__head">
+                                <div class="m-portlet__head-caption">
+                                    <div class="m-portlet__head-title">
+                                        <h3 class="m-portlet__head-text">
+                                            Enviar un mensaje a {{ $results->user->name }}
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-portlet__body">
+                                {!! Form::open(['url' => '', 'id'=>'message']) !!}
+                                {!! Form::hidden('_id', '0', ['id' => '_id']) !!}
+                                <div class='form-group'>
+                                    <!-- {!! Form::label('comentarios', 'comentarios') !!} -->
+                                    {!! Form::textarea('email', null, ['class' => 'form-control', 'id' => 'email', 'placeholder'=>'Quisiera saber...', 'rows'=>'10']) !!}
+                                    <p class="help-block">
+                                        Por tu seguridad, No envies datos personales o información de contacto.
+                                    </p>
+                                </div>
+                                {{ Form::submit('Enviar mensaje', ['class'=>'btn btn-info btn-block m-btn--pill', 'id'=>'btnMessage']) }}
+                                {!! Form::close() !!}
+
+                            </div>
+                        </div>
+                        @endif
                     </div>
+
+
 
                     <div class="col-xl-12">
                         <p>

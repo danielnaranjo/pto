@@ -196,6 +196,8 @@ return [
         /* Generar migrations de mYsql */
         Way\Generators\GeneratorsServiceProvider::class,
         Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider::class,
+        /* auth0 */
+        //Auth0\Login\LoginServiceProvider::class,
     ],
 
     /*
@@ -256,6 +258,8 @@ return [
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         /* Sentry */
         'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
+        /* auth0 */
+        //'Auth0' => Auth0\Login\Facade\Auth0::class
     ],
 
 ];

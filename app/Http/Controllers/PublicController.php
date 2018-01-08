@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Package;
+use App\Models\Travel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
@@ -28,8 +29,9 @@ class PublicController extends Controller
      */
     public function index()
     {
-        $data['results']   = User::paginate(6);
-        $data['package']   = Package::inRandomOrder()->first();
+        $data['results'] = User::paginate(6);
+        $data['package'] = Package::inRandomOrder()->first();
+        $data['travel'] = Travel::inRandomOrder()->first();
         $data['titulo'] = "Hola ";
         $data['mailgun'] = ['total'=>100, 'sent'=>80, 'opened'=>15,'bounced'=>5];// TODO, viene de Mailgun
         Date::setLocale('es');
@@ -101,5 +103,11 @@ class PublicController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function keepalive()
+    {
+        Date::setLocale('es');
+        $data = Date::now();
+        return response()->json($data);
     }
 }

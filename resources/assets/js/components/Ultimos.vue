@@ -32,7 +32,7 @@
 <script>
     export default {
         mounted() {
-            console.log('Component mounted.')
+            console.log('Ultimos mounted.')
         },
         data() {
             return {

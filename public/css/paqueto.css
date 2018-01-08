@@ -204,3 +204,7 @@ label {
   border-right: 4px solid transparent;
   border-top: 4px solid #fff;
 }
+.destacar {
+    text-decoration: underline;
+    text-decoration-style: dotted;
+}

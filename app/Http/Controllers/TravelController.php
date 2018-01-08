@@ -36,6 +36,7 @@ class TravelController extends Controller
         //     ->paginate(16);
         Date::setLocale('es');
         return view('pages.cities', $data);
+        return response()->json($data);
     }
 
     /**
@@ -102,5 +103,23 @@ class TravelController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function pais($pais=null,$id=null)
+    {
+        $data['titulo'] = "Explorar ".$pais;
+        // $data['results'] = DB::table('package')
+        //     ->select('package.*','service.*','users.*')
+        //     ->leftJoin('service','package.service_id','=','service.service_id')
+        //     ->leftJoin('users','package.user_id','=','users.id')
+        //     ->where('package.origin','=',$pais)
+        //     ->whereOr('package.destination','=',$pais)
+        //     ->paginate(15);
+        //$country = Country::where('code','=',$pais)->get();
+        //$data['results'] = Package::where('origin','=',$country[0]->country_id)->whereOr('destination','=',$country[0]->country_id)->paginate(16);
+        $data['results'] = Travel::where('origin','=',$id)
+            ->orWhere('destination','=',$id)
+            ->paginate(16);
+        //return view('pages.grids', $data);
+        return response()->json($data);
     }
 }

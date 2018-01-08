@@ -60,7 +60,9 @@
                                     </div>
                                     <div class="m-widget7__user">
                                         <div class="m-widget7__user-img">
-                                            <img class="m-widget7__img" src="/assets/app/media/img/users/100_3.jpg" alt="">
+                                            <a href="/u/{{ $result->user->slug }}">
+                                                <img class="m-widget7__img" src="/assets/app/media/img/users/100_3.jpg" alt="{{ $result->user->name }}">
+                                            </a>
                                         </div>
                                         <div class="m-widget7__info">
                                             <span class="m-widget7__username">
@@ -73,7 +75,7 @@
                                         </div>
                                     </div>
                                     <div class="m-widget7__button">
-                                        <a class="m-btn m-btn--pill btn btn-info" href="/explorar/{{ $result->to->name }}/{{ $result->destination }}" role="button">
+                                        <a class="m-btn m-btn--pill btn btn-info" href="/explorar/{{ str_slug($result->to->name,'-') }}/{{ $result->destination }}" role="button">
                                             Explorar
                                         </a>
                                     </div>

@@ -180,6 +180,28 @@ class UserController extends Controller
         } else {
             return response()->json($data);
         }
-
+    }
+    public function mes()
+    {
+        $data = DB::table('users')
+            ->select('users.id','users.name','users.verified','countries.name as country','user_info.city','vote.upvotes','users.slug')
+            ->leftJoin('user_info','users.id','=','user_info.user_id')
+            ->leftJoin('countries','countries.country_id','=','user_info.country')
+            ->leftJoin('vote','users.id','=','vote.user_id')
+            ->whereYear('created_at', Date::now()->format('Y') )
+            ->whereMonth('created_at', Date::now()->format('m') )
+            ->get();
+        return response()->json($data);
+    }
+    public function semana()
+    {
+        $data = DB::table('users')
+            ->select('users.id','users.name','users.verified','countries.name as country','user_info.city','vote.upvotes','users.slug')
+            ->leftJoin('user_info','users.id','=','user_info.user_id')
+            ->leftJoin('countries','countries.country_id','=','user_info.country')
+            ->leftJoin('vote','users.id','=','vote.user_id')
+            ->whereDate('created_at', Date::now()->format('Y-m-d') )
+            ->get();
+        return response()->json($data);
     }
 }

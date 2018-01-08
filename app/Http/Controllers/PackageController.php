@@ -102,12 +102,13 @@ class PackageController extends Controller
         // $data['_controller'] = 'PackageController';
         // $data['id'] = $id;
         // $data['ruta'] = 'package';
-        // $data['results'] = DB::table('package')
-        //     ->select('package.*','users.*')//,'countries.name as country'
-        //     //->leftJoin('countries','countries.code','=','package.destination')
-        //     ->leftJoin('users','package.user_id','=','users.id')
-        //     ->where('package.package_id', '=', $id)
-        //     ->get();
+        $data['taken'] = DB::table('package_user')
+            ->select('package.package_id', 'users.id')
+            ->leftJoin('users','package_user.user_id','=','users.id')
+            ->leftJoin('package','package_user.package_id','=','package.package_id')
+            ->where('package_user.user_id', '=', Auth::user()->id)
+            ->where('package_user.package_id', '=', $id)
+            ->get();
 
         $data['results'] = Package::find($id);
         $data['images'] = DB::table('package_image')
@@ -118,8 +119,13 @@ class PackageController extends Controller
             ->get();
         $data['titulo'] = $data['results']->title;
         Date::setLocale('es');
+
+        $first = Carbon::parse($data['results']->delivery);
+        $second = Carbon::parse('0000-00-00 00:00:00');
+        $data['disponible']=$first->eq($second);
+        //Date::parse($results->delivery)->eqDate::parse('0000-00-00')
         return view('pages.single', $data );
-        return response()->json($data);
+        //return response()->json($data);
 
     }
 
@@ -175,13 +181,6 @@ class PackageController extends Controller
     public function categorias($categoria=null)
     {
         $data['titulo'] = "Explorar";
-        // $data['results'] = DB::table('package')
-        //     ->select('package.*','service.*','users.*')
-        //     ->leftJoin('service','package.service_id','=','service.service_id')
-        //     ->leftJoin('users','package.user_id','=','users.id')
-        //     ->where('service.type','=',$categoria)
-        //     ->get();
-
         $category = Service::where('type','=',$categoria)->get();
         $data['results'] = Package::where('service_id','=',$category[0]->service_id)->paginate(16);
         //return response()->json($data);
@@ -190,17 +189,10 @@ class PackageController extends Controller
     public function pais($pais=null,$id=null)
     {
         $data['titulo'] = "Explorar ".$pais;
-        // $data['results'] = DB::table('package')
-        //     ->select('package.*','service.*','users.*')
-        //     ->leftJoin('service','package.service_id','=','service.service_id')
-        //     ->leftJoin('users','package.user_id','=','users.id')
-        //     ->where('package.origin','=',$pais)
-        //     ->whereOr('package.destination','=',$pais)
-        //     ->paginate(15);
-        //$country = Country::where('code','=',$pais)->get();
-        //$data['results'] = Package::where('origin','=',$country[0]->country_id)->whereOr('destination','=',$country[0]->country_id)->paginate(16);
-        $data['results'] = Package::where('destination','=',$id)->paginate(16);
-        //return view('pages.grids', $data);
-        return response()->json($data);
+        $data['results'] = Package::where('origin','=',$id)
+            ->orWhere('destination','=',$id)
+            ->paginate(16);
+        return view('pages.grids', $data);
+        //return response()->json($data);
     }
 }

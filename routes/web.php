@@ -21,8 +21,9 @@ Auth::routes();
 //Route::get('/home', 'HomeController@index')->name('home');
 //Route::get('/', 'HomeController@index');
 Route::get('/home', 'PublicController@index');
+Route::post('/keepalive', 'PublicController@keepalive');
 Route::get('/ver/{categoria?}', 'PackageController@categorias');
-Route::get('/explorar/{pais?}/{id?}', 'PackageController@pais');
+Route::get('/explorar/{pais?}/{id?}', 'TravelController@pais');
 Route::get('/envios', 'PackageController@index');
 Route::get('/viajeros', 'TravelController@index');
 
@@ -52,8 +53,11 @@ Route::get('/user/{id}/delete', ['as' => 'user.destroy', 'uses' => 'UserControll
 Route::get('/vote/{id}/delete', ['as' => 'vote.destroy', 'uses' => 'VoteController@destroy']);
 Route::get('/withdraw/{id}/delete', ['as' => 'withdraw.destroy', 'uses' => 'WithdrawController@destroy']);
 
+// paqueto.com/u/danielnaranjo
 Route::get('/u/{slug}/{format?}', 'UserController@slug');
 
 Route::prefix('api')->group(function() {
     Route::get('message/{id}', 'MessageController@display');
+    Route::get('users/thismonth', 'UserController@mes');
+    Route::get('users/today', 'UserController@semana');
 });
