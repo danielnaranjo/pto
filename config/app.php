@@ -198,6 +198,9 @@ return [
         Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider::class,
         /* auth0 */
         //Auth0\Login\LoginServiceProvider::class,
+
+        /* Cloudinary */
+        JD\Cloudder\CloudderServiceProvider::class,
     ],
 
     /*
@@ -260,6 +263,8 @@ return [
         'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
         /* auth0 */
         //'Auth0' => Auth0\Login\Facade\Auth0::class
+        /* Cloudinary */
+        'Cloudder' => JD\Cloudder\Facades\Cloudder::class,
     ],
 
 ];

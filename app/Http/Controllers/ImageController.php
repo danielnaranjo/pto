@@ -95,4 +95,16 @@ class ImageController extends Controller
     {
         //
     }
+
+    public function uploadFile(Request $request){
+          if($request->hasFile('file')){
+            \Cloudder::upload($request->file('file'), null, null, ['paqueto','demo']);
+            $c=\Cloudder::getResult();
+            if($c){
+               return back()
+                    ->with('success','You have successfully upload images.')
+                    ->with('image',$c['url']);
+            }
+        }
+    }
 }
