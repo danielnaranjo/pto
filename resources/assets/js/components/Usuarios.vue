@@ -46,7 +46,7 @@
 
         methods: {
             fetchTaskList() {
-                axios.get('api/users/thismonth').then((res) => {
+                axios.get('/api/users/thismonth').then((res) => {
                     this.list = res.data;
                 });
             }

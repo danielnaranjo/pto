@@ -59,9 +59,14 @@ class UserController extends Controller
         $data['titulo'] = "Nuevo";
         $data['ruta'] = 'users';
         $data['results'] = DB::table('users')
-            ->select('id','name', 'email')
-            ->limit(1)
+            ->select('name','email','address','phone')
+            ->where('id', '=', $user->id)
             ->get();
+        // $data['results'] = DB::table('users')
+        //     ->select(DB::raw('users.id,user_info.user_info_id, users.name, users.email, users.address, user_info.city, user_info.province, users.phone, user_info.dni, user_info.gender'))
+        //     ->leftJoin('user_info','users.id','=','user_info.user_info_id')
+        //     ->limit(1)
+        //     ->get();
         return view('pages.autoform', $data );
     }
 
@@ -132,6 +137,11 @@ class UserController extends Controller
             ->select('name','email','address','phone')
             ->where('id', '=', $user->id)
             ->get();
+        // $data['results'] = DB::table('users')
+        //     ->select(DB::raw('users.name, users.email, users.address, user_info.city, user_info.province, users.phone, user_info.dni, user_info.gender'))
+        //     ->leftJoin('user_info','users.id','=','user_info.user_info_id')
+        //     ->where('id', '=', $user->id)
+        //     ->get();
         $data['titulo'] = "Editando ".$data['results'][0]->name;
         return view('pages.autoform', $data );
         //return response()->json($data);

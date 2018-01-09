@@ -33,7 +33,7 @@
 	<!-- end::Body -->
 	<body class="m-page--wide m-header--fixed m-header--fixed-mobile m-footer--push m-aside--offcanvas-default">
 		<!-- begin:: Page -->
-		<div class="m-grid m-grid--hor m-grid--root m-page">
+		<div class="m-grid m-grid--hor m-grid--root m-page" id="app">
 			<!-- begin::Header -->
             @include('layouts.header')
             <!-- end::Header -->
@@ -43,7 +43,7 @@
             <!-- end::Quick Sidebar -->
 
             <!-- begin::Body -->
-            <div id="app">
+            <div>
                 @yield('content')
             </div>
             <!-- end::Body -->
@@ -78,7 +78,7 @@
         <script src="/assets/demo/default/custom/components/base/toastr.js" type="text/javascript"></script>
 		<!--end::Page Snippets -->
 
-        <!-- <script src="/assets/general.js" charset="utf-8"></script> -->
+        <script src="/assets/general.js" charset="utf-8"></script>
         <!-- <script src="/assets/reporting.js" charset="utf-8"></script> -->
 
         @if(preg_match( "/dashboard/i", $_SERVER['REQUEST_URI']) || preg_match( "/principal/i", $_SERVER['REQUEST_URI']))

@@ -1,3 +1,6 @@
+@if(!Auth::check())
+    <script type="text/javascript">window.location = "/"; </script>
+@endif
 <header class="m-grid__item		m-header "  data-minimize="minimize" data-minimize-offset="200" data-minimize-mobile-offset="200" >
     <div class="m-header__top">
         <div class="m-container m-container--responsive m-container--xxl m-container--full-height m-page__container">
@@ -152,9 +155,7 @@
                                                 <div class="m-dropdown__content">
                                                     <div class="m-scrollable" data-scrollable="true" data-max-height="250" data-mobile-max-height="200">
                                                         <div class="m-list-timeline m-list-timeline--skin-light">
-                                                            <div class="m-list-timeline__items">
-                                                                @include('components.timeline')
-                                                            </div>
+                                                            <mensajes></mensajes>
                                                         </div>
                                                     </div>
                                                 </div>

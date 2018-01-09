@@ -39,7 +39,7 @@
 				<!--Begin::Main Portlet-->
 				<div class="row">
                     @forelse ($results as $result)
-                    <div class="col-xl-3" id="{{ $result->to->code }}">
+                    <div class="col-xl-3" id="{{ $result->code }}">
                         <!--begin:: Widgets/Announcements 1-->
                         <!-- style="background-image:url('/assets/app/media/img/products/product4.jpg');background-repeat:cover;" -->
                         <div class="m-portlet m--bg-accent m-portlet--bordered-semi m-portlet--full-height m-portlet--skin-dark">
@@ -47,7 +47,7 @@
                                 <div class="m-portlet__head-caption">
                                     <div class="m-portlet__head-title">
                                         <h3 class="m-portlet__head-text">
-                                            {{ $result->to->name }}
+                                            {{ $result->country }}
                                         </h3>
                                     </div>
                                 </div>
@@ -56,17 +56,22 @@
                                 <!--begin::Widget 7-->
                                 <div class="m-widget7 m-widget7--skin-dark">
                                     <div class="m-widget7__desc">
-                                        Envios <span id="envios">0</span> - <span id="dinero">0</span> en recompensas
+                                        {{ $result->viajeros }}
+                                        @if($result->viajeros>1)
+                                            viajeros
+                                        @else
+                                            viajero
+                                        @endif
                                     </div>
                                     <div class="m-widget7__user">
                                         <div class="m-widget7__user-img">
-                                            <a href="/u/{{ $result->user->slug }}">
-                                                <img class="m-widget7__img" src="/assets/app/media/img/users/100_3.jpg" alt="{{ $result->user->name }}">
+                                            <a href="/u/{{ $result->slug }}">
+                                                <img class="m-widget7__img" src="/assets/app/media/img/users/100_3.jpg" alt="{{ $result->name }}">
                                             </a>
                                         </div>
                                         <div class="m-widget7__info">
                                             <span class="m-widget7__username">
-                                                {{ $result->user->name }}
+                                                {{ $result->name }}
                                             </span>
                                             <br>
                                             <span class="m-widget7__time">
@@ -75,7 +80,7 @@
                                         </div>
                                     </div>
                                     <div class="m-widget7__button">
-                                        <a class="m-btn m-btn--pill btn btn-info" href="/explorar/{{ str_slug($result->to->name,'-') }}/{{ $result->destination }}" role="button">
+                                        <a class="m-btn m-btn--pill btn btn-info" href="/explorar/{{ str_slug($result->country,'-') }}/{{ $result->destination }}" role="button">
                                             Explorar
                                         </a>
                                     </div>

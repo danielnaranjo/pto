@@ -8,7 +8,8 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
-
+Vue.use(require('vue-moment'));
+Vue.use(require('moment/locale/es'));
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -18,6 +19,7 @@ window.Vue = require('vue');
 Vue.component('ultimos', require('./components/Ultimos.vue'));
 // Personalizados
 Vue.component('usuarios', require('./components/Usuarios.vue'));
+Vue.component('mensajes', require('./components/Mensajes.vue'));
 
 const app = new Vue({
     el: '#app'

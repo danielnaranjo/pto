@@ -438,10 +438,10 @@ $(function(){
         requestPost('passwords', cUrl, params);
     });
 
-    getAll();
-    setTimeout(function(){
-        //getAll.init();
-        getAll();
-    }, cadaXminutos) // cada 5 minutoss
+    // getAll();
+    // setTimeout(function(){
+    //     //getAll.init();
+    //     getAll();
+    // }, cadaXminutos) // cada 5 minutoss
 
 });// End

@@ -120,7 +120,7 @@
 
         methods: {
             fetchTaskList() {
-                axios.get('api/traveller').then((res) => {
+                axios.get('/api/traveller').then((res) => {
                     this.list = res.data;
                 });
             }

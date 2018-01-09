@@ -272,7 +272,7 @@
                     <!--end:: Widgets/Application Sales-->
                     </div>
                     <div class="col-xl-4 col-md-4">
-                        @if(Session::get('nivel')==1 && preg_match("/consorcios.edit/i", Route::currentRouteName() ))
+                        {{json_encode($results)}}
                             <div class="m-portlet m-portlet--mobile">
                                 <div class="m-portlet__head">
                                     <div class="m-portlet__head-caption">
@@ -284,61 +284,19 @@
                                     </div>
                                 </div>
                                 <div class="m-portlet__body">
-                                        @forelse ($payments as $payment)
-                                            <h5>{{ $payment->for_tipo }}</h5>
-                                            <p>{{ $payment->for_información }}</p>
-                                            <p>
-                                                <a href="/formasdepago/{{ $payment->formasdepago_id }}/edit" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Editar" style="padding: .65rem 0.7rem !important">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                                <a href="/formasdepago/{{ $payment->formasdepago_id }}/delete" class="btn btn-default" onclick='return confirm("Desea eliminar este registro?")' data-toggle="tooltip" data-placement="bottom" title="Eliminar" style="padding: .65rem 0.7rem !important">
-                                                    <i class="fa fa-trash"></i>
-                                                </a>
-                                            </p>
-                                        @empty
-                                            <h5>No hay formas de pago</h5>
-                                        @endforelse
 
                                 </div>
                                 <div class="m-portlet__foot">
 									<div class="row align-items-center">
-                                        <a href="/formasdepago/create?id={{$_id}}" class="btn m-btn--pill btn-info m-btn m-btn--custom btn-block">
-                                            Nueva Forma de Pago
+                                        <a href="#" class="btn m-btn--pill btn-info m-btn m-btn--custom btn-block">
+                                            Hola
                                         </a>
 									</div>
 								</div>
                             </div>
-                        @endif
 
-                        @if(count($fotografias)>0)
-                        <div class="m-portlet m-portlet--mobile">
-                            <div class="m-portlet__head">
-                                <div class="m-portlet__head-caption">
-                                    <div class="m-portlet__head-title">
-                                        <h3 class="m-portlet__head-text">
-                                            Archivos
-                                        </h3>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="m-portlet__body">
-                                    @forelse($fotografias as $key => $fotografia)
-                                        <p>{{ $fotografia }}</p>
-                                        <p>
-                                            <a href="/envios/{{$fotografia}}" target="_blank" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Editar" style="padding: .65rem 0.7rem !important">
-                                                <i class="fa fa-eye"></i>
-                                            </a>
-                                            <a href="javascript:eliminar('{{$ruta}}','{{$_id}}','{{$key}}','{{$fotografia}}');" class="btn btn-default" onclick='return confirm("Desea eliminar este archivo?")' data-toggle="tooltip" data-placement="bottom" title="Eliminar" style="padding: .65rem 0.7rem !important">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
 
-                                        </p>
-                                    @empty
-                                        <!-- <h3>No hay formas de pago</h3> -->
-                                    @endforelse
-                            </div>
-                        </div>
-                        @endif
+
                     </div>
                 </div>
             <!--End::Main Portlet-->

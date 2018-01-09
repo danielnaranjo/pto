@@ -112,7 +112,13 @@ class MessageController extends Controller
         //
     }
     public function display($id){
-        $data['results'] = Message::where('user_id', $id)->get();
+        $data = DB::table('message')
+            ->select('message.comment','message.createdAt', 'message.message_id', 'users.id', 'users.name')
+            ->leftJoin('users','message.to_id','=','users.id')
+            ->where('user_id', $id)
+            ->orderBy('message.message_id','desc')
+            ->limit(10)
+            ->get();
         return response()->json($data);
     }
 }
