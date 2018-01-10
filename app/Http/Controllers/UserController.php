@@ -4,17 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Comment;
+use App\Models\Country;
 use App\Models\Message;
 use App\Models\Package;
 use App\Models\Travel;
+use App\Models\Image;
+use App\Models\UserImage;
 
-#use Illuminate\Http\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Cookie;
 use Session;
 use Log;
@@ -22,7 +26,8 @@ use Validator;
 use MessageBag;
 use Carbon\Carbon;
 use Date;
-use Request;
+//use Request;
+use File;
 
 class UserController extends Controller
 {
@@ -35,9 +40,8 @@ class UserController extends Controller
     {
         //$data['results']   = User::all();
         $data['results']   = DB::table('users')
-            ->select('users.id','users.name','users.verified','countries.name as country','user_info.city','vote.upvotes')
-            ->leftJoin('user_info','users.id','=','user_info.user_id')
-            ->leftJoin('countries','countries.country_id','=','user_info.country')
+            ->select('users.id','users.name','users.verified','countries.name as country','users.city','vote.upvotes')
+            ->leftJoin('countries','countries.country_id','=','users.country')
             ->leftJoin('vote','users.id','=','vote.user_id')
             ->paginate(16);
         $data['titulo'] = "Viajeros";
@@ -59,14 +63,9 @@ class UserController extends Controller
         $data['titulo'] = "Nuevo";
         $data['ruta'] = 'users';
         $data['results'] = DB::table('users')
-            ->select('name','email','address','phone')
+            ->select('*')
             ->where('id', '=', $user->id)
             ->get();
-        // $data['results'] = DB::table('users')
-        //     ->select(DB::raw('users.id,user_info.user_info_id, users.name, users.email, users.address, user_info.city, user_info.province, users.phone, user_info.dni, user_info.gender'))
-        //     ->leftJoin('user_info','users.id','=','user_info.user_info_id')
-        //     ->limit(1)
-        //     ->get();
         return view('pages.autoform', $data );
     }
 
@@ -133,17 +132,11 @@ class UserController extends Controller
         $data['_controller'] = 'UserController';
         $data['id'] = $user->id;
         $data['ruta'] = 'users';
-        $data['results'] = DB::table('users')
-            ->select('name','email','address','phone')
-            ->where('id', '=', $user->id)
-            ->get();
-        // $data['results'] = DB::table('users')
-        //     ->select(DB::raw('users.name, users.email, users.address, user_info.city, user_info.province, users.phone, user_info.dni, user_info.gender'))
-        //     ->leftJoin('user_info','users.id','=','user_info.user_info_id')
-        //     ->where('id', '=', $user->id)
-        //     ->get();
-        $data['titulo'] = "Editando ".$data['results'][0]->name;
-        return view('pages.autoform', $data );
+        $data['countries'] = Country::select('country_id','name')->get();
+        $data['results'] = User::findOrFail($user->id);
+        $data['titulo'] = "Editando ".$data['results']->name;
+        Date::setLocale('es');
+        return view('forms.profile', $data );
         //return response()->json($data);
     }
 
@@ -158,8 +151,25 @@ class UserController extends Controller
     {
         $data= User::findOrFail($user->id);
         $input = Request::all();
+        //
+        $forms = DB::table('users')
+            ->select('id','name', 'email', 'city', 'phone')
+            ->limit(1)
+            ->get();
+        foreach ($forms[0] as $key => $value) {
+            if (preg_match("/name/i", $key) || preg_match("/email/i", $key) || preg_match("/phone/i", $key)  || preg_match("/city/i", $key)) { // Customizar
+                $label = $key;//substr ( $key, 4, strlen($key) );
+                $fields[$label] = 'required';
+            }
+        }
+        $mgs = [ 'required' => ':attribute es requerido.' ];
+        $validator = Validator::make(Request::all(), $fields, $mgs);
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+        //
         $data->update($input);
-        return redirect()->action('UserController@index')->with('status', 'Información actualizada!');
+        return redirect('/user/'.$user->id.'/edit')->with('status', 'Información actualizada!');
     }
 
     /**
@@ -194,9 +204,8 @@ class UserController extends Controller
     public function mes()
     {
         $data = DB::table('users')
-            ->select('users.id','users.name','users.verified','countries.name as country','user_info.city','vote.upvotes','users.slug')
-            ->leftJoin('user_info','users.id','=','user_info.user_id')
-            ->leftJoin('countries','countries.country_id','=','user_info.country')
+            ->select('users.id','users.name','users.verified','countries.name as country','users.city','vote.upvotes','users.slug')
+            ->leftJoin('countries','countries.country_id','=','users.country')
             ->leftJoin('vote','users.id','=','vote.user_id')
             ->whereYear('created_at', Date::now()->format('Y') )
             ->whereMonth('created_at', Date::now()->format('m') )
@@ -206,12 +215,74 @@ class UserController extends Controller
     public function semana()
     {
         $data = DB::table('users')
-            ->select('users.id','users.name','users.verified','countries.name as country','user_info.city','vote.upvotes','users.slug')
-            ->leftJoin('user_info','users.id','=','user_info.user_id')
-            ->leftJoin('countries','countries.country_id','=','user_info.country')
+            ->select('users.id','users.name','users.verified','countries.name as country','users.city','vote.upvotes','users.slug')
+            ->leftJoin('countries','countries.country_id','=','users.country')
             ->leftJoin('vote','users.id','=','vote.user_id')
             ->whereDate('created_at', Date::now()->format('Y-m-d') )
             ->get();
         return response()->json($data);
     }
+    public function uploadFile(Request $request, $id){
+        $file = $request->file('file');
+        $fecha = time();
+        $destinationPath =  public_path('/pic');//base_path().'/public/uploads/';
+        $path = $file->path(); // ej.
+        $extension = $file->extension(); // ej.jpg
+
+        $filename = 'u_'.$id.'_'.$fecha.'.'.$extension;
+        $file->move($destinationPath, $filename);
+        $data['uploaded'] = $file;
+
+        if(File::exists('pic/'.$filename)){
+            \Cloudder::upload('pic/'.$filename,'u_'.$id.'_'.$fecha, array(''), array('paqueto_users', 'uploaded_'.date('Y_m_d'), 'user_'.$id));
+            $data['c']=\Cloudder::getResult();
+            $data['uploaded']=true;
+            $data['path']=$destinationPath.'pic/'.$filename;
+
+            $data['img'] = DB::table('image')->insertGetId(['name' => $filename, 'path' => $data['c']['url']]);
+
+            if($data['img']){
+                $data['uim'] = DB::table('user_image')->insertGetId([ 'user_id' => $id, 'image_id' => $data['img'], 'type' => '' ]);
+            }
+        }
+        $data['filename']=$filename;
+        return response()->json($data);
+    }
+    /*
+    public function upload(Request $request, $id, $campo, $tabla){
+
+        function clean($nombre){
+            $replace = array(' '=>'');
+            return strtolower( strtr( $nombre, $replace) );
+        }
+        if($id==''){
+            $id = Session::get('inmobiliaria')->inm_id;
+        }
+        if($tabla=='docmas'){
+            $tabla = 'documentos_masivos';
+        }
+        if($tabla=='inmobiliarias'){
+            $tabla = 'inmobiliaria';
+        }
+
+        //$file = Request::all();
+        $file = $request->file('file');
+        $_id = substr ( $tabla, 0, 3)."_id"; // ej. env_id
+        $destinationPath =  public_path('/uploads');//base_path().'/public/uploads/';
+        $path = $file->path(); // ej.
+        $extension = $file->extension(); // ej.jpg
+
+        $this->validate($request, [
+            'file' => 'required|mimes:jpeg,png,jpg,gif,svg,pdf,doc,docx,xls,xlsx|max:2048',
+        ]);
+        $fecha = time();
+        $nombreArchivo = $id.'_'.$fecha.'.'.$extension; //ej. 300_123456.jpg //$file->getClientOriginalName();
+        $file->move($destinationPath, $nombreArchivo);
+
+        $data = DB::update('update '.$tabla.' set '.$campo.' = "'.clean($nombreArchivo).'" where '.$_id.' = ?', [$id]); // ej. update envios set env_archivo1="300_123456.jpg" where env_id=300
+        $res['filename']=$nombreArchivo;
+        $res['field']=$campo;
+        return $res;
+    }
+    */
 }

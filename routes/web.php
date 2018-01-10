@@ -62,4 +62,5 @@ Route::prefix('api')->group(function() {
     Route::get('users/today', 'UserController@semana');
 });
 
-Route::post('uploadfile', ['as'=>'uploadfile','uses'=>'ImageController@uploadFile']);
+Route::post('/upload/{id}', ['as'=>'uploadfile','uses'=>'UserController@uploadFile']);
+//Route::post('/archivos/upload/{id}/{campo}/{tabla}', ['as' => 'imagenes.upload', 'uses' => 'ImageController@upload']);

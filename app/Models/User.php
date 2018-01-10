@@ -30,8 +30,14 @@ class User extends Eloquent
 	protected $table = 'users';
 	public $timestamps = false;
 
+    protected $casts = [
+		'dni' => 'int',
+        'country' => 'int'
+	];
+
 	protected $dates = [
-		'registered'
+		'registered',
+        'birthdate'
 	];
 
 	protected $hidden = [
@@ -48,13 +54,15 @@ class User extends Eloquent
 		'address',
 		'token',
 		'registered',
-		'verified'
+		'verified',
+        'dni',
+		'birthdate',
+		'gender',
+		'city',
+		'province',
+        'country'
 	];
 
-    public function info()
-    {
-        return $this->hasOne('App\Models\UserInfo','user_id');
-    }
     public function image()
     {
         return $this->hasOne('App\Models\Image','user_id');

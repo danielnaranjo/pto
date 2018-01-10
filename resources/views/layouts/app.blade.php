@@ -70,10 +70,10 @@
 		<script src="/assets/demo/demo2/base/scripts.bundle.js" type="text/javascript"></script>
 		<!--end::Base Scripts -->
 		<!--begin::Page Snippets -->
-        <script src="/assets/demo/default/custom/components/forms/widgets/summernote.js" type="text/javascript"></script>
+        <!-- <script src="/assets/demo/default/custom/components/forms/widgets/summernote.js" type="text/javascript"></script>
         <script src="/assets/demo/default/custom/components/forms/widgets/dropzone.js" type="text/javascript"></script>
     	<script src="/assets/demo/default/custom/components/utils/session-timeout.js" type="text/javascript"></script>
-        <script src="/assets/demo/default/custom/components/forms/widgets/bootstrap-datetimepicker.js" type="text/javascript"></script>
+        <script src="/assets/demo/default/custom/components/forms/widgets/bootstrap-datetimepicker.js" type="text/javascript"></script> -->
         <script src="/assets/demo/default/custom/components/forms/widgets/bootstrap-datepicker.es.min.js" charset="UTF-8" type="text/javascript"></script>
         <script src="/assets/demo/default/custom/components/base/toastr.js" type="text/javascript"></script>
 		<!--end::Page Snippets -->

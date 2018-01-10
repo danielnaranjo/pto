@@ -256,7 +256,7 @@
                                                 </span>
                                                 <br>
                                                 <span class="m-widget19__time">
-                                                    {{ $package->user->info->city }}
+                                                    {{ $package->user->city }}
                                                 </span>
                                             </div>
                                             <div class="m-widget19__stats">

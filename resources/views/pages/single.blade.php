@@ -176,7 +176,7 @@
                                         <!-- <h5>Sobre el anunciante</h5> -->
 										<p>
                                             Publicado por: <a href="/u/{{ $results->user->slug }}">{{ $results->user->name }}</a><br>
-                                            Ubicación: {{ $results->user->info->city }} <br>
+                                            Ubicación: {{ $results->user->city }} <br>
                                             Publicado: {{ Date::parse($results->created)->diffForHumans() }}
                                         </p>
                                         <!-- <p>

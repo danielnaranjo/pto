@@ -445,3 +445,138 @@ $(function(){
     // }, cadaXminutos) // cada 5 minutoss
 
 });// End
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// CAME FROM public\assets\demo\default\custom\components\forms\widgets\bootstrap-datetimepicker.js
+var BootstrapDatetimepicker = function () {
+
+    //== Private functions
+    var demos = function () {
+        // minimal setup
+        $('#m_datetimepicker_1').datetimepicker({
+            todayHighlight: true,
+            autoclose: true,
+            format: 'yyyy-mm-dd hh:ii'
+        });
+
+        $('#m_datetimepicker_1_modal').datetimepicker({
+            todayHighlight: true,
+            autoclose: true,
+            format: 'yyyy-mm-dd hh:ii'
+        });
+
+        $('.m_datetimepicker_2').datetimepicker({
+            todayHighlight: true,
+            autoclose: true,
+            format: 'yyyy-mm-dd hh:ii'
+        });
+
+    }
+
+    return {
+        // public functions
+        init: function() {
+            demos();
+        }
+    };
+}();
+
+jQuery(document).ready(function() {
+    BootstrapDatetimepicker.init();
+});
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// cAME FROM public\assets\demo\default\custom\components\forms\widgets\dropzone.js
+var DropzoneDemo = function () {
+    //== Private functions
+    var demos = function () {
+        // single file upload
+        Dropzone.options.mDropzoneOne = {
+            paramName: "file", // The name that will be used to transfer the file
+            maxFiles: 1,
+            maxFilesize: 5, // MB
+            acceptedFiles: "image/*",
+            addRemoveLinks : true,
+            dictRemoveFile: "Quitar",
+            dictMaxFilesExceeded: "Solo se permite un (1) archivo por campo.",
+            dictResponseError: "Ha ocurrido un error",
+            dictFileTooBig: "El tamaño del archivo debe ser menor a 5 MB",
+            dictInvalidFileType: "Formatos soportados: JPG, GIF, PNG",
+            accept: function(file, done) {
+                done();
+            },
+            success: function(file, response){
+                toastr.success("Acción ejecutada con exito!");
+                console.info('Dropzone', response);
+                //$('form').append('<input type="hidden" name="'+response+'"  id="'+response+'" value="'+ response +'"/>');
+                $('form').append("<input type=\"hidden\" name=\""+response.field+"\"  id=\""+response.field+"\" value=\""+ response.filename +"\"/>");
+            },
+            error: function(file, errorMessage) {
+                console.error('Dropzone > File upload error', errorMessage);
+                //alert(errorMessage);
+                toastr.error(errorMessage);
+            },
+        };
+    }
+
+    return {
+        init: function() {
+            demos();
+        }
+    };
+}();
+
+DropzoneDemo.init();
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// CAME FROM public\assets\demo\default\custom\components\forms\widgets\summernote.js
+var SummernoteDemo = function () {
+    var demos = function () {
+        $('.summernote').summernote({
+            height: 150,
+        });
+    }
+    return {
+        init: function() {
+            demos();
+        }
+    };
+}();
+jQuery(document).ready(function() {
+    SummernoteDemo.init();
+});
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// CAME FROM public\assets\demo\default\custom\components\utils\session-timeout.js
+var SessionTimeoutDemo=function(){
+    var e=function(){
+        $.sessionTimeout({
+            title:"Ha expirado la sesión",
+            message:"Debes iniciar nuevamente para continuar dentro de tuconsorcio.com.ar",
+            keepAliveUrl: '/keepalive',
+            redirUrl:"/",
+            logoutUrl:"/logout",
+            warnAfter:900000,
+            redirAfter:1200000,//35e3
+            ignoreUserActivity:!0,
+            countdownMessage:"Redireccionando en {timer} segundos.",
+            countdownBar:!1,
+        });
+        $('#session-timeout-dialog-logout').text('Salir');
+        $('#session-timeout-dialog-keepalive').remove();
+    };
+    return{
+        init:function(){
+            e();
+        }
+    }
+}();
+jQuery(document).ready(function(){
+    SessionTimeoutDemo.init();
+});
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
