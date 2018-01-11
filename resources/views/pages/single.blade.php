@@ -51,7 +51,7 @@
 								<div class="m-widget6">
                                     <h5>{{ $results->title }}</h5>
                                     <p>
-                                        El paquete contiene: {{ $results->description }}
+                                        El paquete contiene: {!! $results->description !!}
                                     </p>
                                     <p>
                                         @if($disponible)

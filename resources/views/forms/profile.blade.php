@@ -268,6 +268,8 @@
 								</div>
 							</div>
 							<div class="m-portlet__body">
+                                {!! Form::model($results, ['method' => 'PATCH', 'action' => [$_controller.'@create', $_id], 'class'=>'m-form m-form--fit m-form--label-align-right']) !!}
+                                    {!! Form::hidden ('id', $results->id, ['id' => 'id']) !!}
                                 <div class="form-group m-form__group row">
                                     <label for="example-text-input" class="col-2 col-form-label">
                                         Linkedin
@@ -300,6 +302,7 @@
                                         <input class="form-control m-input" type="text" value="www.instagram.com/">
                                     </div>
                                 </div>
+                                {!! Form::close() !!}
 							</div>
 						</div>
                     </div>

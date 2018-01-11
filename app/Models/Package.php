@@ -8,6 +8,7 @@
 namespace App\Models;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
+use Laravel\Scout\Searchable;
 
 /**
  * Class Package
@@ -33,6 +34,7 @@ class Package extends Eloquent
 	protected $table = 'package';
 	protected $primaryKey = 'package_id';
 	public $timestamps = false;
+    use Searchable;
 
 	protected $casts = [
 		'user_id' => 'int',
@@ -77,5 +79,10 @@ class Package extends Eloquent
     public function to()
     {
         return $this->hasOne('App\Models\Country','country_id','destination');
+    }
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+        return $array;
     }
 }

@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
+use Laravel\Scout\Searchable;
 
 class Travel extends Eloquent
 {
     protected $table = 'travel';
 	protected $primaryKey = 'travel_id';
 	public $timestamps = false;
+    use Searchable;
 
 	protected $casts = [
 		'user_id' => 'int',
@@ -42,5 +44,10 @@ class Travel extends Eloquent
     public function to()
     {
         return $this->hasOne('App\Models\Country','country_id','destination');
+    }
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+        return $array;
     }
 }

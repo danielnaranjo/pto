@@ -21,7 +21,8 @@
         "php-http/guzzle6-adapter": "^1.1",
         "pusher/pusher-php-server": "~2.6",
         "reliese/laravel": "^0.0.13",
-        "sentry/sentry-laravel": "^0.8.0"
+        "sentry/sentry-laravel": "^0.8.0",
+        "webpatser/laravel-uuid": "2.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

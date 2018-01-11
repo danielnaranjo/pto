@@ -89,17 +89,12 @@
 										<li class="nav-item m-tabs__item">
 											<a class="nav-link m-tabs__link active" data-toggle="tab" href="#reputacion" role="tab">
 												<i class="flaticon-share m--hide"></i>
-												Reputación
+												Mi Reputación
 											</a>
 										</li>
 										<li class="nav-item m-tabs__item">
 											<a class="nav-link m-tabs__link" data-toggle="tab" href="#envios" role="tab">
-												Envios
-											</a>
-										</li>
-                                        <li class="nav-item m-tabs__item">
-											<a class="nav-link m-tabs__link" data-toggle="tab" href="#viajes" role="tab">
-												Viajes
+												Mis Envios
 											</a>
 										</li>
 									</ul>
@@ -208,33 +203,6 @@
                                         @endforelse
 									</div>
 								</div>
-                                <div class="tab-pane" id="viajes" style="padding:20px;">
-                                    <!-- timeline viajes -->
-                                    <div class="m-list-timeline m-list-timeline--skin-light">
-										<div class="m-list-timeline__items">
-                                            @forelse( $travel as $t )
-											<div class="m-list-timeline__item">
-												<span class="m-list-timeline__badge m-list-timeline__badge--success"></span>
-												<span class="m-list-timeline__text">
-													{{$t->title}}
-                                                    @if($t->restrictions)
-                                                    <span class="m-badge m-badge--info m-badge--wide">
-                                                        Ciertas restricciones aplica
-                                                    </span>
-                                                    @endif
-                                                    <br>Espacio: {{$t->dimensions}}
-												</span>
-												<span class="m-list-timeline__time">
-													{{ Date::parse($t->date)->format('d/m/Y') }}
-												</span>
-											</div>
-                                            @empty
-                                                <h5>No hay información de viajes</h5>
-                                            @endforelse
-										</div>
-									</div>
-                                    <!-- timeline viajes -->
-								</div>
 							</div>
 						</div>
 					</div>
@@ -244,23 +212,45 @@
 								<div class="m-portlet__head-caption">
 									<div class="m-portlet__head-title">
 										<h3 class="m-portlet__head-text">
-											Enviar un mensaje a {{$results[0]->name}}
+											Próximos viajes
 										</h3>
 									</div>
 								</div>
 							</div>
 							<div class="m-portlet__body">
-                                {!! Form::open(['url' => '', 'id'=>'message']) !!}
-                                {!! Form::hidden('_id', '0', ['id' => '_id']) !!}
-                                <div class='form-group'>
-                                    <!-- {!! Form::label('comentarios', 'comentarios') !!} -->
-                                    {!! Form::textarea('email', null, ['class' => 'form-control', 'id' => 'email', 'placeholder'=>'Quisiera saber...', 'rows'=>'10']) !!}
-                                    <p class="help-block">
-                                        Por tu seguridad, No envies datos personales o información de contacto.
-                                    </p>
+                                <!-- scroll -->
+                                <div class="m-scrollable mCustomScrollbar _mCS_3 mCS-autoHide" data-scrollable="true" data-max-height="400" style="height: 400px; overflow: visible; max-height: 400px; position: relative;">
+                                    <div id="mCSB_3" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside" tabindex="0" style="max-height: none;">
+                                        <div id="mCSB_3_container" class="mCSB_container" style="position: relative; top: 0px; left: 0px;" dir="ltr">
+                                            <!-- timeline viajes -->
+                                            <div class="m-list-timeline m-list-timeline--skin-light">
+                                                <div class="m-list-timeline__items">
+                                                    @forelse( $travel as $t )
+                                                    <div class="m-list-timeline__item">
+                                                        <span class="m-list-timeline__badge m-list-timeline__badge--success"></span>
+                                                        <span class="m-list-timeline__text">
+                                                            {{$t->title}}
+                                                            @if($t->restrictions)
+                                                            <span class="m-badge m-badge--info m-badge--wide">
+                                                                Ciertas restricciones aplica
+                                                            </span>
+                                                            @endif
+                                                            <br>Espacio: {{$t->dimensions}}
+                                                        </span>
+                                                        <span class="m-list-timeline__time">
+                                                            {{ Date::parse($t->date)->format('d/m/Y') }}
+                                                        </span>
+                                                    </div>
+                                                    @empty
+                                                        <h5>No hay información de viajes</h5>
+                                                    @endforelse
+                                                </div>
+                                            </div>
+                                            <!-- timeline viajes -->
+                                        </div>
+                                    </div>
                                 </div>
-                                {{ Form::submit('Enviar mensaje', ['class'=>'btn btn-info btn-block m-btn--pill', 'id'=>'btnMessage']) }}
-                                {!! Form::close() !!}
+                                <!-- scroll -->
 							</div>
 						</div>
                     </div>

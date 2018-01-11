@@ -110,7 +110,7 @@
                                                                 }
                                                             @endphp
 
-                                                            @if ( strlen($result->$f) >= 200 || preg_match("/firma/i", $f) || preg_match("/cuerpo/i", $f))
+                                                            @if ( strlen($result->$f) >= 200 || preg_match("/description/i", $f) || preg_match("/text/i", $f) || preg_match("/comment/i", $f))
                                                                 {{-- textearea --}}
                                                     	        {!! Form::textarea(safeInputs($f), $valor, ['class' => 'form-control summernote', 'id' => safeInputs($f), 'rows'=> '10', 'placeholder'=> $f]) !!}
                                                             @elseif ( preg_match("/fecha/i", $f))
@@ -124,7 +124,8 @@
                                                                 {!! Form::select(safeInputs($f), [0 => 'No', '1' => 'Si'], $valor, ['class' => 'form-control', 'id' => safeInputs($f)]) !!}
                                                             @elseif ( ( preg_match("/_id/i", $f)))
                                                                 {{-- input[text] --}}
-                                                                {!! Form::hidden (safeInputs($f), $valor, ['id' => safeInputs($f)]) !!}
+                                                                {!! Form::text(safeInputs($f), $valor, ['class' => 'form-control', 'id' => safeInputs($f), 'placeholder'=> $f]) !!}
+
                                                             @elseif ( preg_match("/image/i", $f) || preg_match("/arch/i", $f) || preg_match("/logo/i", $f) )
                                                                 {{-- input[file] --}}
                                                                 <div class="m-dropzone dropzone" action="/archivos/upload/{{ $_id }}/{{ $f }}/{{$rutaactual}}" id="m-dropzone-one" multiple="multiple">
@@ -271,8 +272,8 @@
                         </div>
                     <!--end:: Widgets/Application Sales-->
                     </div>
-                    <div class="col-xl-4 col-md-4">
-                        {{json_encode($results)}}
+                    <div class="col-xl-4 col-md-4" style="display:none">
+                        {{--json_encode($results)--}}
                             <div class="m-portlet m-portlet--mobile">
                                 <div class="m-portlet__head">
                                     <div class="m-portlet__head-caption">
@@ -294,9 +295,6 @@
 									</div>
 								</div>
                             </div>
-
-
-
                     </div>
                 </div>
             <!--End::Main Portlet-->

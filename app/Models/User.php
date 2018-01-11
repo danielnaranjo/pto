@@ -8,6 +8,7 @@
 namespace App\Models;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
+use Laravel\Scout\Searchable;
 
 /**
  * Class User
@@ -29,6 +30,7 @@ class User extends Eloquent
 {
 	protected $table = 'users';
 	public $timestamps = false;
+    use Searchable;
 
     protected $casts = [
 		'dni' => 'int',
@@ -94,5 +96,10 @@ class User extends Eloquent
     public function withdraw()
     {
         return $this->hasOne('App\Models\Withdraw','user_id');
+    }
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+        return $array;
     }
 }

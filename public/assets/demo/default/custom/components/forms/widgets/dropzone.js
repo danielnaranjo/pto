@@ -31,19 +31,25 @@ var DropzoneDemo = function () {
             },
         };
         //
-        // // multiple file upload
-        // Dropzone.options.mDropzoneTwo = {
-        //     paramName: "file", // The name that will be used to transfer the file
-        //     maxFiles: 10,
-        //     maxFilesize: 10, // MB
-        //     accept: function(file, done) {
-        //         if (file.name == "justinbieber.jpg") {
-        //             done("Naha, you don't.");
-        //         } else {
-        //             done();
-        //         }
-        //     }
-        // };
+        // multiple file upload
+        Dropzone.options.mDropzoneTwo = {
+            paramName: "file", // The name that will be used to transfer the file
+            maxFiles: 10,
+            maxFilesize: 10, // MB
+            accept: function(file, done) {
+                done();
+            },
+            success: function(file, response){
+                toastr.success("Acción ejecutada con exito!");
+                //console.info('response', file, response);
+                $('form').append('<input type="hidden" name="'+response+'"  id="'+response+'" value="'+ file.name +'"/>');
+            },
+            error: function(file, errorMessage) {
+                console.error('File upload error', errorMessage);
+                //alert(errorMessage);
+                toastr.error(errorMessage);
+            },
+        };
         //
         // // file type validation
         // Dropzone.options.mDropzoneThree = {

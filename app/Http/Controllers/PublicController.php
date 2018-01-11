@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Country;
 use App\Models\User;
 use App\Models\Package;
+use App\Models\Service;
 use App\Models\Travel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -109,5 +111,17 @@ class PublicController extends Controller
         Date::setLocale('es');
         $data = Date::now();
         return response()->json($data);
+    }
+    public function resultados()
+    {
+        $query = $_GET['query'];
+        $data['query'] = $query;
+        // ALGOLIA
+        $data['countries']  = Country::search( $query )->get();
+        $data['users']  = User::search( $query )->get();
+        $data['packages']  = Package::search( $query )->get();
+        $data['services']  = Service::search( $query )->get();
+        $data['travellers'] = Travel::search( $query )->get();
+        return view('pages.quick_search', $data);
     }
 }

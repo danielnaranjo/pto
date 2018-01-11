@@ -15,6 +15,7 @@ class VerifyCsrfToken extends BaseVerifier
         '/',
         '/keepalive',
         '/uploadfile',
-        'upload/*',
+        '/upload/*',
+        '/package/upload/*',
     ];
 }

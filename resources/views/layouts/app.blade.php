@@ -112,11 +112,13 @@
         @endcomponent
         @endif
 
-        @if(preg_match("/consorcios.edit/i", Route::currentRouteName() ))
+        @if(preg_match("/package.edit/i", Route::currentRouteName() ))
         <script>
             $(function(){
-                toSelect('con_localidad',1,<?=$localidad?>,'loc_id','loc_nombre');
-                toSelect('con_inmobiliaria',1,<?=$inmobiliaria?>,'inm_id','inm_nombre',@if(Session::has('inmobiliaria')) true @endif);
+                //toSelect(container,value,data,keyTag,labelTag,disabled=
+                toSelect('service_id', 1, <?=$service?>,'service_id','type');
+                toSelect('origin', 1, <?=$origin?>,'country_id','name',);
+                toSelect('destination', 1, <?=$destination?>,'country_id','name',@if(Session::has('inmobiliaria')) true @endif);
             });
         </script>
         @endif

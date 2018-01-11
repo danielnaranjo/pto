@@ -265,6 +265,8 @@ return [
         //'Auth0' => Auth0\Login\Facade\Auth0::class
         /* Cloudinary */
         'Cloudder' => JD\Cloudder\Facades\Cloudder::class,
+        /* UUID */
+        'Uuid' => Webpatser\Uuid\Uuid::class,
     ],
 
 ];

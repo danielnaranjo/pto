@@ -24,8 +24,8 @@ Route::get('/home', 'PublicController@index');
 Route::post('/keepalive', 'PublicController@keepalive');
 Route::get('/ver/{categoria?}', 'PackageController@categorias');
 Route::get('/explorar/{pais?}/{id?}', 'TravelController@pais');
-Route::get('/envios', 'PackageController@index');
-Route::get('/viajeros', 'TravelController@index');
+// Route::get('/envios', 'PackageController@index');
+// Route::get('/travel', 'TravelController@index');
 
 // Recursos
 Route::resource('balance', 'BalanceController');
@@ -38,6 +38,7 @@ Route::resource('public', 'PublicController');
 Route::resource('service', 'ServiceController');
 Route::resource('user', 'UserController');
 Route::resource('vote', 'VoteController');
+Route::resource('travel', 'TravelController');
 Route::resource('withdraw', 'WithdrawController');
 
 // Eliminar
@@ -63,4 +64,7 @@ Route::prefix('api')->group(function() {
 });
 
 Route::post('/upload/{id}', ['as'=>'uploadfile','uses'=>'UserController@uploadFile']);
+Route::post('/package/upload/{id}', 'PackageController@uploadFile');
 //Route::post('/archivos/upload/{id}/{campo}/{tabla}', ['as' => 'imagenes.upload', 'uses' => 'ImageController@upload']);
+
+Route::get('/resultados', 'PublicController@resultados'); // ALGOLIA RESULTS

@@ -223,6 +223,7 @@ class UserController extends Controller
         return response()->json($data);
     }
     public function uploadFile(Request $request, $id){
+        //http://www.expertphp.in/article/laravel-5-cloudinary-upload-file-and-images-with-example
         $file = $request->file('file');
         $fecha = time();
         $destinationPath =  public_path('/pic');//base_path().'/public/uploads/';
@@ -242,7 +243,7 @@ class UserController extends Controller
             $data['img'] = DB::table('image')->insertGetId(['name' => $filename, 'path' => $data['c']['url']]);
 
             if($data['img']){
-                $data['uim'] = DB::table('user_image')->insertGetId([ 'user_id' => $id, 'image_id' => $data['img'], 'type' => '' ]);
+                $data['uim'] = DB::table('user_image')->insertGetId([ 'user_id' => $id, 'image_id' => $data['img'], 'type' => '0' ]);
             }
         }
         $data['filename']=$filename;

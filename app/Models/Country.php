@@ -8,6 +8,7 @@
 namespace App\Models;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
+use Laravel\Scout\Searchable;
 
 /**
  * Class Country
@@ -25,6 +26,7 @@ class Country extends Eloquent
 	public $incrementing = false;
 	public $timestamps = false;
     protected $primaryKey = 'country_id';
+    use Searchable;
 
 	protected $casts = [
 		'lat' => 'int',
@@ -38,4 +40,10 @@ class Country extends Eloquent
 		'name',
         'status'
 	];
+
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+        return $array;
+    }
 }

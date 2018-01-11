@@ -8,7 +8,7 @@
         </a>
     </li>
     <li class="m-menu__item" >
-        <a  href="/envios" class="m-menu__link">
+        <a  href="/package" class="m-menu__link">
             <span class="m-menu__item-here"></span>
             <span class="m-menu__link-text">
                 Paqueto Envios
@@ -16,7 +16,7 @@
         </a>
     </li>
     <li class="m-menu__item ">
-        <a  href="/viajeros" class="m-menu__link">
+        <a  href="/travel" class="m-menu__link">
             <span class="m-menu__item-here"></span>
             <span class="m-menu__link-text">
                 Paqueto Viajeros

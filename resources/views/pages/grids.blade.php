@@ -100,7 +100,7 @@
 											</div>
 										</div>
 										<div class="m-widget19__body">
-											{{$result->description}}
+											{!! $result->description !!}
 										</div>
 									</div>
 									<div class="m-widget19__action">
@@ -141,11 +141,11 @@
 
                     <div class="col-xl-12">
                         {{ $results->links() }}
-                        <p>
+                        <!-- <p>
                             <a class="btn m-btn--pill btn-secondary m-btn m-btn--custom" href="{{ url()->previous() }}">
                                 Volver atras
                             </a>
-                        </p>
+                        </p> -->
                     </div>
 				</div>
 				<!--End::Main Portlet-->

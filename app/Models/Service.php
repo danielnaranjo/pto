@@ -8,10 +8,11 @@
 namespace App\Models;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
+use Laravel\Scout\Searchable;
 
 /**
  * Class Service
- * 
+ *
  * @property int $service_id
  * @property string $type
  * @property string $text
@@ -25,6 +26,7 @@ class Service extends Eloquent
 	protected $table = 'service';
 	protected $primaryKey = 'service_id';
 	public $timestamps = false;
+    use Searchable;
 
 	protected $casts = [
 		'price' => 'int',
@@ -37,4 +39,9 @@ class Service extends Eloquent
 		'price',
 		'rate'
 	];
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+        return $array;
+    }
 }

@@ -469,7 +469,7 @@ var BootstrapDatetimepicker = function () {
         $('.m_datetimepicker_2').datetimepicker({
             todayHighlight: true,
             autoclose: true,
-            format: 'yyyy-mm-dd hh:ii'
+            format: 'yyyy-mm-dd'
         });
 
     }
@@ -500,6 +500,32 @@ var DropzoneDemo = function () {
             addRemoveLinks : true,
             dictRemoveFile: "Quitar",
             dictMaxFilesExceeded: "Solo se permite un (1) archivo por campo.",
+            dictResponseError: "Ha ocurrido un error",
+            dictFileTooBig: "El tamaño del archivo debe ser menor a 5 MB",
+            dictInvalidFileType: "Formatos soportados: JPG, GIF, PNG",
+            accept: function(file, done) {
+                done();
+            },
+            success: function(file, response){
+                toastr.success("Acción ejecutada con exito!");
+                console.info('Dropzone', response);
+                //$('form').append('<input type="hidden" name="'+response+'"  id="'+response+'" value="'+ response +'"/>');
+                $('form').append("<input type=\"hidden\" name=\""+response.field+"\"  id=\""+response.field+"\" value=\""+ response.filename +"\"/>");
+            },
+            error: function(file, errorMessage) {
+                console.error('Dropzone > File upload error', errorMessage);
+                //alert(errorMessage);
+                toastr.error(errorMessage);
+            },
+        };
+        Dropzone.options.mDropzoneTwo = {
+            paramName: "file", // The name that will be used to transfer the file
+            maxFiles: 10,
+            maxFilesize: 5, // MB
+            acceptedFiles: "image/*",
+            addRemoveLinks : true,
+            dictRemoveFile: "Quitar",
+            dictMaxFilesExceeded: "Solo se permiten 10 archivos por campo.",
             dictResponseError: "Ha ocurrido un error",
             dictFileTooBig: "El tamaño del archivo debe ser menor a 5 MB",
             dictInvalidFileType: "Formatos soportados: JPG, GIF, PNG",
