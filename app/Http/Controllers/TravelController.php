@@ -111,7 +111,7 @@ class TravelController extends Controller
         $data['results'] = Travel::where('origin','=',$id)
             ->orWhere('destination','=',$id)
             ->paginate(16);
-        $data['titulo'] = "Explorarando ".$data['results'][0]->to->name;
+        $data['titulo'] = $data['results'][0]->to->name;//"Explorando ".
         return view('pages.explorer', $data);
         //return response()->json($data);
     }
