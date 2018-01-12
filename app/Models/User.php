@@ -9,6 +9,9 @@ namespace App\Models;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
 use Laravel\Scout\Searchable;
+// /https://es.stackoverflow.com/questions/8491/argument-1-passed-to-illuminate-auth-eloquentuserprovidervalidatecredentials
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Auth\Authenticatable;
 
 /**
  * Class User
@@ -26,11 +29,12 @@ use Laravel\Scout\Searchable;
  *
  * @package App\Models
  */
-class User extends Eloquent
+class User extends Eloquent implements AuthenticatableContract
 {
 	protected $table = 'users';
 	public $timestamps = false;
     use Searchable;
+    use Authenticatable;
 
     protected $casts = [
 		'dni' => 'int',
@@ -62,7 +66,9 @@ class User extends Eloquent
 		'gender',
 		'city',
 		'province',
-        'country'
+        'country',
+        'provider',
+        'provider_id'
 	];
 
     public function image()

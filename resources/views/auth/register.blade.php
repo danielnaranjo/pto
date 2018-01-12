@@ -43,6 +43,7 @@
 										</h3>
 									</div> -->
                                     {!! Form::open(['route' => 'register', 'class' => 'm-login__form m-form ']) !!}
+                                        {!! Form::hidden ('ipAddress', request()->ip(), ['id' => 'ipAddress']) !!}
                                         <div class="form-group m-form__group{{ $errors->has('name') ? ' has-error' : '' }}">
                                             <input class="form-control m-input"  id="name" type="text" name="name" value="{{ old('name') }}" required autofocus placeholder="Nombre" >
                                             @if ($errors->has('name'))
@@ -76,6 +77,14 @@
 												Registrarme
 											</button>
 										</div>
+                                        <div class="form-group m-form__group">
+                                            Registrarme con:
+                                            <a href="{{ url('/auth/twitter') }}" class="btn btn-twitter"><i class="fa fa-twitter"></i> Twitter</a>
+                                            <a href="{{ url('/auth/facebook') }}" class="btn btn-facebook"><i class="fa fa-facebook"></i> Facebook</a>
+                                            @if(preg_match( "/localhost/i", $_SERVER['SERVER_NAME']) || preg_match( "/127.0.0.1/i", $_SERVER['SERVER_NAME']))
+                                            <a href="{{ url('/auth/github') }}" class="btn btn-github"><i class="fa fa-github"></i> Github</a>
+                                            @endif
+                                        </div>
                                     {!! Form::close() !!}
 								</div>
 							</div>

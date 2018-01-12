@@ -36,21 +36,27 @@ return [
     ],
 
     'facebook' => [
-        'client_id' => env('GITHUB_CLIENT_ID'),         // Your GitHub Client ID
-        'client_secret' => env('GITHUB_CLIENT_SECRET'), // Your GitHub Client Secret
-        'redirect' => 'http://your-callback-url',
+        'client_id' => env('FACEBOOK_CLIENT_ID'),         // Your GitHub Client ID
+        'client_secret' => env('FACEBOOK_CLIENT_SECRET'), // Your GitHub Client Secret
+        'redirect' =>  env('FACEBOOK_URL','http://localhost:8000'),
     ],
 
     'twitter' => [
-        'client_id' => env('GITHUB_CLIENT_ID'),         // Your GitHub Client ID
-        'client_secret' => env('GITHUB_CLIENT_SECRET'), // Your GitHub Client Secret
-        'redirect' => 'http://your-callback-url',
+        'client_id' => env('TWITTER_CLIENT_ID'),         // Your GitHub Client ID
+        'client_secret' => env('TWITTER_CLIENT_SECRET'), // Your GitHub Client Secret
+        'redirect' => env('TWITTER_URL','http://localhost:8000'),
     ],
 
     'google' => [
+        'client_id' => env('GOOGLE_CLIENT_ID'),         // Your GitHub Client ID
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'), // Your GitHub Client Secret
+        'redirect' => env('GOOGLE_URL','http://localhost:8000'),
+    ],
+
+    'github' => [
         'client_id' => env('GITHUB_CLIENT_ID'),         // Your GitHub Client ID
         'client_secret' => env('GITHUB_CLIENT_SECRET'), // Your GitHub Client Secret
-        'redirect' => 'http://your-callback-url',
+        'redirect' => env('GITHUB_URL','http://localhost:8000'),
     ],
 
 ];

@@ -68,3 +68,7 @@ Route::post('/package/upload/{id}', 'PackageController@uploadFile');
 //Route::post('/archivos/upload/{id}/{campo}/{tabla}', ['as' => 'imagenes.upload', 'uses' => 'ImageController@upload']);
 
 Route::get('/resultados', 'PublicController@resultados'); // ALGOLIA RESULTS
+
+// OAuth Routes
+Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider');
+Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
