@@ -33,14 +33,14 @@
 				<!--End::Main Portlet-->
                 <div class="row">
                     @forelse ($results as $travel)
-                    <div class="col-xl-4">
+                    <div class="col-xl-3">
                         <!--begin:: Widgets/Announcements 1-->
                         <div class="m-portlet m--bg-accent m-portlet--bordered-semi m-portlet--skin-dark m-portlet--full-height ">
                             <div class="m-portlet__head">
                                 <div class="m-portlet__head-caption">
                                     <div class="m-portlet__head-title">
                                         <h3 class="m-portlet__head-text">
-                                            Viajando a
+                                            Viajando desde
                                             {{ $travel->from->name or 'No disponible' }}
                                         </h3>
                                     </div>
@@ -59,7 +59,7 @@
                                                             <ul class="m-nav">
                                                                 <li class="m-nav__section m-nav__section--first">
                                                                     <span class="m-nav__section-text">
-                                                                        Siguenos en:
+                                                                        Compartir en:
                                                                     </span>
                                                                 </li>
                                                                 <li class="m-nav__item">
