@@ -20,7 +20,7 @@ Vue.component('ultimos', require('./components/Ultimos.vue'));
 // Personalizados
 Vue.component('usuarios', require('./components/Usuarios.vue'));
 Vue.component('mensajes', require('./components/Mensajes.vue'));
-//Vue.component('chat', require('./components/Chat.vue'));
+Vue.component('chat', require('./components/Chat.vue'));
 
 const app = new Vue({
     el: '#app'
