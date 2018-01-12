@@ -31,7 +31,8 @@ class TravelController extends Controller
         //$data['results'] = Travel::groupBy('destination')->paginate(16);
         $data['results']   = DB::table('travel')
             //->select(DB::raw('travel.*', 'countries.name as country'))
-            ->select(DB::raw('countries.name as country,countries.code, users.name, users.slug,travel.*, count(travel.destination) as viajeros'))            ->leftJoin('countries','countries.country_id','=','travel.destination')
+            ->select(DB::raw('countries.name as country,countries.code, users.name, users.slug,travel.*, count(travel.destination) as viajeros, users.avatar'))
+            ->leftJoin('countries','countries.country_id','=','travel.destination')
             ->leftJoin('users','travel.user_id','=','users.id')
             ->groupBy('travel.destination')
             ->paginate(16);

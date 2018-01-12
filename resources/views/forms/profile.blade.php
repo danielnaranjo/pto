@@ -18,7 +18,13 @@
 									</div>
 									<div class="m-card-profile__pic">
 										<div class="m-card-profile__pic-wrapper">
-											<img src="/assets/app/media/img/users/user4.jpg" alt="">
+                                            @if($results->avatar)
+                                                <img src="{{$results->avatar}}" alt="{{$results->name}}">
+                                            @else
+			                                    <a href="#">
+                                                    <img src="/pic/avatar.png" alt="">
+                                                </a>
+                                            @endif
 										</div>
 									</div>
 									<div class="m-card-profile__details">
@@ -35,6 +41,7 @@
 											Section
 										</span>
 									</li>
+                                    @if($results->verified==1)
                                     <li class="m-nav__item">
 										<a href="#" class="m-nav__link">
 											<i class="m-nav__link-icon fa fa-check-circle-o"></i>
@@ -43,6 +50,8 @@
 											</span>
 										</a>
 									</li>
+                                    @endif
+                                    @if($results->address)
 									<li class="m-nav__item">
 										<a href="#" class="m-nav__link">
 											<i class="m-nav__link-icon fa fa-globe"></i>
@@ -51,6 +60,7 @@
 											</span>
 										</a>
 									</li>
+                                    @endif
 									<li class="m-nav__item">
 										<a href="#" class="m-nav__link">
 											<i class="m-nav__link-icon fa fa-id-card-o"></i>
@@ -59,11 +69,12 @@
 											</span>
                                             <span class="m-nav__link-badge">
                                                 <span class="m-badge m-badge--success">
-                                                    2
+                                                    1
                                                 </span>
                                             </span>
 										</a>
 									</li>
+
 								</ul>
 								<div class="m-portlet__body-separator"></div>
 							</div>
@@ -137,6 +148,34 @@
                                             </label>
                                             <div class="col-7">
                                                 <input class="form-control m-input" type="text" name="phone" value="{{ $results->phone }}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-form__group row">
+                                            <label for="example-text-input" class="col-2 col-form-label">
+                                                Cédula
+                                            </label>
+                                            <div class="col-7">
+                                                <input class="form-control m-input" type="text" name="dni" value="{{ $results->dni }}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-form__group row">
+                                            <label for="example-text-input" class="col-2 col-form-label">
+                                                Nacimiento
+                                            </label>
+                                            <div class="col-7">
+                                                <input class="form-control m-input m_datetimepicker_2" type="text" name="birthdate" value="{{ $results->birthdate }}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-form__group row">
+                                            <label for="example-text-input" class="col-2 col-form-label">
+                                                Genero
+                                            </label>
+                                            <div class="col-7">
+                                                <select class="form-control m-input" name="gender">
+                                                    <option value="NA" @if($results->gender=='NA') selected @endif>No Especificado</option>
+                                                    <option value="F" @if($results->gender=='F') selected @endif>Femenino</option>
+                                                    <option value="M" @if($results->gender=='M') selected @endif>Masculino</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="m-form__seperator m-form__seperator--dashed m-form__seperator--space-2x"></div>
@@ -308,7 +347,7 @@
                     </div>
                     <div class="col-xl-12">
                         <p>
-                            <a class="btn m-btn--pill btn-secondary m-btn m-btn--custom" href="/viajeros">
+                            <a class="btn m-btn--pill btn-secondary m-btn m-btn--custom" href="/travel">
                                 Volver atras
                             </a>
                         </p>

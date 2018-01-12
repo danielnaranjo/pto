@@ -81,7 +81,7 @@
                                                             </a>
                                                         </li>
                                                         <li class="m-nav__item">
-                                                            <a href="#" class="m-nav__link">
+                                                            <a href="/user/message/{{ Auth::user()->id }}" class="m-nav__link">
                                                                 <i class="m-nav__link-icon fa fa-comments-o"></i>
                                                                 <span class="m-nav__link-title">
                                                                     <span class="m-nav__link-wrap">
@@ -92,8 +92,8 @@
                                                                 </span>
                                                             </a>
                                         				</li>
-                                                        <li class="m-nav__item">
-                                                            <a href="#" class="m-nav__link">
+                                                        <!-- <li class="m-nav__item">
+                                                            <a href="/user/message/{{ Auth::user()->id }}" class="m-nav__link">
                                                                 <i class="m-nav__link-icon fa fa-money"></i>
                                                                 <span class="m-nav__link-title">
                                                                     <span class="m-nav__link-wrap">
@@ -103,9 +103,9 @@
                                                                     </span>
                                                                 </span>
                                                             </a>
-                                        				</li>
+                                        				</li> -->
                                                         <li class="m-nav__item">
-                                                            <a href="#" class="m-nav__link">
+                                                            <a href="/user/package/{{ Auth::user()->id }}" class="m-nav__link">
                                                                 <i class="m-nav__link-icon fa fa-truck"></i>
                                                                 <span class="m-nav__link-title">
                                                                     <span class="m-nav__link-wrap">
@@ -117,7 +117,7 @@
                                                             </a>
                                         				</li>
                                                         <li class="m-nav__item">
-                                                            <a href="#" class="m-nav__link">
+                                                            <a href="/user/travel/{{ Auth::user()->id }}" class="m-nav__link">
                                                                 <i class="m-nav__link-icon fa fa-plane"></i>
                                                                 <span class="m-nav__link-title">
                                                                     <span class="m-nav__link-wrap">

@@ -121,7 +121,12 @@
                                     </div>
                                     <div class="m-widget7__user">
                                         <div class="m-widget7__user-img">
-                                            <img class="m-widget7__img" src="/assets/app/media/img//users/100_3.jpg" alt="">
+                                            <!-- <img class="m-widget7__img" src="/assets/app/media/img//users/100_3.jpg" alt=""> -->
+                                            @if($travel->user->avatar)
+                                                <img src="{{$travel->user->avatar}}" alt="{{$travel->user->name}}" class="m-widget7__img" >
+                                            @else
+                                                <img src="/pic/avatar.png" alt="avatar" class="m-widget7__img" >
+                                            @endif
                                         </div>
                                         <div class="m-widget7__info">
                                             <span class="m-widget7__username">

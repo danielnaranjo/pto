@@ -199,7 +199,13 @@
                                     </div>
                                     <div class="m-widget7__user">
                                         <div class="m-widget7__user-img">
-                                            <img class="m-widget7__img" src="assets/app/media/img//users/100_3.jpg" alt="">
+                                            <!-- <img class="m-widget7__img" src="assets/app/media/img//users/100_3.jpg" alt=""> -->
+                                            @if($travel->user->avatar)
+                                                <img src="{{$travel->user->avatar}}" alt="{{ $travel->user->name }}" class="m-widget7__img">
+                                            @else
+                                                <img src="/pic/avatar.png" alt="avatar" class="m-widget7__img">
+                                                </a>
+                                            @endif
                                         </div>
                                         <div class="m-widget7__info">
                                             <span class="m-widget7__username">
@@ -247,7 +253,12 @@
                                         <div class="m-widget19__header">
                                             <div class="m-widget19__user-img">
                                                 <a href="/u/{{ $package->user->slug }}">
-                                                    <img class="m-widget19__img" src="assets/app/media/img//users/user1.jpg" alt="">
+                                                    @if($package->user->avatar)
+                                                        <img src="{{$package->user->avatar}}" alt="{{ $package->user->name }}" class="m-widget19__img">
+                                                    @else
+        			                                    <img src="/pic/avatar.png" alt="avatar" class="m-widget19__img">
+                                                        </a>
+                                                    @endif
                                                 </a>
                                             </div>
                                             <div class="m-widget19__info">
@@ -269,7 +280,7 @@
                                             </div>
                                         </div>
                                         <div class="m-widget19__body">
-                                            {{ $package->description }}
+                                            {!! $package->description !!}
                                         </div>
                                     </div>
                                     <div class="m-widget19__action">
@@ -291,7 +302,7 @@
 										</h3>
 									</div>
 								</div>
-								<div class="m-portlet__head-tools">
+								<!-- <div class="m-portlet__head-tools">
 									<ul class="nav nav-pills nav-pills--info m-nav-pills--align-right m-nav-pills--btn-pill m-nav-pills--btn-sm" role="tablist">
 										<li class="nav-item m-tabs__item">
 											<a class="nav-link m-tabs__link active" data-toggle="tab" href="#hoy" role="tab">
@@ -304,21 +315,10 @@
 											</a>
 										</li>
 									</ul>
-								</div>
+								</div> -->
 							</div>
 							<div class="m-portlet__body">
-								<div class="tab-content">
-									<div class="tab-pane active" id="hoy">
-										<!--begin::Widget 14-->
-                                        <ultimos></ultimos>
-										<!--end::Widget 14-->
-									</div>
-									<div class="tab-pane" id="estemes">
-										<!--begin::Widget 14-->
-                                        <usuarios></usuarios>
-										<!--end::Widget 14-->
-									</div>
-								</div>
+								<usuarios></usuarios>
 							</div>
 						</div>
 						<!--end:: Widgets/New Users-->

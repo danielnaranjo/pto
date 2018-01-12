@@ -4,7 +4,8 @@
         <div class="m-widget4__item" v-for="result in list">
             <div class="m-widget4__img m-widget4__img--pic">
                 <a :href="'/u/'+ result.slug">
-                    <img src="assets/app/media/img/users/100_4.jpg" :alt="result.name ">
+                    <img :src="result.avatar" :alt="result.name" v-if="result.avatar">
+                    <img src="/pic/avatar.png" :alt="result.name" v-else>
                 </a>
             </div>
             <div class="m-widget4__info">

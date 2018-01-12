@@ -18,14 +18,18 @@
 									</div>
 									<div class="m-card-profile__pic">
 										<div class="m-card-profile__pic-wrapper">
-											<img src="../assets/app/media/img/users/user4.jpg" alt="">
+                                            @if($results->avatar)
+                                                <img src="{{ $results->avatar }}" alt="{{$results->name}}">
+                                            @else
+			                                    <img src="/pic/avatar.png" alt="avatar">
+                                            @endif
 										</div>
 									</div>
 									<div class="m-card-profile__details">
 										<span class="m-card-profile__name">
-											{{$results[0]->name}}
+											{{$results->name}}
 										</span>
- 										Usuario desde {{ Date::parse($results[0]->created_at)->format('F Y') }}
+ 										Usuario desde {{ Date::parse($results->created_at)->format('F Y') }}
 									</div>
 								</div>
 								<ul class="m-nav m-nav--hover-bg m-portlet-fit--sides">
@@ -47,6 +51,7 @@
 											</span>
 										</a>
 									</li> -->
+                                    @if($results->verified==1)
                                     <li class="m-nav__item">
 										<a href="#" class="m-nav__link">
 											<i class="m-nav__link-icon fa fa-check-circle-o"></i>
@@ -55,6 +60,8 @@
 											</span>
 										</a>
 									</li>
+                                    @endif
+                                    @if($results->address)
 									<li class="m-nav__item">
 										<a href="#" class="m-nav__link">
 											<i class="m-nav__link-icon fa fa-globe"></i>
@@ -63,6 +70,7 @@
 											</span>
 										</a>
 									</li>
+                                    @endif
 									<li class="m-nav__item">
 										<a href="#" class="m-nav__link">
 											<i class="m-nav__link-icon fa fa-id-card-o"></i>
@@ -71,13 +79,14 @@
 											</span>
                                             <span class="m-nav__link-badge">
                                                 <span class="m-badge m-badge--success">
-                                                    2
+                                                    1
                                                 </span>
                                             </span>
 										</a>
 									</li>
 								</ul>
 								<div class="m-portlet__body-separator"></div>
+
 							</div>
 						</div>
 					</div>
@@ -108,7 +117,12 @@
     										<div class="m-widget3__item">
     											<div class="m-widget3__header">
     												<div class="m-widget3__user-img">
-    													<img class="m-widget3__img" src="/assets/app/media/img/users/user1.jpg" alt="">
+    													<!-- <img class="m-widget3__img" src="/assets/app/media/img/users/user1.jpg" alt=""> -->
+                                                        @if($com->avatar)
+                                                            <img src="{{$com->avatar}}" alt="{{$com->name}}" class="m-widget3__img">
+                                                        @else
+                                                            <img src="/pic/avatar.png" alt="avatar" class="m-widget3__img">
+                                                        @endif
     												</div>
     												<div class="m-widget3__info">
     													<span class="m-widget3__username">
@@ -256,7 +270,7 @@
                     </div>
                     <div class="col-xl-12">
                         <p>
-                            <a class="btn m-btn--pill btn-secondary m-btn m-btn--custom" href="/viajeros">
+                            <a class="btn m-btn--pill btn-secondary m-btn m-btn--custom" href="/travel">
                                 Volver atras
                             </a>
                         </p>

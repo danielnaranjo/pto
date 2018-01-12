@@ -116,9 +116,6 @@
         <script>
             $(function(){
                 //toSelect(container,value,data,keyTag,labelTag,disabled=
-                toSelect('service_id', 1, <?=$service?>,'service_id','type');
-                toSelect('origin', 1, <?=$origin?>,'country_id','name',);
-                toSelect('destination', 1, <?=$destination?>,'country_id','name',@if(Session::has('inmobiliaria')) true @endif);
             });
         </script>
         @endif

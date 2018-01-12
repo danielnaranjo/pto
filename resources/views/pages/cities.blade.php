@@ -66,7 +66,12 @@
                                     <div class="m-widget7__user">
                                         <div class="m-widget7__user-img">
                                             <a href="/u/{{ $result->slug }}">
-                                                <img class="m-widget7__img" src="/assets/app/media/img/users/100_3.jpg" alt="{{ $result->name }}">
+                                                <!-- <img class="m-widget7__img" src="/assets/app/media/img/users/100_3.jpg" alt="{{ $result->name }}"> -->
+                                                @if($result->avatar)
+                                                    <img src="{{$result->avatar}}" alt="{{$result->name}}" class="m-widget7__img" >
+                                                @else
+                                                    <img src="/pic/avatar.png" alt="avatar" class="m-widget7__img" >
+                                                @endif
                                             </a>
                                         </div>
                                         <div class="m-widget7__info">

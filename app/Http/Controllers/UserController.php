@@ -40,7 +40,7 @@ class UserController extends Controller
     {
         //$data['results']   = User::all();
         $data['results']   = DB::table('users')
-            ->select('users.id','users.name','users.verified','countries.name as country','users.city','vote.upvotes')
+            ->select('users.id','users.name','users.verified','countries.name as country','users.city','vote.upvotes','users.avatar')
             ->leftJoin('countries','countries.country_id','=','users.country')
             ->leftJoin('vote','users.id','=','vote.user_id')
             ->paginate(16);
@@ -149,26 +149,42 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $data= User::findOrFail($user->id);
-        $input = Request::all();
+        // $input = Request::all();
+        // $data= User::findOrFail($user->id);
         //
-        $forms = DB::table('users')
-            ->select('id','name', 'email', 'city', 'phone')
-            ->limit(1)
-            ->get();
-        foreach ($forms[0] as $key => $value) {
-            if (preg_match("/name/i", $key) || preg_match("/email/i", $key) || preg_match("/phone/i", $key)  || preg_match("/city/i", $key)) { // Customizar
-                $label = $key;//substr ( $key, 4, strlen($key) );
-                $fields[$label] = 'required';
-            }
-        }
-        $mgs = [ 'required' => ':attribute es requerido.' ];
-        $validator = Validator::make(Request::all(), $fields, $mgs);
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
-        }
+        // $forms = DB::table('users')
+        //     ->select('id','name', 'email', 'city', 'phone')
+        //     ->limit(1)
+        //     ->get();
+        // foreach ($forms[0] as $key => $value) {
+        //     if (preg_match("/name/i", $key) || preg_match("/email/i", $key) || preg_match("/phone/i", $key)  || preg_match("/city/i", $key)) { // Customizar
+        //         $label = $key;//substr ( $key, 4, strlen($key) );
+        //         $fields[$label] = 'required';
+        //     }
+        // }
+        // $mgs = [ 'required' => ':attribute es requerido.' ];
+        // $validator = Validator::make(Request::all(), $fields, $mgs);
+        // if ($validator->fails()) {
+        //     return back()->withErrors($validator)->withInput();
+        // }
+        // return redirect()->action('PackageController@index')->with('status', 'Información actualizada!');
+        // $data->update($input);
         //
-        $data->update($input);
+        $data = User::find($user->id); //Package::find($id);
+        $data->name = $request->name;
+        $data->email = $request->email;
+        $data->address = $request->address;
+        $data->phone = $request->phone;
+        $data->slug = $request->slug;
+        $data->dni = $request->dni;
+        $data->birthdate = Date::parse($request->birthdate)->format('Y-m-d');
+        $data->updated_at = Date::now()->format('Y-m-d H:s:i');
+        $data->gender = $request->gender;
+        $data->city = $request->city;
+        $data->province = $request->province;
+        $data->country = $request->country;
+        $data->save();
+
         return redirect('/user/'.$user->id.'/edit')->with('status', 'Información actualizada!');
     }
 
@@ -186,16 +202,16 @@ class UserController extends Controller
     }
     public function slug($slug, $format=null)
     {
-        $user = User::where('slug','=', $slug)->firstOrFail();
-        $id = $user->id;
+        //$id = DB::select("select * from users where slug ='".$slug."' ");
+        //$id = $user->id;
 
         Date::setLocale('es');
-        $data['results'] = User::find($user);
-        $data['comments'] = Comment::where('user_id', $user->id)->get();
-        $data['travel'] = Travel::where('user_id', $user->id)->get();
-        $data['packages'] = Package::where('user_id', $user->id)->get();
+        $data['results'] = User::where('slug', $slug)->first(); //User::find($id->);
+        $data['comments'] = [];// Comment::where('user_id', $user->id)->get();
+        $data['travel'] = [];// Travel::where('user_id', $user->id)->get();
+        $data['packages'] = [];// Package::where('user_id', $user->id)->get();
         if(!$format) {
-            $data['titulo'] = $data['results'][0]->name;
+            $data['titulo'] = $data['results']->name;
             return view('pages.profile', $data);
         } else {
             return response()->json($data);
@@ -204,18 +220,19 @@ class UserController extends Controller
     public function mes()
     {
         $data = DB::table('users')
-            ->select('users.id','users.name','users.verified','countries.name as country','users.city','vote.upvotes','users.slug')
+            ->select('users.id','users.name','users.verified','countries.name as country','users.city','vote.upvotes','users.slug','users.avatar')
             ->leftJoin('countries','countries.country_id','=','users.country')
             ->leftJoin('vote','users.id','=','vote.user_id')
             ->whereYear('created_at', Date::now()->format('Y') )
             ->whereMonth('created_at', Date::now()->format('m') )
+            ->orderBy('users.id', 'desc')
             ->get();
         return response()->json($data);
     }
     public function semana()
     {
         $data = DB::table('users')
-            ->select('users.id','users.name','users.verified','countries.name as country','users.city','vote.upvotes','users.slug')
+            ->select('users.id','users.name','users.verified','countries.name as country','users.city','vote.upvotes','users.slug','users.avatar')
             ->leftJoin('countries','countries.country_id','=','users.country')
             ->leftJoin('vote','users.id','=','vote.user_id')
             ->whereDate('created_at', Date::now()->format('Y-m-d') )

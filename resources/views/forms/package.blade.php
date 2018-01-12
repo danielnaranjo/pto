@@ -7,7 +7,12 @@
 	<div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver m-container m-container--responsive m-container--xxl m-page__container">
 		<div class="m-grid__item m-grid__item--fluid m-wrapper">
 			<div class="m-content">
-                {!! Form::model($results, ['method' => 'POST', 'action' => 'PackageController@store' ]) !!}
+                @if(preg_match("/packaget.create/i", Route::currentRouteName() ))
+                    {!! Form::model($results, ['method' => 'POST', 'action' => 'PackageController@store' ]) !!}
+                @else
+                    {!! Form::model($results, ['method' => 'PATCH', 'action' => ['PackageController@update', $_id]]) !!}
+                @endif
+
                 {!! Form::hidden('user_id', Auth::user()->id, ['class' => 'form-control', 'id' => 'user_id']) !!}
                 {!! Form::hidden('tracking', Uuid::generate(), ['class' => 'form-control', 'id' => 'tracking']) !!}
 				<!--Begin::Main Portlet-->
@@ -56,7 +61,7 @@
                                         <select class="form-control m-input" name="service_id">
                                             <option value="-1">Seleccionar</option>
                                             @foreach ($services as $service)
-                                                <option value="{{$service->service_id}}">{{$service->type}}</option>
+                                                <option value="{{$service->service_id}}" @if($results->service_id==$service->service_id) selected @endif>{{$service->type}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -69,7 +74,7 @@
                                         <select class="form-control m-input" name="origin">
                                             <option value="-1">Seleccionar</option>
                                             @foreach ($countries as $country)
-                                                <option value="{{$country->country_id}}">{{$country->name}}</option>
+                                                <option value="{{$country->country_id}}" @if($results->origin==$country->country_id) selected @endif>{{$country->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -82,7 +87,7 @@
                                         <select class="form-control m-input" name="destination">
                                             <option value="-1">Seleccionar</option>
                                             @foreach ($countries as $country)
-                                                <option value="{{$country->country_id}}">{{$country->name}}</option>
+                                                <option value="{{$country->country_id}}" @if($results->destination==$country->country_id) selected @endif>{{$country->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -100,7 +105,7 @@
                                         Precio
                                     </label>
                                     <div class="col-9">
-                                        <input class="form-control m-input" type="text" value="100" name="price">
+                                        {!! Form::text('price', null, ['class' => 'form-control m-input', 'id' => 'price', 'placeholder'=>'100']) !!}
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group row">
@@ -108,7 +113,7 @@
                                         Negociable
                                     </label>
                                     <div class="col-9">
-                                        {!! Form::select('auction', ['N' => 'No, tarifa plana', 'Y' => 'Si, escucho ofertas'], 'Y', ['class' => 'form-control m-input', 'id' => 'auction']) !!}
+                                        {!! Form::select('auction', ['N' => 'No, tarifa plana', 'Y' => 'Si, escucho ofertas'], $results->auction, ['class' => 'form-control m-input', 'id' => 'auction']) !!}
                                     </div>
                                 </div>
                                 <div class="m-form__seperator m-form__seperator--dashed m-form__seperator--space-2x"></div>
@@ -177,7 +182,7 @@
 							</div>
 							<div class="m-portlet__body">
                                 <div class="m-widget6">
-                                    <div class="m-dropzone dropzone" action="/package/upload/" id="m-dropzone-two" multiple="multiple">
+                                    <div class="m-dropzone dropzone" action="/package/upload/" id="m-dropzone-two" multiple="multiple" @if(preg_match("/package.create/i", Route::currentRouteName() ))  style="pointer-events:none;cursor:default;" @endif>
                                         <div class="m-dropzone__msg dz-message needsclick">
                                             <h3 class="m-dropzone__msg-title">
                                                 Arrastra el archivo o haz clic aqui para subirlo

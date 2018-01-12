@@ -104,7 +104,7 @@ class PackageController extends Controller
         $data->price = $request->price;
         $data->status = 0;
         $data->save();
-        return redirect()->action('PackageController@index')->with('status', 'Información actualizada!');
+        return redirect()->action('PackageController@edit',['package_id'=> $data ])->with('status', 'Información actualizada!');
     }
 
     /**
@@ -161,15 +161,19 @@ class PackageController extends Controller
         $data['id'] = $id;
         $data['titulo'] = "Editar Paqueto Envio";
         $data['ruta'] = 'package';
-        $data['service'] =  DB::table('service')->select('service_id','type')->get(); //Agrega el combo al formulario
-        $data['origin'] =  DB::table('countries')->select('country_id','name')->get(); //Agrega el combo al formulario
-        $data['destination'] =  DB::table('countries')->select('country_id','name')->get(); //Agrega el combo al formulario
-        $data['results'] = DB::table('package')
-            ->select('package_id', 'service_id', 'origin', 'destination', 'title', 'description', 'currency', 'price', 'auction', 'delivery')
-            ->where('package_id', '=', $id)
-            ->get();
-        return view('pages.autoform', $data );
+        // $data['service'] =  DB::table('service')->select('service_id','type')->get(); //Agrega el combo al formulario
+        // $data['origin'] =  DB::table('countries')->select('country_id','name')->get(); //Agrega el combo al formulario
+        // $data['destination'] =  DB::table('countries')->select('country_id','name')->get(); //Agrega el combo al formulario
+        // $data['results'] = DB::table('package')
+        //     ->select('package_id', 'service_id', 'origin', 'destination', 'title', 'description', 'currency', 'price', 'auction', 'delivery')
+        //     ->where('package_id', '=', $id)
+        //     ->get();
+        //return view('pages.autoform', $data );
         //return response()->json($data);
+        $data['results'] = Package::find($id);
+        $data['countries'] = Country::select('country_id','name')->get();
+        $data['services'] = Service::select('service_id','type')->get();
+        return view('forms.package', $data );
     }
 
     /**
@@ -181,9 +185,23 @@ class PackageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data= Package::findOrFail($package->id);
-        $input = Request::all();
-        $data->update($input);
+        // $data= Package::findOrFail($package->id);
+        // $input = Request::all();
+        // $data->update($input);
+        $data = Package::find($id);
+        // $data->user_id = $request->user_id;
+        $data->origin = $request->origin;
+        $data->destination = $request->destination;
+        $data->service_id = $request->service_id;
+        $data->title = $request->title;
+        $data->description = $request->description;
+        // $data->tracking = $request->tracking;
+        $data->delivery = Date::parse($request->delivery)->format('Y-m-d H:s:i');
+        $data->auction = $request->auction;
+        $data->currency = $request->currency;
+        $data->price = $request->price;
+        // $data->status = 0;
+        $data->save();
         return redirect()->action('PackageController@index')->with('status', 'Información actualizada!');
     }
 
@@ -241,6 +259,13 @@ class PackageController extends Controller
             }
         }
         $data['filename']=$filename;
+        return response()->json($data);
+    }
+    public function usuario($id)
+    {
+        $data['titulo'] = "Mis Envios";
+        $data['results'] = Package::where('user_id',$id)->paginate(16);
+        return view('pages.tables', $data);
         return response()->json($data);
     }
 }

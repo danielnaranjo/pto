@@ -68,7 +68,8 @@ class User extends Eloquent implements AuthenticatableContract
 		'province',
         'country',
         'provider',
-        'provider_id'
+        'provider_id',
+        'avatar'
 	];
 
     public function image()

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Models\Image;
+use App\Models\UserImage;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -71,6 +73,27 @@ class LoginController extends Controller
         //https://scotch.io/tutorials/laravel-social-authentication-with-socialite
         $authUser = User::where('provider_id', $user->id)->first();
         if ($authUser) {
+            $data = User::find($authUser->id);
+            $data->name = $user->name;
+            $data->email = $user->email;
+            $data->ipAddress = request()->ip();
+            $data->updated_at = Date::now()->format('Y-m-d H:s:i');
+            $data->status = 1;
+            if($authUser->slug==''){
+                $data->slug = snake_case( $user->getNickname() ).Date::now()->timestamp;
+            }
+            if($authUser->created_at==''){
+                $data->created_at = Date::now()->format('Y-m-d H:s:i');
+            }
+            if($authUser->avatar==''){
+                $data->avatar = $user->getAvatar();
+            }
+            $data->save();
+            //
+            // $img = Image::updateOrCreate(['name' => $user->id, 'path' => $user->getAvatar() ], ['name' => $user->id] );
+            // if($img){
+            //     $uim = UserImage::firstOrCreate(['user_id' => $data->id, 'image_id' => $img->image_id, 'type' => '0' ]);
+            // }
             return $authUser;
         }
         return User::create([
@@ -84,7 +107,8 @@ class LoginController extends Controller
             'status' => '1',
             'ipAddress' => '0.0.0.0',
             'created_at' => Date::now()->format('Y-m-d H:s:i'),
-            'created_at' => Date::now()->format('Y-m-d H:s:i')
+            'updated_at' => Date::now()->format('Y-m-d H:s:i'),
+            'avatar' => $user->getAvatar()
         ]);
     }
 
