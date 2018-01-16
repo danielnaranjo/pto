@@ -48,7 +48,16 @@ class TravelController extends Controller
      */
     public function create()
     {
-        //
+        $data['_id'] = '';
+        $data['_controller'] = 'TravelController';
+        $data['titulo'] = "Nuevo viaje";
+        $data['ruta'] = 'travel';
+        $data['results'] = DB::table('travel')
+            ->select('*')
+            ->limit(1)
+            ->get();
+        $data['required'] = [];
+        return view('pages.autoform', $data );
     }
 
     /**
