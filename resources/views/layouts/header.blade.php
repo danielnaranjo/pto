@@ -189,21 +189,6 @@
 								</li>
                                 <!-- sidebar -->
 
-                                <li class="m-nav__item" >
-                                    <a href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();" class="m-nav__link">
-                                        <span class="m-nav__link-badge"></span>
-                                        <span class="m-nav__link-icon">
-                                            <span class="m-nav__link-icon-wrapper">
-                                                <i class="flaticon-logout"></i>
-                                            </span>
-                                        </span>
-                                    </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        {{ csrf_field() }}
-                                    </form>
-                                </li>
                             </ul>
                         </div>
 

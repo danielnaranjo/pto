@@ -99,7 +99,8 @@
                                                                     !preg_match("/fechaenvio/i", $f)
                                                                 )
                                                                 {{-- label --}}
-                                                        	   {!! Form::label( $f, $f) !!}
+                                                        	    {{-- Form::label( $f, $f ) --}}
+                                                                {!! Form::label( $f, __('messages.'.$f) ) !!}
                                                             @endif
 
                                                             @php

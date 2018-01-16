@@ -128,7 +128,7 @@ ul.pagination li a {
     font-weight: bold;
 }
 label {
-    text-transform: capitalize !important;
+    /* text-transform: capitalize !important; */
 }
 .mayusculas {
     text-transform: uppercase !important;
@@ -207,5 +207,5 @@ label {
 .destacar {
     text-decoration: underline;
     text-decoration-style: dotted;
-    
+
 }
