@@ -57,11 +57,11 @@ Route::get('/withdraw/{id}/delete', ['as' => 'withdraw.destroy', 'uses' => 'With
 // paqueto.com/u/danielnaranjo
 Route::get('/u/{slug}/{format?}', 'UserController@slug');
 
-Route::prefix('api')->group(function() {
-    Route::get('message/{id}', 'MessageController@display');
-    Route::get('users/thismonth', 'UserController@mes');
-    Route::get('users/today', 'UserController@semana');
-});
+// Route::prefix('api')->group(function() {
+//     Route::get('message/{id}', 'MessageController@display');
+//     Route::get('users/thismonth', 'UserController@mes');
+//     Route::get('users/today', 'UserController@semana');
+// });
 
 Route::post('/upload/{id}', ['as'=>'uploadfile','uses'=>'UserController@uploadFile']);
 Route::post('/package/upload/{id}', 'PackageController@uploadFile');

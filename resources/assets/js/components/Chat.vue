@@ -77,25 +77,29 @@
 
 <script>
 export default {
-    mounted() {
-        console.log('Chat mounted.')
-    },
-    data() {
-        return {
-            list: []
-        };
-    },
-
-    created() {
-        this.getChat();
-    },
-
-    methods: {
-        getChat() {
-            axios.get('/api/message/1').then((res) => {
-                this.list = res.data;
-            });
+        mounted() {
+            console.log('Mensajes mounted.')
+        },
+        props: {
+            id:{
+                type: Number
+            }
+        },
+        data() {
+            return {
+                list: []
+            };
+        },
+        created() {
+            this.getList(this.id);
+        },
+        methods: {
+            getList(id) {
+                axios.get('/api/message/'+id).then((res) => {
+                    //console.log('@ axios.get', JSON.stringify(res) );
+                    this.list = res.data;
+                });
+            }
         }
     }
-}
 </script>

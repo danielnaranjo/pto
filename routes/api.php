@@ -20,3 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // Route::prefix('api')->group(function() {
 //     Route::resource('tasks', 'TaskController');
 // });
+
+Route::get('message/{id}', 'MessageController@display');
+Route::get('users/thismonth', 'UserController@mes');
+Route::get('users/today', 'UserController@semana');
