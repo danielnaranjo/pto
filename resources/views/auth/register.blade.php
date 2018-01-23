@@ -45,7 +45,7 @@
                                     {!! Form::open(['route' => 'register', 'class' => 'm-login__form m-form ']) !!}
                                         {!! Form::hidden ('ipAddress', request()->ip(), ['id' => 'ipAddress']) !!}
                                         <div class="form-group m-form__group{{ $errors->has('name') ? ' has-error' : '' }}">
-                                            <input class="form-control m-input"  id="name" type="text" name="name" value="{{ old('name') }}" required autofocus placeholder="Nombre" >
+                                            {!! Form::text('name', old('name'), ['class' => 'form-control m-input', 'id' => 'name', 'placeholder'=>'Nombre', 'required' => true, 'autofocus'=>true]) !!}
                                             @if ($errors->has('name'))
                                                 <span class="help-block">
                                                     <strong>{{ $errors->first('name') }}</strong>
@@ -53,7 +53,7 @@
                                             @endif
                                         </div>
                                         <div class="form-group m-form__group{{ $errors->has('email') ? ' has-error' : '' }}">
-											<input class="form-control m-input" id="email" type="email" name="email" value="{{ old('email') }}" required autofocus placeholder="E-mail" >
+										{!! Form::email('email', old('email'), ['class' => 'form-control m-input', 'id' => 'email', 'placeholder'=>'E-mail', 'required' => true, 'autofocus'=>true]) !!}
                                             @if ($errors->has('email'))
                                                 <span class="help-block">
                                                     <strong>{{ $errors->first('email') }}</strong>
@@ -61,7 +61,7 @@
                                             @endif
 										</div>
 										<div class="form-group m-form__group{{ $errors->has('password') ? ' has-error' : '' }}">
-											<input class="form-control m-input" type="password" placeholder="Contraseña" name="password" required>
+											{!! Form::password('password', ['class' => 'form-control m-input', 'id' => 'password', 'placeholder'=>'Contraseña', 'required' => true]) !!}
                                             @if ($errors->has('password'))
                                                 <span class="help-block">
                                                     <strong>{{ $errors->first('password') }}</strong>
@@ -69,7 +69,7 @@
                                             @endif
 										</div>
                                         <div class="form-group m-form__group{{ $errors->has('password') ? ' has-error' : '' }}">
-											<input class="form-control m-input m-login__form-input--last" placeholder="Confirmar contraseña" id="password-confirm" type="password" name="password_confirmation" required>
+                                            {!! Form::password('password_confirmation', ['class' => 'form-control m-input m-login__form-input--last', 'id' => 'password-confirm', 'placeholder'=>'Confirmar contraseña', 'required' => true]) !!}
 										</div>
 
 										<div class="m-login__form-action">

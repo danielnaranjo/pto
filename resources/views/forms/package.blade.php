@@ -61,7 +61,7 @@
                                         <select class="form-control m-input" name="service_id">
                                             <option value="-1">Seleccionar</option>
                                             @foreach ($services as $service)
-                                                <option value="{{$service->service_id}}" @if($results->service_id==$service->service_id) selected @endif>{{$service->type}}</option>
+                                                <option value="{{ $service->service_id }}">{{$service->type}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -74,7 +74,7 @@
                                         <select class="form-control m-input" name="origin">
                                             <option value="-1">Seleccionar</option>
                                             @foreach ($countries as $country)
-                                                <option value="{{$country->country_id}}" @if($results->origin==$country->country_id) selected @endif>{{$country->name}}</option>
+                                                <option value="{{$country->country_id}}">{{$country->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -87,7 +87,7 @@
                                         <select class="form-control m-input" name="destination">
                                             <option value="-1">Seleccionar</option>
                                             @foreach ($countries as $country)
-                                                <option value="{{$country->country_id}}" @if($results->destination==$country->country_id) selected @endif>{{$country->name}}</option>
+                                                <option value="{{$country->country_id}}">{{$country->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -113,7 +113,7 @@
                                         Negociable
                                     </label>
                                     <div class="col-9">
-                                        {!! Form::select('auction', ['N' => 'No, tarifa plana', 'Y' => 'Si, escucho ofertas'], $results->auction, ['class' => 'form-control m-input', 'id' => 'auction']) !!}
+                                        {!! Form::select('auction', ['N' => 'No, tarifa plana', 'Y' => 'Si, escucho ofertas'], null, ['class' => 'form-control m-input', 'id' => 'auction']) !!}
                                     </div>
                                 </div>
                                 <div class="m-form__seperator m-form__seperator--dashed m-form__seperator--space-2x"></div>

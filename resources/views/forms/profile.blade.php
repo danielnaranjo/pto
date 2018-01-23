@@ -131,7 +131,8 @@
                                                 Nombre
                                             </label>
                                             <div class="col-7">
-                                                <input class="form-control m-input" type="text" name="name" value="{{ $results->name }}">
+                                                <!-- <input class="form-control m-input" type="text" name="name" value="{{ $results->name }}"> -->
+                                                {!! Form::text('name', $results->name, ['class' => 'form-control m-input',  'placeholder'=>'Nombre completo', 'required' => true]) !!}
                                             </div>
                                         </div>
                                         <div class="form-group m-form__group row">
@@ -139,7 +140,8 @@
                                                 E-mail
                                             </label>
                                             <div class="col-7">
-                                                <input class="form-control m-input" type="email" name="email" value="{{ $results->email }}">
+                                                <!-- <input class="form-control m-input" type="email" name="email" value="{{ $results->email }}"> -->
+                                                {!! Form::email('email', $results->email, ['class' => 'form-control m-input',  'placeholder'=>'E-mail', 'required' => true]) !!}
                                             </div>
                                         </div>
                                         <div class="form-group m-form__group row">
@@ -147,7 +149,8 @@
                                                 Teléfono
                                             </label>
                                             <div class="col-7">
-                                                <input class="form-control m-input" type="text" name="phone" value="{{ $results->phone }}">
+                                                <!-- <input class="form-control m-input" type="text" name="phone" value="{{ $results->phone }}"> -->
+                                                {!! Form::text('phone', $results->phone, ['class' => 'form-control m-input',  'placeholder'=>'Teléfono', 'required' => true]) !!}
                                             </div>
                                         </div>
                                         <div class="form-group m-form__group row">
@@ -155,7 +158,8 @@
                                                 Cédula
                                             </label>
                                             <div class="col-7">
-                                                <input class="form-control m-input" type="text" name="dni" value="{{ $results->dni }}">
+                                                <!-- <input class="form-control m-input" type="text" name="dni" value="{{ $results->dni }}"> -->
+                                                {!! Form::text('dni', $results->dni, ['class' => 'form-control m-input',  'placeholder'=>'Cédula / Pasaporte / DNI', 'required' => true]) !!}
                                             </div>
                                         </div>
                                         <div class="form-group m-form__group row">
@@ -163,7 +167,8 @@
                                                 Nacimiento
                                             </label>
                                             <div class="col-7">
-                                                <input class="form-control m-input m_datetimepicker_2" type="text" name="birthdate" value="{{ $results->birthdate }}">
+                                                <!-- <input class="form-control m-input m_datetimepicker_2" type="text" name="birthdate" value="{{ $results->birthdate }}"> -->
+                                                {!! Form::date('birthdate', $results->birthdate, ['class' => 'form-control m-input m_datetimepicker_2',  'placeholder'=>'Fecha de nacimiento, 'required' => true]) !!}
                                             </div>
                                         </div>
                                         <div class="form-group m-form__group row">
@@ -191,7 +196,8 @@
                                                 Dirección
                                             </label>
                                             <div class="col-7">
-                                                <input class="form-control m-input" type="text" name="address" value="{{ $results->address }}">
+                                                <!-- <input class="form-control m-input" type="text" name="address" value="{{ $results->address }}"> -->
+                                                {!! Form::text('address', $results->address, ['class' => 'form-control m-input',  'placeholder'=>'Dirección', 'required' => true]) !!}
                                             </div>
                                         </div>
                                         <div class="form-group m-form__group row">
@@ -199,7 +205,8 @@
                                                 Ciudad
                                             </label>
                                             <div class="col-7">
-                                                <input class="form-control m-input" type="text" name="city" value="{{ $results->city }}">
+                                                <!-- <input class="form-control m-input" type="text" name="city" value="{{ $results->city }}"> -->
+                                                {!! Form::text('city', $results->city, ['class' => 'form-control m-input',  'placeholder'=>'Ciudad', 'required' => true]) !!}
                                             </div>
                                         </div>
                                         <div class="form-group m-form__group row">
@@ -207,7 +214,8 @@
                                                 Estado
                                             </label>
                                             <div class="col-7">
-                                                <input class="form-control m-input" type="text" name="province" value="{{ $results->province }}">
+                                                <!-- <input class="form-control m-input" type="text" name="province" value="{{ $results->province }}"> -->
+                                                {!! Form::text('province', $results->province, ['class' => 'form-control m-input',  'placeholder'=>'Estado / Provincia', 'required' => true]) !!}
                                             </div>
                                         </div>
                                         <div class="form-group m-form__group row">
