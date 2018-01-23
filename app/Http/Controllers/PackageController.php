@@ -57,7 +57,7 @@ class PackageController extends Controller
         $data['countries'] = Country::select('country_id','name')->get();
         $data['services'] = Service::select('service_id','type')->get();
         $data['results'] = DB::table('package')
-            ->select('origin','destination','title','description','price')
+            ->select('*')
             ->limit(1)
             ->get();
         return view('forms.package', $data );
