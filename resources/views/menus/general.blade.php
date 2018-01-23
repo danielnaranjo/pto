@@ -74,13 +74,13 @@
             </span>
         </a>
     </li> -->
-    <li class="m-menu__item d-block d-sm-none">
+    <li class="m-menu__item">
         <a  href="{{ route('logout') }}"
             onclick="event.preventDefault();
                      document.getElementById('logout-form').submit();" class="m-menu__link">
             <span class="m-menu__item-here"></span>
             <span class="m-menu__link-text">
-                Salir
+                Cerrar sesión
             </span>
         </a>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

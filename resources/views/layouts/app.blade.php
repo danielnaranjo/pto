@@ -112,10 +112,12 @@
         @endcomponent
         @endif
 
-        @if(preg_match("/package.edit/i", Route::currentRouteName() ))
+        @if(preg_match("/travel.create/i", Route::currentRouteName() ))
         <script>
             $(function(){
-                //toSelect(container,value,data,keyTag,labelTag,disabled=
+                //toSelect(container,value,data,keyTag,labelTag,disabled);
+                toSelect('origin',1,<?=$origin?>,'country_id','name');
+                toSelect('destination',1,<?=$destination?>,'country_id','name');
             });
         </script>
         @endif
