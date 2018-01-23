@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Travel;
 use App\Models\Service;
+use App\Models\Country;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
@@ -52,10 +53,13 @@ class TravelController extends Controller
         $data['_controller'] = 'TravelController';
         $data['titulo'] = "Nuevo viaje";
         $data['ruta'] = 'travel';
+
         $data['results'] = DB::table('travel')
-            ->select('*')
+            ->select('origin', 'destination', 'date', 'transportation', 'title', 'dimensions', 'weight', 'restrictions')
             ->limit(1)
             ->get();
+        $data['origin'] = Country::select('country_id','name')->get();
+        $data['destination'] = Country::select('country_id','name')->get();
         $data['required'] = [];
         return view('pages.autoform', $data );
     }
@@ -68,7 +72,19 @@ class TravelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = new Travel;
+        $data->user_id = $request->user_id;
+        $data->type = 'No especificado';
+        $data->origin = $request->origin;
+        $data->destination = $request->destination;
+        $data->date = Date::parse($request->delivery)->format('Y-m-d H:s:i');
+        $data->title = $request->title;
+        $data->dimensions = $request->dimensions;
+        $data->weight = $request->weight;
+        $data->restrictions = $request->restrictions;
+        $data->transportation = $request->transportation;
+        $data->save();
+        return redirect()->action('TravelController@edit',['travel_id'=> $data ])->with('status', 'Información actualizada!');
     }
 
     /**
@@ -90,7 +106,19 @@ class TravelController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data['_id'] = $id;
+        $data['id'] = $id;
+        $data['_controller'] = 'TravelController';
+        $data['titulo'] = "Editar viaje";
+        $data['ruta'] = 'travel';
+        $data['results'] = DB::table('travel')
+            ->select('date', 'transportation', 'title', 'dimensions', 'weight', 'restrictions')
+            ->where('travel_id',$id)
+            ->get();
+        // $data['origin'] = Country::select('country_id','name')->get();
+        // $data['destination'] = Country::select('country_id','name')->get();
+        $data['required'] = [];
+        return view('pages.autoform', $data );
     }
 
     /**
@@ -102,7 +130,15 @@ class TravelController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = Travel::find($id);
+        $data->date = Date::parse($request->delivery)->format('Y-m-d H:s:i');
+        $data->title = $request->title;
+        $data->dimensions = $request->dimensions;
+        $data->weight = $request->weight;
+        $data->restrictions = $request->restrictions;
+        $data->transportation = $request->transportation;
+        $data->save();
+        return redirect()->action('TravelController@edit',['travel_id'=> $data ])->with('status', 'Información actualizada!');
     }
 
     /**
