@@ -44,7 +44,7 @@
 									</div>
                                     {!! Form::open(['route' => 'login', 'class' => 'm-login__form m-form ']) !!}
 										<div class="form-group m-form__group{{ $errors->has('email') ? ' has-error' : '' }}">
-											<input class="form-control m-input" id="email" type="email" name="email" value="{{ old('email') }}" required autofocus placeholder="E-mail" >
+                                            {!! Form::email('email', old('email'), ['class' => 'form-control m-input', 'id' => 'email', 'placeholder'=>'E-mail', 'required' => true, 'autofocus'=>true]) !!}
                                             @if ($errors->has('email'))
                                                 <span class="help-block">
                                                     <strong>{{ $errors->first('email') }}</strong>
@@ -52,7 +52,7 @@
                                             @endif
 										</div>
 										<div class="form-group m-form__group{{ $errors->has('password') ? ' has-error' : '' }}">
-											<input class="form-control m-input m-login__form-input--last" type="password" placeholder="Contraseña" name="password"required>
+                                            {!! Form::password('password', ['class' => 'form-control m-input m-login__form-input--last', 'id' => 'password', 'placeholder'=>'Contraseña', 'required' => true]) !!}
                                             @if ($errors->has('password'))
                                                 <span class="help-block">
                                                     <strong>{{ $errors->first('password') }}</strong>
@@ -62,7 +62,7 @@
                                         <div class="row m-login__form-sub">
 											<div class="col m--align-left">
 												<label class="m-checkbox m-checkbox--focus">
-													<input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>
+                                                    {{ Form::checkbox('remember',null, old('remember') ? 'checked' : '' ) }}
                                                     Recordarme
 													<span></span>
 												</label>
@@ -77,9 +77,7 @@
 
 										</div>
 										<div class="m-login__form-action">
-											<button id="m_login_signin_submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air">
-												Entrar
-											</button>
+                                            {{ Form::submit('Entrar', ['class'=>'btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air','id'=>'m_login_signin_submit']) }}
 										</div>
                                     {!! Form::close() !!}
                                     <div class="form-group m-form__group">

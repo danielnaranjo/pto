@@ -26,4 +26,5 @@ return [
     'country' => 'País',
     'phone' => 'Teléfono',
     'comment' => 'Comentario',
+    'transportation' => 'Medio de transporte',
 ];

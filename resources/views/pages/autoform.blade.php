@@ -111,21 +111,24 @@
                                                                 }
                                                             @endphp
 
-                                                            @if ( strlen($result->$f) >= 200 || preg_match("/description/i", $f) || preg_match("/text/i", $f) || preg_match("/comment/i", $f))
+                                                            @if (preg_match("/description/i", $f)  || strlen($result->$f) >= 200 || preg_match("/description/i", $f) || preg_match("/text/i", $f) || preg_match("/comment/i", $f) || preg_match("/restrictions/i", $f) || preg_match("/restrictions/i", $f))
                                                                 {{-- textearea --}}
-                                                    	        {!! Form::textarea(safeInputs($f), $valor, ['class' => 'form-control summernote', 'id' => safeInputs($f), 'rows'=> '10', 'placeholder'=> $f]) !!}
-                                                            @elseif ( preg_match("/fecha/i", $f))
+                                                    	        {!! Form::textarea(safeInputs($f), $valor, ['class' => 'form-control summernote', 'id' => safeInputs($f), 'rows'=> '10', 'placeholder'=> __('messages.'.$f)]) !!}
+                                                            @elseif ( preg_match("/date/i", $f) ||  preg_match("/delivery/i", $f) || preg_match("/created/i", $f))
                                                                 {{-- date --}}
                                                     	        {!! Form::text(safeInputs($f), $valor, ['class' => 'form-control m_datetimepicker_2', 'id' => safeInputs($f), 'placeholder'=>'AAAA-MM-DD']) !!}
                                                             @elseif ( preg_match("/email/i", $f))
                                                                 {{-- email --}}
-                                                    	        {!! Form::email(safeInputs($f), $valor, ['class' => 'form-control', 'id' => safeInputs($f), 'placeholder'=> $f ]) !!}
+                                                    	        {!! Form::email(safeInputs($f), $valor, ['class' => 'form-control', 'id' => safeInputs($f), 'placeholder'=> __('messages.'.$f) ]) !!}
                                                             @elseif ( preg_match("/enviado/i", $f) || preg_match("/leido/i", $f))
                                                                 {{-- select --}}
                                                                 {!! Form::select(safeInputs($f), [0 => 'No', '1' => 'Si'], $valor, ['class' => 'form-control', 'id' => safeInputs($f)]) !!}
+                                                            @elseif ( preg_match("/transportation/i", $f))
+                                                                {{-- select --}}
+                                                                {!! Form::select(safeInputs($f), ['NA' => 'No especifico', 'plane' => 'Avión', 'ground' => 'Terrestre', 'sea' => 'Barco'], $valor, ['class' => 'form-control', 'id' => safeInputs($f)]) !!}
                                                             @elseif ( ( preg_match("/_id/i", $f)))
                                                                 {{-- input[text] --}}
-                                                                {!! Form::text(safeInputs($f), $valor, ['class' => 'form-control', 'id' => safeInputs($f), 'placeholder'=> $f]) !!}
+                                                                {!! Form::text(safeInputs($f), $valor, ['class' => 'form-control', 'id' => safeInputs($f), 'placeholder'=> __('messages.'.$f)]) !!}
 
                                                             @elseif ( preg_match("/image/i", $f) || preg_match("/arch/i", $f) || preg_match("/logo/i", $f) )
                                                                 {{-- input[file] --}}
@@ -162,7 +165,7 @@
                                                                 {!! Form::select(safeInputs($f), $valores, $valor, ['placeholder' => 'Seleccionar', 'class' => 'form-control', 'id' => safeInputs($f)]) !!}
                                                             @else
                                                                 {{-- input[text] --}}
-                                                                {!! Form::text(safeInputs($f), $valor, ['class' => 'form-control', 'id' => safeInputs($f), 'placeholder'=> $f]) !!}
+                                                                {!! Form::text(safeInputs($f), $valor, ['class' => 'form-control', 'id' => safeInputs($f), 'placeholder'=> __('messages.'.$f)]) !!}
                                                             @endif
                                                         </div>
 
@@ -210,54 +213,11 @@
                                                     {{ Form::submit('Guardar', ['class'=>'btn btn-info m-btn--pill']) }}
                                                 @endif
 
-                                                @if ( preg_match("/envios.create/i", Route::currentRouteName()))
-                                                    {!! Form::hidden ('env_consorcio', $_GET['id'], ['id' => 'env_consorcio']) !!}
-                                                    {!! Form::hidden ('env_enviado', 0, ['id' => 'env_enviado']) !!}
-                                                    {!! Form::hidden ('env_leido', 0, ['id' => 'env_leido']) !!}
-                                                    {!! Form::hidden ('env_fecha', \Carbon\Carbon::now()->format('Y-m-d'), ['id' => 'env_fecha']) !!}
-                                                    {!! Form::hidden ('env_fechaenvio', '0000-00-00', ['id' => 'env_fechaenvio']) !!}
+
+                                                @if ( preg_match("/travel.create/i", Route::currentRouteName()))
+                                                    {!! Form::hidden ('user_id', Auth::user()->id, ['id' => 'user_id']) !!}
                                                 @endif
 
-                                                @if ( preg_match("/consorcios.create/i", Route::currentRouteName()))
-                                                    {!! Form::hidden ('con_inmobiliaria', $_GET['id'], ['id' => 'con_inmobiliaria']) !!}
-                                                    {!! Form::hidden ('con_fecha', \Carbon\Carbon::now()->format('Y-m-d'), ['id' => 'con_fecha']) !!}
-                                                @endif
-
-                                                @if ( preg_match("/alertas.create/i", Route::currentRouteName()))
-                                                    {!! Form::hidden ('ale_consorcio', $_GET['id'], ['id' => 'ale_consorcio']) !!}
-                                                    {!! Form::hidden ('ale_enviado', 0, ['id' => 'ale_enviado']) !!}
-                                                    {!! Form::hidden ('ale_leido', 0, ['id' => 'ale_leido']) !!}
-                                                    {!! Form::hidden ('ale_fecha', \Carbon\Carbon::now()->format('Y-m-d'), ['id' => 'ale_fecha']) !!}
-                                                @endif
-
-                                                @if ( preg_match("/masivos.create/i", Route::currentRouteName()))
-                                                    {!! Form::hidden ('mas_inmo', $_GET['id'], ['id' => 'mas_inmo']) !!}
-                                                    {!! Form::hidden ('mas_enviado', 0, ['id' => 'mas_enviado']) !!}
-                                                    {!! Form::hidden ('mas_leido', 0, ['id' => 'mas_leido']) !!}
-                                                    {!! Form::hidden ('mas_fecha', \Carbon\Carbon::now()->format('Y-m-d'), ['id' => 'mas_fecha']) !!}
-                                                @endif
-
-                                                @if ( preg_match("/documentos.create/i", Route::currentRouteName()))
-                                                    {!! Form::hidden ('doc_conso', $_GET['id'], ['id' => 'doc_conso']) !!}
-                                                @endif
-
-                                                @if ( preg_match("/docmas.create/i", Route::currentRouteName()))
-                                                    {!! Form::hidden ('doc_inmo', $_GET['id'], ['id' => 'mas_inmo']) !!}
-                                                @endif
-
-                                                @if ( preg_match("/formasdepago.create/i", Route::currentRouteName()))
-                                                    {!! Form::hidden ('consorcio_id', $_GET['id'], ['id' => 'consorcio_id']) !!}
-                                                @endif
-
-                                                @if ( preg_match("/utiles.create/i", Route::currentRouteName()))
-                                                    {!! Form::hidden ('uti_consorcio', $_GET['id'], ['id' => 'uti_consorcio']) !!}
-                                                    {!! Form::hidden ('uti_inmo', Session::get('inmobiliaria')->inm_id, ['id' => 'uti_inmo']) !!}
-                                                @endif
-
-
-                                                @if ( preg_match("/calendario.create/i", Route::currentRouteName()))
-                                                    {!! Form::hidden ('cal_consorcio', $_GET['id'], ['id' => 'cal_consorcio']) !!}
-                                                @endif
 
                                             {{-- Form::close() --}}
                                             {!! Form::close() !!}
