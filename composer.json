@@ -22,6 +22,7 @@
         "pusher/pusher-php-server": "~2.6",
         "reliese/laravel": "^0.0.13",
         "sentry/sentry-laravel": "^0.8.0",
+        "srmklive/paypal": "~1.0",
         "webpatser/laravel-uuid": "2.*"
     },
     "require-dev": {

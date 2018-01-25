@@ -199,6 +199,9 @@ return [
 
         /* Cloudinary */
         JD\Cloudder\CloudderServiceProvider::class,
+
+        /* Paypal */
+        Srmklive\PayPal\Providers\PayPalServiceProvider::class,
     ],
 
     /*
@@ -263,6 +266,8 @@ return [
         'Cloudder' => JD\Cloudder\Facades\Cloudder::class,
         /* UUID */
         'Uuid' => Webpatser\Uuid\Uuid::class,
+        /* Paypal */
+        'PayPal' => Srmklive\PayPal\Facades\PayPal::class,
     ],
 
 ];
