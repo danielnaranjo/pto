@@ -73,3 +73,9 @@ Route::get('/user/package/{id}', 'PackageController@usuario');
 // OAuth Routes
 Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider');
 Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
+
+// PayPal
+Route::get('paypal', 'PayPalController@index');
+Route::get('paypal/ec-checkout', 'PayPalController@getExpressCheckout');
+Route::get('paypal/ec-checkout-success', 'PayPalController@getExpressCheckoutSuccess');
+Route::post('paypal/notify', 'PayPalController@notify');
