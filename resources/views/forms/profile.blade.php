@@ -168,7 +168,7 @@
                                             </label>
                                             <div class="col-7">
                                                 <!-- <input class="form-control m-input m_datetimepicker_2" type="text" name="birthdate" value="{{ $results->birthdate }}"> -->
-                                                {!! Form::date('birthdate', $results->birthdate, ['class' => 'form-control m-input m_datetimepicker_2',  'placeholder'=>'Fecha de nacimiento, 'required' => true]) !!}
+                                                {!! Form::date('birthdate', $results->birthdate, ['class' => 'form-control m-input m_datetimepicker_2',  'placeholder'=>'Fecha de nacimiento', 'required' => true]) !!}
                                             </div>
                                         </div>
                                         <div class="form-group m-form__group row">
