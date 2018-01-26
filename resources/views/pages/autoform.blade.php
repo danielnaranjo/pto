@@ -233,29 +233,58 @@
                         </div>
                     <!--end:: Widgets/Application Sales-->
                     </div>
-                    <div class="col-xl-4 col-md-4" style="display:none">
-                        {{--json_encode($results)--}}
-                            <div class="m-portlet m-portlet--mobile">
-                                <div class="m-portlet__head">
-                                    <div class="m-portlet__head-caption">
-                                        <div class="m-portlet__head-title">
-                                            <h3 class="m-portlet__head-text">
-                                                Formas de pagos
-                                            </h3>
-                                        </div>
+                    <div class="col-xl-4 col-md-4">
+                        @if ( preg_match("/travel.create/i", Route::currentRouteName()))
+                        <div class="m-portlet m--bg-accent m-portlet--bordered-semi m-portlet--skin-dark" id="preview">
+                            <div class="m-portlet__head">
+                                <div class="m-portlet__head-caption">
+                                    <div class="m-portlet__head-title">
+                                        <h3 class="m-portlet__head-text">
+                                            Viajando desde <span id="desde" data-toggle="tooltip" data-placement="bottom" title="" class="destacar" data-original-title="Desde">Punto A</span> a <span id="hasta" data-toggle="tooltip" data-placement="bottom" title="" class="destacar" data-original-title="Hasta">Punto B</span>
+                                        </h3>
                                     </div>
                                 </div>
-                                <div class="m-portlet__body">
-
-                                </div>
-                                <div class="m-portlet__foot">
-									<div class="row align-items-center">
-                                        <a href="#" class="btn m-btn--pill btn-info m-btn m-btn--custom btn-block">
-                                            Hola
+                            </div> <div class="m-portlet__body">
+                                <div class="m-widget7 m-widget7--skin-dark">
+                                    <div class="m-widget7__desc">
+                                        Viajo en <span data-toggle="tooltip" data-placement="bottom" title="" class="destacar" data-original-title="Medio de transporte" id="transporte">
+                                            (ej. medio de transporte)
+                                        </span>
+                                        tengo disponible
+                                        <span data-toggle="tooltip" data-placement="bottom" title="" class="destacar" data-original-title="Peso establecido" id="peso">
+                                            (ej. 00 kilos)
+                                        </span>
+                                        para llevar
+                                        <span data-toggle="tooltip" data-placement="bottom" title="" class="destacar" data-original-title="Tamaño permitido" id="maleta">
+                                            (ej. tengo disponible una maleta mediana de 00 pies)
+                                        </span>
+                                        no llevo
+                                        <span data-toggle="tooltip" data-placement="bottom" title="" class="destacar" data-original-title="Articulos prohibidos" id="prohibidos">
+                                            (ej. No llevo liquidos ni comida)
+                                        </span>
+                                    </div>
+                                    <div class="m-widget7__user">
+                                        <div class="m-widget7__user-img">
+                                            <img src="{{ Auth::user()->avatar }}" alt="avatar" class="m-widget7__img">
+                                        </div>
+                                        <div class="m-widget7__info">
+                                            <span class="m-widget7__username">
+                                                {{ Auth::user()->name }}
+                                            </span> <br>
+                                            <span class="m-widget7__time">
+                                                hace segundos
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="m-widget7__button">
+                                        <a href="/u/{{ Auth::user()->slug }}" role="button" class="m-btn m-btn--pill btn btn-info">
+                                            Contactar a {{ Auth::user()->name }}
                                         </a>
-									</div>
-								</div>
+                                    </div>
+                                </div>
                             </div>
+                        </div>
+                        @endif
                     </div>
                 </div>
             <!--End::Main Portlet-->

@@ -118,6 +118,25 @@
                 //toSelect(container,value,data,keyTag,labelTag,disabled);
                 toSelect('origin',1,<?=$origin?>,'country_id','name');
                 toSelect('destination',1,<?=$destination?>,'country_id','name');
+
+                $('#origin').on('change',function(){
+                    $('#preview #desde').html( $('#origin :selected').text() );
+                });
+                $('#destination').on('change',function(){
+                    $('#preview #hasta').html( $('#destination :selected').text() );
+                });
+                $('#transportation').on('change',function(){
+                    $('#preview #transporte').html( $('#transportation :selected').text() );
+                });
+                $('#dimensions').on('keypress',function(){
+                    $('#preview #maleta').html( $('#dimensions').val() );
+                });
+                $('#weight').on('keypress',function(){
+                    $('#preview #peso').html( $('#weight').val() );
+                });
+                $('.summernote').on('summernote.keyup', function(we, e) {
+                    $('#preview #prohibidos').html( $('.note-editing-area').text() );
+                });
             });
         </script>
         @endif
@@ -127,6 +146,8 @@
             console.log('@result@', '{{ $results }}', '{{$_SERVER['SERVER_NAME']}}');
         </script>
         @endif
+
+
 	</body>
 	<!-- end::Body -->
 </html>
