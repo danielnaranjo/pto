@@ -3,7 +3,7 @@
         <!--begin::Widget 14 Item-->
         <div class="m-widget4__item" v-for="result in list">
             <div class="m-widget4__img m-widget4__img--pic">
-                <a :href="'/u/'+ result.slug">
+                <a :href="'/u/'+ result.slug" class="conectado" data-badge="0">
                     <img src="assets/app/media/img/users/100_4.jpg" :alt="result.name">
                 </a>
             </div>

@@ -1,35 +1,45 @@
-<h4>Actividad diaria</h4>
+<h4>Actividad diaria: {{ $fecha }}</h4>
 
 <p>
     Últimos comentarios
 </p>
 <ul>
-    <li>{!! !!}</li>
+    @foreach ($comentarios as $comentario)
+    <li>{!! $comentario->comment !!}</li>
+    @endforeach
 </ul>
 <p>
     Últimos mensajes
 </p>
 <ul>
-    <li>{!! !!}</li>
+    @foreach ($mensajes as $mensaje)
+    <li>{!! $mensaje->comment !!}</li>
+    @endforeach
 </ul>
 
 <p>
     Últimos paquetes
 </p>
 <ul>
-    <li>{!! !!}</li>
+    @foreach ($paquetes as $paquete)
+    <li>{!! $paquete->title !!}</li>
+    @endforeach
 </ul>
 
 <p>
     Últimos usuarios
 </p>
 <ul>
-    <li>{!! !!}</li>
+    @foreach ($usuarios as $usuario)
+    <li>{!! $usuario->name !!}</li>
+    @endforeach
 </ul>
 
 <p>
     Últimos viajes
 </p>
 <ul>
-    <li>{!! !!}</li>
+    @foreach ($viajeros as $viajero)
+    <li>{!! $viajero->title !!}</li>
+    @endforeach
 </ul>

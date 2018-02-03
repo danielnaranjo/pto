@@ -4851,206 +4851,7 @@ module.exports = {
 
 
 /***/ }),
-/* 2 */,
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-var utils = __webpack_require__(1);
-var normalizeHeaderName = __webpack_require__(142);
-
-var DEFAULT_CONTENT_TYPE = {
-  'Content-Type': 'application/x-www-form-urlencoded'
-};
-
-function setContentTypeIfUnset(headers, value) {
-  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
-    headers['Content-Type'] = value;
-  }
-}
-
-function getDefaultAdapter() {
-  var adapter;
-  if (typeof XMLHttpRequest !== 'undefined') {
-    // For browsers use XHR adapter
-    adapter = __webpack_require__(9);
-  } else if (typeof process !== 'undefined') {
-    // For node use HTTP adapter
-    adapter = __webpack_require__(9);
-  }
-  return adapter;
-}
-
-var defaults = {
-  adapter: getDefaultAdapter(),
-
-  transformRequest: [function transformRequest(data, headers) {
-    normalizeHeaderName(headers, 'Content-Type');
-    if (utils.isFormData(data) ||
-      utils.isArrayBuffer(data) ||
-      utils.isBuffer(data) ||
-      utils.isStream(data) ||
-      utils.isFile(data) ||
-      utils.isBlob(data)
-    ) {
-      return data;
-    }
-    if (utils.isArrayBufferView(data)) {
-      return data.buffer;
-    }
-    if (utils.isURLSearchParams(data)) {
-      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
-      return data.toString();
-    }
-    if (utils.isObject(data)) {
-      setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
-      return JSON.stringify(data);
-    }
-    return data;
-  }],
-
-  transformResponse: [function transformResponse(data) {
-    /*eslint no-param-reassign:0*/
-    if (typeof data === 'string') {
-      try {
-        data = JSON.parse(data);
-      } catch (e) { /* Ignore */ }
-    }
-    return data;
-  }],
-
-  timeout: 0,
-
-  xsrfCookieName: 'XSRF-TOKEN',
-  xsrfHeaderName: 'X-XSRF-TOKEN',
-
-  maxContentLength: -1,
-
-  validateStatus: function validateStatus(status) {
-    return status >= 200 && status < 300;
-  }
-};
-
-defaults.headers = {
-  common: {
-    'Accept': 'application/json, text/plain, */*'
-  }
-};
-
-utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
-  defaults.headers[method] = {};
-});
-
-utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
-  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
-});
-
-module.exports = defaults;
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-//! moment.js locale configuration
-//! locale : Spanish [es]
-//! author : Julio Napurí : https://github.com/julionc
-
-;(function (global, factory) {
-    true ? factory(__webpack_require__(0)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
-   factory(global.moment)
-}(this, (function (moment) { 'use strict';
-
-
-var monthsShortDot = 'ene._feb._mar._abr._may._jun._jul._ago._sep._oct._nov._dic.'.split('_');
-var monthsShort = 'ene_feb_mar_abr_may_jun_jul_ago_sep_oct_nov_dic'.split('_');
-
-var monthsParse = [/^ene/i, /^feb/i, /^mar/i, /^abr/i, /^may/i, /^jun/i, /^jul/i, /^ago/i, /^sep/i, /^oct/i, /^nov/i, /^dic/i];
-var monthsRegex = /^(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre|ene\.?|feb\.?|mar\.?|abr\.?|may\.?|jun\.?|jul\.?|ago\.?|sep\.?|oct\.?|nov\.?|dic\.?)/i;
-
-var es = moment.defineLocale('es', {
-    months : 'enero_febrero_marzo_abril_mayo_junio_julio_agosto_septiembre_octubre_noviembre_diciembre'.split('_'),
-    monthsShort : function (m, format) {
-        if (!m) {
-            return monthsShortDot;
-        } else if (/-MMM-/.test(format)) {
-            return monthsShort[m.month()];
-        } else {
-            return monthsShortDot[m.month()];
-        }
-    },
-    monthsRegex : monthsRegex,
-    monthsShortRegex : monthsRegex,
-    monthsStrictRegex : /^(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre)/i,
-    monthsShortStrictRegex : /^(ene\.?|feb\.?|mar\.?|abr\.?|may\.?|jun\.?|jul\.?|ago\.?|sep\.?|oct\.?|nov\.?|dic\.?)/i,
-    monthsParse : monthsParse,
-    longMonthsParse : monthsParse,
-    shortMonthsParse : monthsParse,
-    weekdays : 'domingo_lunes_martes_miércoles_jueves_viernes_sábado'.split('_'),
-    weekdaysShort : 'dom._lun._mar._mié._jue._vie._sáb.'.split('_'),
-    weekdaysMin : 'do_lu_ma_mi_ju_vi_sá'.split('_'),
-    weekdaysParseExact : true,
-    longDateFormat : {
-        LT : 'H:mm',
-        LTS : 'H:mm:ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D [de] MMMM [de] YYYY',
-        LLL : 'D [de] MMMM [de] YYYY H:mm',
-        LLLL : 'dddd, D [de] MMMM [de] YYYY H:mm'
-    },
-    calendar : {
-        sameDay : function () {
-            return '[hoy a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
-        },
-        nextDay : function () {
-            return '[mañana a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
-        },
-        nextWeek : function () {
-            return 'dddd [a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
-        },
-        lastDay : function () {
-            return '[ayer a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
-        },
-        lastWeek : function () {
-            return '[el] dddd [pasado a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
-        },
-        sameElse : 'L'
-    },
-    relativeTime : {
-        future : 'en %s',
-        past : 'hace %s',
-        s : 'unos segundos',
-        ss : '%d segundos',
-        m : 'un minuto',
-        mm : '%d minutos',
-        h : 'una hora',
-        hh : '%d horas',
-        d : 'un día',
-        dd : '%d días',
-        M : 'un mes',
-        MM : '%d meses',
-        y : 'un año',
-        yy : '%d años'
-    },
-    dayOfMonthOrdinalParse : /\d{1,2}º/,
-    ordinal : '%dº',
-    week : {
-        dow : 1, // Monday is the first day of the week.
-        doy : 4  // The week that contains Jan 4th is the first week of the year.
-    }
-});
-
-return es;
-
-})));
-
-
-/***/ }),
-/* 5 */
+/* 2 */
 /***/ (function(module, exports) {
 
 /* globals __VUE_SSR_CONTEXT__ */
@@ -5156,6 +4957,205 @@ module.exports = function normalizeComponent (
     options: options
   }
 }
+
+
+/***/ }),
+/* 3 */,
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+var utils = __webpack_require__(1);
+var normalizeHeaderName = __webpack_require__(142);
+
+var DEFAULT_CONTENT_TYPE = {
+  'Content-Type': 'application/x-www-form-urlencoded'
+};
+
+function setContentTypeIfUnset(headers, value) {
+  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
+    headers['Content-Type'] = value;
+  }
+}
+
+function getDefaultAdapter() {
+  var adapter;
+  if (typeof XMLHttpRequest !== 'undefined') {
+    // For browsers use XHR adapter
+    adapter = __webpack_require__(9);
+  } else if (typeof process !== 'undefined') {
+    // For node use HTTP adapter
+    adapter = __webpack_require__(9);
+  }
+  return adapter;
+}
+
+var defaults = {
+  adapter: getDefaultAdapter(),
+
+  transformRequest: [function transformRequest(data, headers) {
+    normalizeHeaderName(headers, 'Content-Type');
+    if (utils.isFormData(data) ||
+      utils.isArrayBuffer(data) ||
+      utils.isBuffer(data) ||
+      utils.isStream(data) ||
+      utils.isFile(data) ||
+      utils.isBlob(data)
+    ) {
+      return data;
+    }
+    if (utils.isArrayBufferView(data)) {
+      return data.buffer;
+    }
+    if (utils.isURLSearchParams(data)) {
+      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
+      return data.toString();
+    }
+    if (utils.isObject(data)) {
+      setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
+      return JSON.stringify(data);
+    }
+    return data;
+  }],
+
+  transformResponse: [function transformResponse(data) {
+    /*eslint no-param-reassign:0*/
+    if (typeof data === 'string') {
+      try {
+        data = JSON.parse(data);
+      } catch (e) { /* Ignore */ }
+    }
+    return data;
+  }],
+
+  timeout: 0,
+
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'X-XSRF-TOKEN',
+
+  maxContentLength: -1,
+
+  validateStatus: function validateStatus(status) {
+    return status >= 200 && status < 300;
+  }
+};
+
+defaults.headers = {
+  common: {
+    'Accept': 'application/json, text/plain, */*'
+  }
+};
+
+utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
+  defaults.headers[method] = {};
+});
+
+utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
+});
+
+module.exports = defaults;
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+//! moment.js locale configuration
+//! locale : Spanish [es]
+//! author : Julio Napurí : https://github.com/julionc
+
+;(function (global, factory) {
+    true ? factory(__webpack_require__(0)) :
+   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   factory(global.moment)
+}(this, (function (moment) { 'use strict';
+
+
+var monthsShortDot = 'ene._feb._mar._abr._may._jun._jul._ago._sep._oct._nov._dic.'.split('_');
+var monthsShort = 'ene_feb_mar_abr_may_jun_jul_ago_sep_oct_nov_dic'.split('_');
+
+var monthsParse = [/^ene/i, /^feb/i, /^mar/i, /^abr/i, /^may/i, /^jun/i, /^jul/i, /^ago/i, /^sep/i, /^oct/i, /^nov/i, /^dic/i];
+var monthsRegex = /^(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre|ene\.?|feb\.?|mar\.?|abr\.?|may\.?|jun\.?|jul\.?|ago\.?|sep\.?|oct\.?|nov\.?|dic\.?)/i;
+
+var es = moment.defineLocale('es', {
+    months : 'enero_febrero_marzo_abril_mayo_junio_julio_agosto_septiembre_octubre_noviembre_diciembre'.split('_'),
+    monthsShort : function (m, format) {
+        if (!m) {
+            return monthsShortDot;
+        } else if (/-MMM-/.test(format)) {
+            return monthsShort[m.month()];
+        } else {
+            return monthsShortDot[m.month()];
+        }
+    },
+    monthsRegex : monthsRegex,
+    monthsShortRegex : monthsRegex,
+    monthsStrictRegex : /^(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre)/i,
+    monthsShortStrictRegex : /^(ene\.?|feb\.?|mar\.?|abr\.?|may\.?|jun\.?|jul\.?|ago\.?|sep\.?|oct\.?|nov\.?|dic\.?)/i,
+    monthsParse : monthsParse,
+    longMonthsParse : monthsParse,
+    shortMonthsParse : monthsParse,
+    weekdays : 'domingo_lunes_martes_miércoles_jueves_viernes_sábado'.split('_'),
+    weekdaysShort : 'dom._lun._mar._mié._jue._vie._sáb.'.split('_'),
+    weekdaysMin : 'do_lu_ma_mi_ju_vi_sá'.split('_'),
+    weekdaysParseExact : true,
+    longDateFormat : {
+        LT : 'H:mm',
+        LTS : 'H:mm:ss',
+        L : 'DD/MM/YYYY',
+        LL : 'D [de] MMMM [de] YYYY',
+        LLL : 'D [de] MMMM [de] YYYY H:mm',
+        LLLL : 'dddd, D [de] MMMM [de] YYYY H:mm'
+    },
+    calendar : {
+        sameDay : function () {
+            return '[hoy a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
+        },
+        nextDay : function () {
+            return '[mañana a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
+        },
+        nextWeek : function () {
+            return 'dddd [a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
+        },
+        lastDay : function () {
+            return '[ayer a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
+        },
+        lastWeek : function () {
+            return '[el] dddd [pasado a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
+        },
+        sameElse : 'L'
+    },
+    relativeTime : {
+        future : 'en %s',
+        past : 'hace %s',
+        s : 'unos segundos',
+        ss : '%d segundos',
+        m : 'un minuto',
+        mm : '%d minutos',
+        h : 'una hora',
+        hh : '%d horas',
+        d : 'un día',
+        dd : '%d días',
+        M : 'un mes',
+        MM : '%d meses',
+        y : 'un año',
+        yy : '%d años'
+    },
+    dayOfMonthOrdinalParse : /\d{1,2}º/,
+    ordinal : '%dº',
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 4  // The week that contains Jan 4th is the first week of the year.
+    }
+});
+
+return es;
+
+})));
 
 
 /***/ }),
@@ -17024,7 +17024,7 @@ return zhTw;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(133);
-module.exports = __webpack_require__(172);
+module.exports = __webpack_require__(175);
 
 
 /***/ }),
@@ -17042,7 +17042,7 @@ __webpack_require__(134);
 
 window.Vue = __webpack_require__(13);
 Vue.use(__webpack_require__(161));
-Vue.use(__webpack_require__(4));
+Vue.use(__webpack_require__(5));
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -17053,7 +17053,7 @@ Vue.component('ultimos', __webpack_require__(163));
 // Personalizados
 Vue.component('usuarios', __webpack_require__(166));
 Vue.component('mensajes', __webpack_require__(169));
-Vue.component('chat', __webpack_require__(183));
+Vue.component('chat', __webpack_require__(172));
 
 var app = new Vue({
   el: '#app'
@@ -34217,7 +34217,7 @@ window.Echo.channel('paqueto_online').listen('logged', function (e) {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(6)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(6)(module)))
 
 /***/ }),
 /* 136 */
@@ -46878,7 +46878,7 @@ module.exports = __webpack_require__(139);
 var utils = __webpack_require__(1);
 var bind = __webpack_require__(7);
 var Axios = __webpack_require__(141);
-var defaults = __webpack_require__(3);
+var defaults = __webpack_require__(4);
 
 /**
  * Create an instance of Axios
@@ -46961,7 +46961,7 @@ function isSlowBuffer (obj) {
 "use strict";
 
 
-var defaults = __webpack_require__(3);
+var defaults = __webpack_require__(4);
 var utils = __webpack_require__(1);
 var InterceptorManager = __webpack_require__(150);
 var dispatchRequest = __webpack_require__(151);
@@ -47493,7 +47493,7 @@ module.exports = InterceptorManager;
 var utils = __webpack_require__(1);
 var transformData = __webpack_require__(152);
 var isCancel = __webpack_require__(11);
-var defaults = __webpack_require__(3);
+var defaults = __webpack_require__(4);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -52959,12 +52959,12 @@ var map = {
 	"./en-nz.js": 44,
 	"./eo": 45,
 	"./eo.js": 45,
-	"./es": 4,
+	"./es": 5,
 	"./es-do": 46,
 	"./es-do.js": 46,
 	"./es-us": 47,
 	"./es-us.js": 47,
-	"./es.js": 4,
+	"./es.js": 5,
 	"./et": 48,
 	"./et.js": 48,
 	"./eu": 49,
@@ -53155,7 +53155,7 @@ webpackContext.id = 162;
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(5)
+var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(164)
 /* template */
@@ -53275,14 +53275,21 @@ var render = function() {
       _vm._l(_vm.list, function(result) {
         return _c("div", { staticClass: "m-widget4__item" }, [
           _c("div", { staticClass: "m-widget4__img m-widget4__img--pic" }, [
-            _c("a", { attrs: { href: "/u/" + result.slug } }, [
-              _c("img", {
-                attrs: {
-                  src: "assets/app/media/img/users/100_4.jpg",
-                  alt: result.name
-                }
-              })
-            ])
+            _c(
+              "a",
+              {
+                staticClass: "conectado",
+                attrs: { href: "/u/" + result.slug, "data-badge": "0" }
+              },
+              [
+                _c("img", {
+                  attrs: {
+                    src: "assets/app/media/img/users/100_4.jpg",
+                    alt: result.name
+                  }
+                })
+              ]
+            )
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "m-widget4__info" }, [
@@ -53341,7 +53348,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(5)
+var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(167)
 /* template */
@@ -53527,7 +53534,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(5)
+var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(170)
 /* template */
@@ -53595,7 +53602,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
-        console.log('Component mounted.');
+        console.log('Mensajes mounted.');
+    },
+
+    props: {
+        id: {
+            type: Number
+        }
     },
     data: function data() {
         return {
@@ -53603,15 +53616,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     created: function created() {
-        this.getList();
+        this.getList(this.id);
     },
 
-
     methods: {
-        getList: function getList() {
+        getList: function getList(id) {
             var _this = this;
 
-            axios.get('/api/message/1').then(function (res) {
+            axios.get('/api/message/' + id).then(function (res) {
+                //console.log('@ axios.get', JSON.stringify(res) );
                 _this.list = res.data;
             });
         }
@@ -53667,30 +53680,14 @@ if (false) {
 
 /***/ }),
 /* 172 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 173 */,
-/* 174 */,
-/* 175 */,
-/* 176 */,
-/* 177 */,
-/* 178 */,
-/* 179 */,
-/* 180 */,
-/* 181 */,
-/* 182 */,
-/* 183 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(5)
+var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(184)
+var __vue_script__ = __webpack_require__(173)
 /* template */
-var __vue_template__ = __webpack_require__(185)
+var __vue_template__ = __webpack_require__(174)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -53729,7 +53726,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 184 */
+/* 173 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -53811,282 +53808,336 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
-        console.log('Chat mounted.');
+        console.log('Mensajes mounted.');
+    },
+
+    props: {
+        id: {
+            type: Number
+        }
     },
     data: function data() {
         return {
-            list: []
+            mensajes: [],
+            mensaje: {
+                id: '',
+                body: ''
+            }
         };
     },
     created: function created() {
-        this.getChat();
+        this.getList(this.id);
     },
 
-
     methods: {
-        getChat: function getChat() {
+        getList: function getList(id) {
             var _this = this;
 
-            axios.get('/api/message/1').then(function (res) {
-                _this.list = res.data;
+            axios.get('/api/message/' + id).then(function (res) {
+                //console.log('@ axios.get', JSON.stringify(res) );
+                _this.mensajes = res.data;
+            });
+        },
+        enviar: function enviar() {
+            var _this2 = this;
+
+            axios.post('/message', this.mensaje).then(function (res) {
+                _this2.mensaje.body = '';
+                //this.mensaje.to_id = '';
+                _this2.getList(_this2.id);
+            }).catch(function (err) {
+                return console.error(err);
             });
         }
     }
 });
 
 /***/ }),
-/* 185 */
+/* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "m-quick-sidebar__content m--hide" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _vm._m(1),
+    _vm._v(" "),
+    _c("div", { staticClass: "tab-content" }, [
+      _c(
+        "div",
+        {
+          staticClass: "tab-pane active m-scrollable",
+          attrs: { id: "m_quick_sidebar_tabs_messenger", role: "tabpanel" }
+        },
+        _vm._l(_vm.mensajes, function(mensaje) {
+          return _c(
+            "div",
+            {
+              staticClass:
+                "m-messenger m-messenger--message-arrow m-messenger--skin-light"
+            },
+            [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "m-messenger__messages mCustomScrollbar _mCS_9 mCS-autoHide",
+                  staticStyle: {
+                    height: "89px",
+                    position: "relative",
+                    overflow: "visible"
+                  }
+                },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside",
+                      staticStyle: { "max-height": "none" },
+                      attrs: { id: "mCSB_9", tabindex: "0" }
+                    },
+                    [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "mCSB_container",
+                          staticStyle: {
+                            position: "relative",
+                            top: "0",
+                            left: "0"
+                          },
+                          attrs: { id: "mCSB_9_container", dir: "ltr" }
+                        },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "m-messenger__message m-messenger__message--out"
+                            },
+                            [
+                              _c(
+                                "div",
+                                { staticClass: "m-messenger__message-body" },
+                                [
+                                  _c("div", {
+                                    staticClass: "m-messenger__message-arrow"
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass:
+                                        "m-messenger__message-content"
+                                    },
+                                    [
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "m-messenger__message-text"
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                            " +
+                                              _vm._s(mensaje.comment) +
+                                              "\n                                        "
+                                          )
+                                        ]
+                                      )
+                                    ]
+                                  )
+                                ]
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _vm._m(2, true),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "m-messenger__datetime" }, [
+                            _vm._v("2:30PM")
+                          ])
+                        ]
+                      )
+                    ]
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "m-messenger__seperator" }),
+              _vm._v(" "),
+              _c(
+                "form",
+                {
+                  attrs: { action: "#" },
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      _vm.enviar()
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "m-messenger__form" }, [
+                    _c("div", { staticClass: "m-messenger__form-controls" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: mensaje.body,
+                            expression: "mensaje.body"
+                          }
+                        ],
+                        staticClass: "m-messenger__form-input",
+                        attrs: { type: "text", placeholder: "Escribe aquí..." },
+                        domProps: { value: mensaje.body },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(mensaje, "body", $event.target.value)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: mensaje.to_id,
+                            expression: "mensaje.to_id"
+                          }
+                        ],
+                        attrs: { type: "hidden" },
+                        domProps: { value: mensaje.to_id },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(mensaje, "to_id", $event.target.value)
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(3, true)
+                  ])
+                ]
+              )
+            ]
+          )
+        })
+      )
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "m-quick-sidebar__content m--hide" }, [
-      _c(
-        "span",
-        {
-          staticClass: "m-quick-sidebar__close",
-          attrs: { id: "m_quick_sidebar_close" }
-        },
-        [_c("i", { staticClass: "la la-close" })]
-      ),
-      _vm._v(" "),
-      _c(
-        "ul",
-        {
-          staticClass: "nav nav-tabs m-tabs m-tabs-line m-tabs-line--brand",
-          attrs: { id: "m_quick_sidebar_tabs", role: "tablist" }
-        },
-        [
-          _c("li", { staticClass: "nav-item m-tabs__item" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link m-tabs__link",
-                attrs: {
-                  "data-toggle": "tab",
-                  href: "#m_quick_sidebar_tabs_messenger",
-                  role: "tab",
-                  "aria-expanded": "false"
-                }
-              },
-              [_vm._v("\n                Daniel N.\n            ")]
-            )
+    return _c(
+      "span",
+      {
+        staticClass: "m-quick-sidebar__close",
+        attrs: { id: "m_quick_sidebar_close" }
+      },
+      [_c("i", { staticClass: "la la-close" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "ul",
+      {
+        staticClass: "nav nav-tabs m-tabs m-tabs-line m-tabs-line--brand",
+        attrs: { id: "m_quick_sidebar_tabs", role: "tablist" }
+      },
+      [
+        _c("li", { staticClass: "nav-item m-tabs__item" }, [
+          _c(
+            "a",
+            {
+              staticClass: "nav-link m-tabs__link",
+              attrs: {
+                "data-toggle": "tab",
+                href: "#paquetochat",
+                role: "tab",
+                "aria-expanded": "false"
+              }
+            },
+            [_vm._v("\n                Paqueto Chat\n            ")]
+          )
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "m-messenger__message m-messenger__message--in" },
+      [
+        _c("div", { staticClass: "m-messenger__message-pic" }, [
+          _c("img", {
+            staticClass: "mCS_img_loaded",
+            attrs: { src: "/assets/app/media/img//users/user3.jpg", alt: "" }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "m-messenger__message-body" }, [
+          _c("div", { staticClass: "m-messenger__message-arrow" }),
+          _vm._v(" "),
+          _c("div", { staticClass: "m-messenger__message-content" }, [
+            _c("div", { staticClass: "m-messenger__message-username" }, [
+              _vm._v(
+                "\n                                            Megan wrote\n                                        "
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "m-messenger__message-text" }, [
+              _vm._v(
+                "\n                                            Will the development team be joining ?\n                                        "
+              )
+            ])
           ])
-        ]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "tab-content" }, [
-        _c(
-          "div",
-          {
-            staticClass: "tab-pane active m-scrollable",
-            attrs: { id: "m_quick_sidebar_tabs_messenger", role: "tabpanel" }
-          },
-          [
-            _c(
-              "div",
-              {
-                staticClass:
-                  "m-messenger m-messenger--message-arrow m-messenger--skin-light"
-              },
-              [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "m-messenger__messages mCustomScrollbar _mCS_9 mCS-autoHide",
-                    staticStyle: {
-                      height: "89px",
-                      position: "relative",
-                      overflow: "visible"
-                    }
-                  },
-                  [
-                    _c(
-                      "div",
-                      {
-                        staticClass:
-                          "mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside",
-                        staticStyle: { "max-height": "none" },
-                        attrs: { id: "mCSB_9", tabindex: "0" }
-                      },
-                      [
-                        _c(
-                          "div",
-                          {
-                            staticClass: "mCSB_container",
-                            staticStyle: {
-                              position: "relative",
-                              top: "0",
-                              left: "0"
-                            },
-                            attrs: { id: "mCSB_9_container", dir: "ltr" }
-                          },
-                          [
-                            _c(
-                              "div",
-                              {
-                                staticClass:
-                                  "m-messenger__message m-messenger__message--out"
-                              },
-                              [
-                                _c(
-                                  "div",
-                                  { staticClass: "m-messenger__message-body" },
-                                  [
-                                    _c("div", {
-                                      staticClass: "m-messenger__message-arrow"
-                                    }),
-                                    _vm._v(" "),
-                                    _c(
-                                      "div",
-                                      {
-                                        staticClass:
-                                          "m-messenger__message-content"
-                                      },
-                                      [
-                                        _c(
-                                          "div",
-                                          {
-                                            staticClass:
-                                              "m-messenger__message-text"
-                                          },
-                                          [
-                                            _vm._v(
-                                              "\n                                            Hi Megan. It's at 2.30PM\n                                        "
-                                            )
-                                          ]
-                                        )
-                                      ]
-                                    )
-                                  ]
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "div",
-                              {
-                                staticClass:
-                                  "m-messenger__message m-messenger__message--in"
-                              },
-                              [
-                                _c(
-                                  "div",
-                                  { staticClass: "m-messenger__message-pic" },
-                                  [
-                                    _c("img", {
-                                      staticClass: "mCS_img_loaded",
-                                      attrs: {
-                                        src:
-                                          "/assets/app/media/img//users/user3.jpg",
-                                        alt: ""
-                                      }
-                                    })
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "div",
-                                  { staticClass: "m-messenger__message-body" },
-                                  [
-                                    _c("div", {
-                                      staticClass: "m-messenger__message-arrow"
-                                    }),
-                                    _vm._v(" "),
-                                    _c(
-                                      "div",
-                                      {
-                                        staticClass:
-                                          "m-messenger__message-content"
-                                      },
-                                      [
-                                        _c(
-                                          "div",
-                                          {
-                                            staticClass:
-                                              "m-messenger__message-username"
-                                          },
-                                          [
-                                            _vm._v(
-                                              "\n                                            Megan wrote\n                                        "
-                                            )
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "div",
-                                          {
-                                            staticClass:
-                                              "m-messenger__message-text"
-                                          },
-                                          [
-                                            _vm._v(
-                                              "\n                                            Will the development team be joining ?\n                                        "
-                                            )
-                                          ]
-                                        )
-                                      ]
-                                    )
-                                  ]
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "div",
-                              { staticClass: "m-messenger__datetime" },
-                              [_vm._v("2:30PM")]
-                            )
-                          ]
-                        )
-                      ]
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "m-messenger__seperator" }),
-                _vm._v(" "),
-                _c("div", { staticClass: "m-messenger__form" }, [
-                  _c("div", { staticClass: "m-messenger__form-controls" }, [
-                    _c("input", {
-                      staticClass: "m-messenger__form-input",
-                      attrs: {
-                        type: "text",
-                        name: "",
-                        placeholder: "Escribe aquí..."
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "m-messenger__form-tools" }, [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "m-messenger__form-attachment",
-                        attrs: { href: "" }
-                      },
-                      [_c("i", { staticClass: "fa fa-paper-plane-o" })]
-                    )
-                  ])
-                ])
-              ]
-            )
-          ]
-        )
-      ])
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "m-messenger__form-tools" }, [
+      _c(
+        "a",
+        { staticClass: "m-messenger__form-attachment", attrs: { href: "" } },
+        [_c("i", { staticClass: "fa fa-paper-plane-o" })]
+      )
     ])
   }
 ]
@@ -54098,6 +54149,12 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-2fb0154f", module.exports)
   }
 }
+
+/***/ }),
+/* 175 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 ],[132]);

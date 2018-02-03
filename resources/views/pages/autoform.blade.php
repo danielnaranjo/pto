@@ -172,49 +172,22 @@
                                                     @endforeach
                                                 @endforeach
 
-                                                @if(preg_match("/propietarios.create/i", Route::currentRouteName() ) && $_GET['id'])
-                                                    {!! Form::hidden ('pro_consorcio', $_GET['id'], ['id' => 'pro_consorcio']) !!}
-                                                @endif
-
                                                 @if ( preg_match("/edit/i", Route::currentRouteName() ))
-                                                    {{ Form::submit('Guardar', ['class'=>'btn btn-info m-btn--pill']) }}
+                                                    {{ Form::submit('Actualizar', ['class'=>'btn btn-info m-btn--pill']) }}
                                                     @if( preg_match("/envios.edit/i", Route::currentRouteName()))
                                                         <a class="btn m-btn--pill btn-secondary m-btn m-btn--custom" href="/envios/ahora/{{$id}}">
                                                             Enviar a todos
                                                         </a>
                                                     @endif
-                                                    @if( preg_match("/alertas.edit/i", Route::currentRouteName()))
-                                                        <a class="btn m-btn--pill btn-secondary m-btn m-btn--custom" href="/alertas/ahora/{{$id}}">
-                                                            Enviar a todos
-                                                        </a>
-                                                    @endif
-                                                    @if( preg_match("/masivos.edit/i", Route::currentRouteName()))
-                                                        <a class="btn m-btn--pill btn-secondary m-btn m-btn--custom" href="/masivos/ahora/{{$id}}">
-                                                            Enviar a todos
-                                                        </a>
-                                                    @endif
+
                                                     <a class="btn btn-secondary m-btn--pill m-btn m-btn--custom" href="javascript:history.back();">Volver</a>
                                                     <a class="btn btn-danger pull-right m-btn--pill" href="{{ url()->previous() }}/{{ $_id }}/delete" class="btn btn-default" onclick='return confirm("Desea eliminar este registro?")' data-toggle="tooltip" data-placement="bottom" title="Eliminar">Eliminar</a>
-                                                @elseif ( preg_match("/envios.create/i", Route::currentRouteName()))
-                                                    {{ Form::submit('Guardar', ['class'=>'btn btn-info m-btn--pill']) }}
-                                                    {{ Form::submit('Enviar a todos', ['class'=>'btn btn-info m-btn--pill', 'name'=>'saveandsend', 'value'=>'saveandsend']) }}
-                                                    <a class="btn m-btn--pill btn-secondary m-btn m-btn--custom" href="javascript:history.back();">
-                                                        Volver
-                                                    </a>
-                                                @elseif ( preg_match("/alertas.create/i", Route::currentRouteName()))
-                                                    {{ Form::submit('Guardar', ['class'=>'btn btn-info m-btn--pill']) }}
-                                                    <a class="btn m-btn--pill btn-secondary m-btn m-btn--custom" href="/alertas/inmediato">
-                                                        Enviar a todos
-                                                    </a>
-                                                    <a class="btn m-btn--pill btn-secondary m-btn m-btn--custom" href="javascript:history.back();">
-                                                        Volver
-                                                    </a>
-                                                @else
+                                                @elseif( !preg_match("/travel.create/i", Route::currentRouteName()) )
                                                     {{ Form::submit('Guardar', ['class'=>'btn btn-info m-btn--pill']) }}
                                                 @endif
 
-
                                                 @if ( preg_match("/travel.create/i", Route::currentRouteName()))
+                                                    {{ Form::submit('Publicar este viaje por USD $5', ['class'=>'btn btn-info m-btn--pill']) }}
                                                     {!! Form::hidden ('user_id', Auth::user()->id, ['id' => 'user_id']) !!}
                                                 @endif
 
@@ -222,9 +195,17 @@
                                             {{-- Form::close() --}}
                                             {!! Form::close() !!}
 
-                                            {{-- $rutaactual --}}
-                                            {{-- Route::currentRouteName() --}}
-                                            {{-- url()->current() --}}
+                                            @if(preg_match( "/localhost/i", $_SERVER['SERVER_NAME']) || preg_match( "/127.0.0.1/i", $_SERVER['SERVER_NAME']))
+                                            <code>
+                                                <h4>Vista de desarrollo</h4>
+                                                    <ul>
+                                                    <li>$rutaactual: {{ $rutaactual }}</li>
+                                                    <li>Route::currentRouteName(): {{ Route::currentRouteName() }}</li>
+                                                    <li>url()->current(): {{ url()->current() }}</li>
+                                                    <li>url()->previous(): {{ url()->previous() }}</li>
+                                                </ul>
+                                            </code>
+                                            @endif
                                         </div>
                                     </div>
                                     <!--end::Widget 11-->
