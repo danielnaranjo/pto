@@ -50,11 +50,11 @@ class Actividad extends Command
      */
     public function handle(){
         Date::setLocale('es');
-        $comentarios = Comment::where('createdAt', '=', Date::now('America/Argentina/Buenos_Aires')->format('Y-m-d') )->limit(10);
-        $mensajes = Message::where('createdAt', '=', Date::now('America/Argentina/Buenos_Aires')->format('Y-m-d') )->limit(10);
-        $usuarios = User::where('created_at', '=', Date::now('America/Argentina/Buenos_Aires')->format('Y-m-d') )->limit(10);
-        $paquetes = Package::where('created_at', '=', Date::now('America/Argentina/Buenos_Aires')->format('Y-m-d') )->limit(10);
-        $viajeros = Travel::where('created_at', '=', Date::now('America/Argentina/Buenos_Aires')->format('Y-m-d') )->limit(10);
+        $comentarios = Comment::where('createdAt', '=', Date::now('America/Argentina/Buenos_Aires')->format('Y-m-d') );
+        $mensajes = Message::where('createdAt', '=', Date::now('America/Argentina/Buenos_Aires')->format('Y-m-d') );
+        $usuarios = User::where('created_at', '=', Date::now('America/Argentina/Buenos_Aires')->format('Y-m-d') );
+        $paquetes = Package::where('created_at', '=', Date::now('America/Argentina/Buenos_Aires')->format('Y-m-d') );
+        $viajeros = Travel::where('created_at', '=', Date::now('America/Argentina/Buenos_Aires')->format('Y-m-d') );
 
         $inside = array(
             'fecha' => Date::now('America/Argentina/Buenos_Aires')->format('l j F Y'),

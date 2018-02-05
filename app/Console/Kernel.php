@@ -29,7 +29,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('tareas:actividad')
             ->timezone('America/Argentina/Buenos_Aires')
-            ->cron('* * * * * *');//->daily();
+            ->dailyAt('23:59');
     }
 
     /**

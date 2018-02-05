@@ -4,42 +4,52 @@
     Últimos comentarios
 </p>
 <ul>
-    @foreach ($comentarios as $comentario)
+    @forelse ($comentarios as $comentario)
     <li>{!! $comentario->comment !!}</li>
-    @endforeach
+    @empty
+    <li>No hay información disponible</li>
+    @endforelse
 </ul>
 <p>
     Últimos mensajes
 </p>
 <ul>
-    @foreach ($mensajes as $mensaje)
+    @forelse ($mensajes as $mensaje)
     <li>{!! $mensaje->comment !!}</li>
-    @endforeach
+    @empty
+    <li>No hay información disponible</li>
+    @endforelse
 </ul>
 
 <p>
     Últimos paquetes
 </p>
 <ul>
-    @foreach ($paquetes as $paquete)
+    @forelse ($paquetes as $paquete)
     <li>{!! $paquete->title !!}</li>
-    @endforeach
+    @empty
+    <li>No hay información disponible</li>
+    @endforelse
 </ul>
 
 <p>
     Últimos usuarios
 </p>
 <ul>
-    @foreach ($usuarios as $usuario)
+    @forelse ($usuarios as $usuario)
     <li>{!! $usuario->name !!}</li>
-    @endforeach
+    @empty
+    <li>No hay información disponible</li>
+    @endforelse
 </ul>
 
 <p>
     Últimos viajes
 </p>
 <ul>
-    @foreach ($viajeros as $viajero)
+    @forelse ($viajeros as $viajero)
     <li>{!! $viajero->title !!}</li>
-    @endforeach
+    @empty
+    <li>No hay información disponible</li>
+    @endforelse
 </ul>
