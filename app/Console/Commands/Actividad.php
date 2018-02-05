@@ -64,10 +64,10 @@ class Actividad extends Command
             'paquetes' => $paquetes,
             'viajeros' => $viajeros
         );
-        Mail::send('emails.actividad', $inside, function ($message) use ($inside){
+        Mailgun::send('emails.actividad', $inside, function ($message) use ($inside){
             $message->from("no-responder@paqueto.com.ve", "Rob @ Operaciones");
             $message->subject("[paqueto] Actividad diaria");
-            //$message->tag(['tareas', 'diarias', 'administrativas']);
+            $message->tag(['tareas', 'diarias', 'administrativas']);
             $message->to("info@paqueto.com.ve");
         });
 
