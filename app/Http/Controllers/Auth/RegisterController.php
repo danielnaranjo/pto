@@ -6,6 +6,7 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Date;
 
 class RegisterController extends Controller
 {
@@ -62,10 +63,19 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $fecha = Date::now()->format('Y-m-d H:s:i');
+        $dip = request()->ip();
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'slug' => snake_case($data['name'].Date::now()->timestamp),
+            'verified' => 0,
+            'status' => 1,
+            'ipAddress' => $dip,
+            'created_at' => $fecha,
+            'updated_at' => $fecha,
+            'avatar' => ''
         ]);
     }
 }

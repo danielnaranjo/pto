@@ -96,6 +96,8 @@ class LoginController extends Controller
             // }
             return $authUser;
         }
+        $fecha = Date::now()->format('Y-m-d H:s:i');
+        $dip = request()->ip();
         return User::create([
             'name'     => $user->name,
             'email'    => $user->email,
@@ -103,11 +105,11 @@ class LoginController extends Controller
             'provider_id' => $user->id,
             'password' => bcrypt($user->email),
             'slug' => snake_case($user->getNickname()),
-            'verified' => '1',
-            'status' => '1',
-            'ipAddress' => '0.0.0.0',
-            'created_at' => Date::now()->format('Y-m-d H:s:i'),
-            'updated_at' => Date::now()->format('Y-m-d H:s:i'),
+            'verified' => 1,
+            'status' => 1,
+            'ipAddress' => $dip,
+            'created_at' => $fecha,
+            'updated_at' => $fecha,
             'avatar' => $user->getAvatar()
         ]);
     }
