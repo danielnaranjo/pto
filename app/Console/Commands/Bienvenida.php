@@ -50,7 +50,7 @@ class Bienvenida extends Command
      */
     public function handle(){
         Date::setLocale('es');
-        $data['usuarios'] = User::where('created_at', '>=', Date::now('America/Argentina/Buenos_Aires')->sub('60 minutes')->format('Y-m-d H:i:s') )->get();
+        $data['usuarios'] = User::where('created_at', '>=', Date::now('America/Argentina/Buenos_Aires')->sub('15 minutes')->format('Y-m-d H:i:s') )->get();
         $data['total'] = count($data['usuarios']);
         if(count($data['usuarios']) > 0){
             foreach ($data['usuarios'] as $usuario){

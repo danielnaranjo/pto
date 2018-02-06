@@ -49,12 +49,15 @@ class Actividad extends Command
      * @return mixed
      */
     public function handle(){
+
         Date::setLocale('es');
-        $comentarios = Comment::where('createdAt', '=', Date::now('America/Argentina/Buenos_Aires')->format('Y-m-d') );
-        $mensajes = Message::where('createdAt', '=', Date::now('America/Argentina/Buenos_Aires')->format('Y-m-d') );
-        $usuarios = User::where('created_at', '=', Date::now('America/Argentina/Buenos_Aires')->format('Y-m-d') );
-        $paquetes = Package::where('created_at', '=', Date::now('America/Argentina/Buenos_Aires')->format('Y-m-d') );
-        $viajeros = Travel::where('created_at', '=', Date::now('America/Argentina/Buenos_Aires')->format('Y-m-d') );
+        $tiempo = "3 days";
+        $diaria = Date::now('America/Argentina/Buenos_Aires')->sub($tiempo)->format('Y-m-d H:i:s');
+        $comentarios = Comment::where('createdAt', '>=', $diaria )->get();
+        $mensajes = Message::where('createdAt', '>=', $diaria )->get();
+        $usuarios = User::where('created_at', '>=', $diaria )->get();
+        $paquetes = Package::where('created', '>=', $diaria )->get();
+        $viajeros = Travel::where('created_at', '>=', $diaria )->get();
 
         $inside = array(
             'fecha' => Date::now('America/Argentina/Buenos_Aires')->format('l j F Y'),

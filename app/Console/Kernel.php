@@ -33,7 +33,7 @@ class Kernel extends ConsoleKernel
             ->dailyAt('23:59');
         $schedule->command('tareas:bienvenida')
             ->timezone('America/Argentina/Buenos_Aires')
-            ->cron('* * * * *');
+            ->everyTenMinutes();
     }
 
     /**

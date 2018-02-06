@@ -1,3 +1,4 @@
+
 <h4>Actividad diaria: {{ $fecha }}</h4>
 
 <p>
@@ -5,7 +6,7 @@
 </p>
 <ul>
     @forelse ($comentarios as $comentario)
-    <li>{!! $comentario->comment !!}</li>
+    <li><a href="/u/{!! $comentario->from['slug'] !!}">{!! $comentario->from['name'] !!}</a> le dijo: {!! $comentario->comment !!}, a: <a href="/u/{!! $comentario->user['slug'] !!}">{!! $comentario->user['name'] !!}</a></li>
     @empty
     <li>No hay información disponible</li>
     @endforelse
@@ -15,7 +16,7 @@
 </p>
 <ul>
     @forelse ($mensajes as $mensaje)
-    <li>{!! $mensaje->comment !!}</li>
+    <li><a href="/u/{!! $mensaje->from['slug'] !!}">{!! $mensaje->from['name'] !!}</a> le dijo: {!! $mensaje->comment !!} a: <a href="/u/{!! $mensaje->user['slug'] !!}">{!! $mensaje->user['name'] !!}</a></li>
     @empty
     <li>No hay información disponible</li>
     @endforelse
@@ -26,7 +27,7 @@
 </p>
 <ul>
     @forelse ($paquetes as $paquete)
-    <li>{!! $paquete->title !!}</li>
+    <li>{!! $paquete->from->code !!} > {!! $paquete->to->code !!}: [{!! $paquete->service->type !!}] {!! $paquete->title !!} <a href="//mi.paqueto.com.ve/{!! $paquete->tracking !!}">Link</a></li>
     @empty
     <li>No hay información disponible</li>
     @endforelse
@@ -37,7 +38,7 @@
 </p>
 <ul>
     @forelse ($usuarios as $usuario)
-    <li>{!! $usuario->name !!}</li>
+    <li>{!! $usuario->name !!} E-mail: {!! $usuario->email !!} <a href="//mi.paqueto.com.ve/u/{!! $usuario->slug !!}">Link</a></li>
     @empty
     <li>No hay información disponible</li>
     @endforelse
@@ -48,7 +49,7 @@
 </p>
 <ul>
     @forelse ($viajeros as $viajero)
-    <li>{!! $viajero->title !!}</li>
+    <li>{!! $viajero->from->code !!} > {!! $viajero->to->code !!}: {!! $viajero->title !!}. <a href="/u/{!! $viajero->user->slug !!}">{!! $viajero->user->name !!}</a></li>
     @empty
     <li>No hay información disponible</li>
     @endforelse
