@@ -6,7 +6,7 @@
 </p>
 <ul>
     @forelse ($comentarios as $comentario)
-    <li><a href="/u/{!! $comentario->from['slug'] !!}">{!! $comentario->from['name'] !!}</a> le dijo: {!! $comentario->comment !!}, a: <a href="/u/{!! $comentario->user['slug'] !!}">{!! $comentario->user['name'] !!}</a></li>
+    <li><a href="/u/{!! $comentario->from['slug']or 'NA'  !!}">{!! $comentario->from['name'] !!}</a> le dijo: {!! $comentario->comment !!}, a: <a href="/u/{!! $comentario->user['slug']or 'NA'  !!}">{!! $comentario->user['name'] !!}</a></li>
     @empty
     <li>No hay información disponible</li>
     @endforelse
@@ -16,7 +16,7 @@
 </p>
 <ul>
     @forelse ($mensajes as $mensaje)
-    <li><a href="/u/{!! $mensaje->from['slug'] !!}">{!! $mensaje->from['name'] !!}</a> le dijo: {!! $mensaje->comment !!} a: <a href="/u/{!! $mensaje->user['slug'] !!}">{!! $mensaje->user['name'] !!}</a></li>
+    <li><a href="/u/{!! $mensaje->from['slug']or 'NA'  !!}">{!! $mensaje->from['name'] !!}</a> le dijo: {!! $mensaje->comment !!} a: <a href="/u/{!! $mensaje->user['slug']or 'NA'  !!}">{!! $mensaje->user['name'] !!}</a></li>
     @empty
     <li>No hay información disponible</li>
     @endforelse
@@ -38,7 +38,7 @@
 </p>
 <ul>
     @forelse ($usuarios as $usuario)
-    <li>{!! $usuario->name !!} E-mail: {!! $usuario->email !!} <a href="//mi.paqueto.com.ve/u/{!! $usuario->slug !!}">Link</a></li>
+    <li>{!! $usuario->name !!} E-mail: {!! $usuario->email !!} <a href="//mi.paqueto.com.ve/u/{!! $usuario->slug or 'NA' !!}">Link</a></li>
     @empty
     <li>No hay información disponible</li>
     @endforelse

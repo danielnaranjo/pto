@@ -21,6 +21,11 @@ use Validator;
 use MessageBag;
 use Carbon\Carbon;
 use Date;
+use Mail;
+use Mailgun;
+
+use App\Models\Comment;
+use App\Models\Message;
 
 class PublicController extends Controller
 {
@@ -123,5 +128,84 @@ class PublicController extends Controller
         $data['services']  = Service::search( $query )->get();
         $data['travellers'] = Travel::search( $query )->get();
         return view('pages.quick_search', $data);
+    }
+    public function demo(){
+        /*
+        Date::setLocale('es');
+        $data['date'] = Date::now('America/Argentina/Buenos_Aires')->format('Y-m-d H:i:s');
+        // $data['comentarios'] = Comment::where('createdAt', '=', Date::now('America/Argentina/Buenos_Aires')->format('Y-m-d') )->limit(10);
+        // $data['mensajes'] = Message::where('createdAt', '=', Date::now('America/Argentina/Buenos_Aires')->format('Y-m-d') )->limit(10);
+        // $data['usuarios'] = User::where('created_at', '>=', Date::now('America/Argentina/Buenos_Aires')->sub('15 minutes')->format('Y-m-d H:i:s') )->get();
+        // $data['paquetes'] = Package::where('created_at', '=', Date::now('America/Argentina/Buenos_Aires')->format('Y-m-d') )->limit(10);
+        // $data['viajeros'] = Travel::where('created_at', '=', Date::now('America/Argentina/Buenos_Aires')->format('Y-m-d') )->limit(10);
+        $data['latest'] = Date::now('America/Argentina/Buenos_Aires')->sub('15 minutes')->format('Y-m-d H:i:s');
+        $data['usuarios'] = User::where('created_at', '>=', Date::now('America/Argentina/Buenos_Aires')->sub('60 minutes')->format('Y-m-d H:i:s') )->get();
+        $data['total'] = count($data['usuarios']);
+        if(count($data['usuarios']) > 0){
+            foreach ($data['usuarios'] as $usuario){
+                $inside = array(
+                    'fecha' => Date::now('America/Argentina/Buenos_Aires')->format('l j F Y'),
+                    'nombre' => $usuario->name,
+                    'email' => $usuario->email,
+                );
+                Mail::send('emails.bienvenida', $inside, function ($message) use ($inside){
+                    $message->from("info@paqueto.com.ve", "Diego @ Paqueto");
+                    $message->subject($inside['nombre'].", gracias por registrarte en Paqueto");
+                    //$message->tag(['tareas', 'bienvenida']);
+                    $message->to($inside['email']);
+                });
+            }
+            //$this->info('[tasks] tareas:bienvenida');
+        }
+        return response()->json($data);
+        */
+        $data['title'] = "hola";
+        $data['titulo'] = "hola";
+        Date::setLocale('es');
+        $tiempo = "30 days";
+        $diaria = Date::now('America/Argentina/Buenos_Aires')->sub($tiempo)->format('Y-m-d H:i:s');
+        $data['comentarios'] = Comment::where('createdAt', '>=', $diaria )->get();
+        $data['mensajes'] = Message::where('createdAt', '>=', $diaria )->get();
+        $data['usuarios'] = User::where('created_at', '>=', $diaria )->get();
+        $data['paquetes'] = Package::where('created', '>=', $diaria )->get();
+        $data['viajeros'] = Travel::where('created_at', '>=', $diaria )->get();
+        $data['fecha'] = Date::now('America/Argentina/Buenos_Aires')->format('l j F Y');
+        return view('emails.actividad', $data);
+    }
+
+    public function actividad(){
+        Date::setLocale('es');
+        $tiempo = "7 days";
+        $diaria = Date::now('America/Argentina/Buenos_Aires')->sub($tiempo)->format('Y-m-d H:i:s');
+        // $data['comentarios'] = Comment::where('createdAt', '>=', $diaria )->get();
+        // $data['mensajes'] = Message::where('createdAt', '>=', $diaria )->get();
+        // $data['usuarios'] = User::where('created_at', '>=', $diaria )->get();
+        // $data['paquetes'] = Package::where('created', '>=', $diaria )->get();
+        // $data['viajeros'] = Travel::where('created_at', '>=', $diaria )->get();
+        // $data['fecha'] = Date::now('America/Argentina/Buenos_Aires')->format('l j F Y');
+        $comentarios = Comment::where('createdAt', '>=', $diaria )->get();
+        $mensajes = Message::where('createdAt', '>=', $diaria )->get();
+        $usuarios = User::where('created_at', '>=', $diaria )->get();
+        $paquetes = Package::where('created', '>=', $diaria )->get();
+        $viajeros = Travel::where('created_at', '>=', $diaria )->get();
+        $fecha = Date::now('America/Argentina/Buenos_Aires')->format('l j F Y');
+        $inside = array(
+            'fecha' => $fecha,
+            'comentarios' => $comentarios,
+            'mensajes' => $mensajes,
+            'usuarios' =>  $usuarios,
+            'paquetes' =>  $paquetes,
+            'viajeros' =>  $viajeros,
+        );
+        $data['inside'] = $inside;
+
+        Mailgun::send('emails.actividad', $inside, function ($message) use ($inside){
+            $message->from("info@paqueto.com.ve", "Mr. Pepper @ Operaciones");
+            $message->subject("[paqueto] Actividad diaria: ".$inside['fecha']);
+            $message->tag(['tareas', 'diarias', 'administrativas']);
+            $message->to("daniel@loultimoenlaweb.com");
+        });
+        //return view('emails.actividad', $data);
+        //return response()->json($data);
     }
 }

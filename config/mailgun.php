@@ -16,7 +16,7 @@ return [
      * Domain name registered with Mailgun
      *
      */
-    'domain' => '',
+    'domain' => 'paqueto.com.ve',
 
     /*
      * Mailgun (private) API key
