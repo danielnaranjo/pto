@@ -55,10 +55,10 @@
 				<div class="m-grid__item m-grid__item--fluid m-grid m-grid--center m-grid--hor m-grid__item--order-tablet-and-mobile-1	m-login__content colorprincipal">
 					<div class="m-grid__item m-grid__item--middle">
 						<h4 class="m-login__welcome">
-							Error 404
+							Error 503
 						</h4>
                         <p>
-                            La dirección que estas buscando no ha sido localizada. Te ayudaremos a encontrarlo.
+                            Ha ocurrido un error en el server, estamos trabajando para solventarlo.
                         </p>
                         <p style="margin-top:50px">
                             Haz clic <a href="{{ env('APP_URL'), '/' }}" style="color:#fff !important">aquí</a> para continuar.
