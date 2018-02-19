@@ -11,6 +11,8 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Auth;
 use Socialite;
 use Date;
+use Mail;
+use Mailgun;
 
 class LoginController extends Controller
 {
@@ -112,6 +114,21 @@ class LoginController extends Controller
             'updated_at' => $fecha,
             'avatar' => $user->getAvatar()
         ]);
+    	//
+	Date::setLocale('es');
+	$fecha = Date::now('America/Argentina/Buenos_Aires')->format('l j F Y');
+	$inside = array(
+		'fecha' => $fecha,
+		'nombre' => $user->name,
+		'email' => $user->email,
+	);
+	Mailgun::send('emails.bienvenida', $inside, function ($message) use ($inside){
+		$message->from("no-responder@paqueto.com.ve", "Diego @ Paqueto");
+		$message->subject("Hola ".$inside['nombre'].", bienvenido a Paqueto");
+		$message->tag(['bienvenida', 'usuarios', 'socialite']);
+		$message->to($inside['email']);
+	});
+	//
     }
 
 }

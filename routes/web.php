@@ -69,6 +69,9 @@ Route::post('/package/upload/{id}', 'PackageController@uploadFile');
 
 Route::get('/resultados', 'PublicController@resultados'); // ALGOLIA RESULTS
 Route::get('/user/package/{id}', 'PackageController@usuario');
+Route::get('/user/travel/{id}', 'TravelController@usuario');
+Route::get('/user/message/{id}', 'MessageController@usuario');
+Route::get('/user/payments/{id}', 'PackageController@usuario');
 
 // OAuth Routes
 Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider');

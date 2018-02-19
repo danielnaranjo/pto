@@ -22,7 +22,8 @@ use Carbon\Carbon;
 use Date;
 use Uuid;
 use File;
-use Srmklive\PayPal\Services\ExpressCheckout;
+use Mail;
+use Mailgun;
 
 class PackageController extends Controller
 {
@@ -107,7 +108,34 @@ class PackageController extends Controller
         $data->price = $request->price;
         $data->status = 0;
         $data->save();
+        
+        // Get ID
+        $package_id = $data->package_id;
+        $added = Package::find($package_id);
+        
+        Date::setLocale('es');
+        $fecha = Date::now('America/Argentina/Buenos_Aires')->format('l j F Y');
+        $inside = array(
+            'usuario' => $added->user->name,
+            'email' => $added->user->email,
+            'fecha' => $fecha,
+            'origen' => $added->from->name,
+            'destino' => $added->to->name,
+            'servicio' => $added->service->type,
+            'tracking' => $added->tracking,
+            'entrega' => Date::parse($added->delivery)->format('d/m/Y'),
+            'titulo' => $added->title,
+            'contenido' => $added->description,
+        );
+        Mailgun::send('emails.paquete', $inside, function ($message) use ($inside){
+            $message->from("no-responder@paqueto.com.ve", "Daniel @ Paqueto");
+            $message->subject("Has publicado un paquete con ".$inside['destino']." en Paqueto");
+            $message->tag(['usuarios', 'package',$inside['destino']]);
+            $message->to($inside['email']);
+        });
+      
         return redirect()->action('PackageController@edit',['package_id'=> $data ])->with('status', 'Información actualizada!');
+        //return response()->json($inside);
     }
 
     /**
@@ -205,6 +233,30 @@ class PackageController extends Controller
         $data->price = $request->price;
         // $data->status = 0;
         $data->save();
+        
+        $added = Package::find($id);
+        Date::setLocale('es');
+        $fecha = Date::now('America/Argentina/Buenos_Aires')->format('l j F Y');
+        $inside = array(
+            'usuario' => $added->user->name,
+            'email' => $added->user->email,
+            'fecha' => $fecha,
+            'origen' => $added->from->name,
+            'destino' => $added->to->name,
+            'servicio' => $added->service->type,
+            'tracking' => $added->tracking,
+            'entrega' => Date::parse($added->delivery)->format('d/m/Y'),
+            'titulo' => $added->title,
+            'contenido' => $added->description,
+        );
+        Mailgun::send('emails.paquete', $inside, function ($message) use ($inside){
+            $message->from("no-responder@paqueto.com.ve", "Daniel @ Paqueto");
+            $message->subject("Has actualizado tu paquete: ".$inside['titulo']." con destino ".$inside['destino']." en Paqueto");
+            $message->tag(['usuarios', 'package', $inside['destino'], 'actualizado']);
+            $message->to($inside['email']);
+            $message->cc('info@paqueto.com.ve', 'Seguridad');
+        });
+        
         return redirect()->action('PackageController@index')->with('status', 'Información actualizada!');
     }
 

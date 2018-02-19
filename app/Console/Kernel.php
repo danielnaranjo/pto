@@ -28,12 +28,15 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        
         $schedule->command('tareas:actividad')
             ->timezone('America/Argentina/Buenos_Aires')
-            ->dailyAt('23:59');
+            ->dailyAt('00:00');
+        /*
         $schedule->command('tareas:bienvenida')
             ->timezone('America/Argentina/Buenos_Aires')
             ->everyTenMinutes();
+        */
     }
 
     /**

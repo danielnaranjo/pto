@@ -18,6 +18,8 @@ use Validator;
 use MessageBag;
 use Carbon\Carbon;
 use Date;
+use Mail;
+use Mailgun;
 
 class TravelController extends Controller
 {
@@ -84,6 +86,29 @@ class TravelController extends Controller
         $data->restrictions = $request->restrictions;
         $data->transportation = $request->transportation;
         $data->save();
+        // Get ID
+        $travel_id = $data->travel_id;
+        $added = Travel::find($travel_id);
+        
+        Date::setLocale('es');
+        $fecha = Date::now('America/Argentina/Buenos_Aires')->format('l j F Y');
+        $inside = array(
+            'usuario' => $added->user->name,
+            'email' => $added->user->email,
+            'fecha' => Date::parse($added->date)->format('d/m/Y H:s'),
+            'origen' => $added->from->name,
+            'destino' => $added->to->name,
+            'peso' => $added->weight,
+            'dimensiones' => $added->dimensions,
+            'restricciones' => $added->restrictions,
+        );
+        Mailgun::send('emails.viaje', $inside, function ($message) use ($inside){
+            $message->from("info@paqueto.com.ve", "Daniel @ Paqueto");
+            $message->subject("Has publicado un viaje a ".$inside['destino']." en Paqueto");
+            $message->tag(['usuarios', 'viajero']);
+            $message->to($inside['email']);
+        });
+        
         return redirect()->action('TravelController@edit',['travel_id'=> $data ])->with('status', 'Información actualizada!');
     }
 
@@ -160,5 +185,12 @@ class TravelController extends Controller
         $data['titulo'] = $data['results'][0]->to->name;//"Explorando ".
         return view('pages.explorer', $data);
         //return response()->json($data);
+    }
+    public function usuario($id)
+    {
+        $data['titulo'] = "Mis Viajes";
+        $data['results'] = Travel::where('user_id',$id)->paginate(16);
+        return view('pages.tables', $data);
+        return response()->json($data);
     }
 }
