@@ -7,7 +7,7 @@
 	<div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver m-container m-container--responsive m-container--xxl m-page__container">
 		<div class="m-grid__item m-grid__item--fluid m-wrapper">
 			<div class="m-content">
-                @if(preg_match("/packaget.create/i", Route::currentRouteName() ))
+                @if(preg_match("/package.create/i", Route::currentRouteName() ))
                     {!! Form::model($results, ['method' => 'POST', 'action' => 'PackageController@store' ]) !!}
                 @else
                     {!! Form::model($results, ['method' => 'PATCH', 'action' => ['PackageController@update', $_id]]) !!}
@@ -61,7 +61,7 @@
                                         <select class="form-control m-input" name="service_id">
                                             <option value="-1">Seleccionar</option>
                                             @foreach ($services as $service)
-                                                <option value="{{ $service->service_id }}">{{$service->type}}</option>
+                                                <option value="{{ $service->service_id }}" @if(preg_match("/package.edit/i", Route::currentRouteName() ) && $service->service_id==$results['service_id']) selected @endif>{{$service->type}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -74,7 +74,7 @@
                                         <select class="form-control m-input" name="origin">
                                             <option value="-1">Seleccionar</option>
                                             @foreach ($countries as $country)
-                                                <option value="{{$country->country_id}}">{{$country->name}}</option>
+                                                <option value="{{$country->country_id}}" @if(preg_match("/package.edit/i", Route::currentRouteName() ) && $country->country_id==$results['origin']) selected @endif>{{$country->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -87,7 +87,7 @@
                                         <select class="form-control m-input" name="destination">
                                             <option value="-1">Seleccionar</option>
                                             @foreach ($countries as $country)
-                                                <option value="{{$country->country_id}}">{{$country->name}}</option>
+                                                <option value="{{$country->country_id}}" @if(preg_match("/package.edit/i", Route::currentRouteName() ) && $country->country_id==$results['destination']) selected @endif>{{$country->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -97,7 +97,7 @@
                                         Divisa
                                     </label>
                                     <div class="col-9">
-                                        {!! Form::select('currency', ['USD' => 'USD', 'EUR' => 'EUR', 'ARS' => 'ARS', 'BSF' => 'BSF'], 'USD', ['class' => 'form-control m-input', 'id' => 'currency']) !!}
+                                        {!! Form::select('currency', ['USD' => 'USD', 'EUR' => 'EUR', 'ARS' => 'ARS', 'BSF' => 'BSF'], null, ['class' => 'form-control m-input', 'id' => 'currency']) !!}
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group row">
@@ -143,7 +143,7 @@
                                 <div class="m-portlet__body">
                                     <div class="form-group m-form__group row">
                                         <label for="example-text-input" class="col-2 col-form-label">
-                                            Titulo
+                                            Titulo (Uso interno)
                                         </label>
                                         <div class="col-10">
                                             {!! Form::text('title', null, ['class' => 'form-control  m-input', 'id' => 'title', 'placeholder'=> 'Titulo']) !!}
@@ -161,7 +161,11 @@
                                     <div class="form-group m-form__group row">
                                         <div class="col-12">
                                             <p class="pull-right">
-                                                {{ Form::submit('Publicar envio', ['class'=>'btn btn-info m-btn--pill btn-block']) }}
+                                            @if(preg_match("/package.edit/i", Route::currentRouteName() ))
+                                            {{ Form::submit('Actualizar', ['class'=>'btn btn-info m-btn--pill btn-block']) }}
+                                            @else
+                                            {{ Form::submit('Publicar envio', ['class'=>'btn btn-info m-btn--pill btn-block']) }}
+                                            @endif
                                             </p>
                                         </div>
                                     </div>

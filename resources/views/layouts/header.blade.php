@@ -81,6 +81,18 @@
                                                             </a>
                                                         </li>
                                                         <li class="m-nav__item">
+                                                            <a href="/u/{{ Auth::user()->slug }}" class="m-nav__link">
+                                                                <i class="m-nav__link-icon fa fa-user"></i>
+                                                                <span class="m-nav__link-title">
+                                                                    <span class="m-nav__link-wrap">
+                                                                        <span class="m-nav__link-text">
+                                                                            Ver mi perfil
+                                                                        </span>
+                                                                    </span>
+                                                                </span>
+                                                            </a>
+                                                        </li>
+                                                        <li class="m-nav__item">
                                                             <a href="/user/message/{{ Auth::user()->id }}" class="m-nav__link">
                                                                 <i class="m-nav__link-icon fa fa-comments-o"></i>
                                                                 <span class="m-nav__link-title">

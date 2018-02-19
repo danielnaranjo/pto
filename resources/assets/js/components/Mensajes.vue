@@ -17,24 +17,29 @@
 
 <script>
 export default {
-        mounted() {
-            console.log('Mensajes mounted.')
-        },
-        props: {
-            id:{
-                type: Number
-            }
-        },
-        data() {
-            return {
-                list: []
-            };
-        },
-        created() {
-            this.getList(this.id);
-        },
-        methods: {
-            getList(id) {
+    mounted() {
+        console.log('Component mounted.')
+    },
+    data() {
+        return {
+            list: []
+        };
+    },
+
+    created() {
+        this.getList();
+    },
+
+    methods: {
+        getList() {
+            axios.get('/api/message/1').then((res) => {
+                this.list = res.data;
+            });
+        }
+    }
+}
+</script>
+t(id) {
                 axios.get('/api/message/'+id).then((res) => {
                     //console.log('@ axios.get', JSON.stringify(res) );
                     this.list = res.data;

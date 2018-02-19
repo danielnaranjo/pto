@@ -1,18 +1,27 @@
 <template>
-    <div class="m-widget4">
-        <!--begin::Widget 14 Item-->
-        <div class="m-widget4__item" v-for="result in list">
-            <div class="m-widget4__img m-widget4__img--pic">
-                <a :href="'/u/'+ result.slug">
-                    <img src="assets/app/media/img/users/100_4.jpg" :alt="result.name">
-                </a>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Example Component</div>
+
+                    <div class="panel-body">
+                        I'm an example component!
+                    </div>
+                </div>
             </div>
-            <div class="m-widget4__info">
-                <span class="m-widget4__title">
-                    {{ result.name }}
-                </span>
-                <br>
-                <span class="m-widget4__sub">
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        mounted() {
+            console.log('Component mounted.')
+        }
+    }
+</script>
+span class="m-widget4__sub">
                     {{ result.city }} {{ result.country }}
                 </span>
             </div>
