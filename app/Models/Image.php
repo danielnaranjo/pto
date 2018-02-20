@@ -11,7 +11,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class Image
- * 
+ *
  * @property int $image_id
  * @property string $name
  * @property string $path
@@ -32,6 +32,11 @@ class Image extends Eloquent
 	protected $fillable = [
 		'name',
 		'path',
-		'created'
+		'created',
+        'package_id'
 	];
+    public function package()
+    {
+        return $this->belongsTo('App\Models\Package','package_id');
+    }
 }

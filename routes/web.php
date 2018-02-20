@@ -84,3 +84,4 @@ Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallb
 // Route::post('paypal/notify', 'PayPalController@notify');
 
 Route::get('demo', 'PublicController@demo');
+Route::get('paquete', 'PackageController@demo');

@@ -68,9 +68,9 @@
 							<div class="m-portlet__body">
 								<div class="m-widget19">
 									<div class="m-widget19__pic m-portlet-fit--top m-portlet-fit--sides" style="min-height-: 286px">
-                                        <img src="/assets/app/media/img/blog/blog1.jpg" alt="{{$result->title}}">
+                                        <img src="{{$result->image->first()['path'] }}" alt="{{$result->title}}">
 										<h3 class="m-widget19__title m--font-light">
-											{{ $result->title }}
+										{{ $result->title }}
 										</h3>
 										<div class="m-widget19__shadow"></div>
 									</div>
@@ -105,7 +105,7 @@
 											</div>
 										</div>
 										<div class="m-widget19__body">
-											{!! $result->description !!}
+                                            {!! $result->description !!}
 										</div>
 									</div>
 									<div class="m-widget19__action">

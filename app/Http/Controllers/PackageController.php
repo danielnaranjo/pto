@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Package;
 use App\Models\Service;
 use App\Models\Country;
+use App\Models\PackageImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
@@ -37,14 +38,10 @@ class PackageController extends Controller
     public function index()
     {
         $data['titulo'] = "Envios";
-        // $data['results'] = DB::table('package')
-        //     ->select('package.*','service.*','users.*','countries.code as country')
-        //     ->leftJoin('service','package.service_id','=','service.service_id')
-        //     ->leftJoin('users','package.user_id','=','users.id')
-        //     ->leftJoin('countries','package.destination','=','countries.country_id')
-        //     ->paginate(16);
-        $data['results'] = Package::paginate(16);
+        $data['results'] = Package::orderBy('package_id','desc')->paginate(16);
         return view('pages.grids', $data);
+        // $data['results'] = Package::find(16)->image;
+        // return response()->json($data);
     }
 
     /**
@@ -108,11 +105,11 @@ class PackageController extends Controller
         $data->price = $request->price;
         $data->status = 0;
         $data->save();
-        
+
         // Get ID
         $package_id = $data->package_id;
         $added = Package::find($package_id);
-        
+
         Date::setLocale('es');
         $fecha = Date::now('America/Argentina/Buenos_Aires')->format('l j F Y');
         $inside = array(
@@ -132,8 +129,9 @@ class PackageController extends Controller
             $message->subject("Has publicado un paquete con ".$inside['destino']." en Paqueto");
             $message->tag(['usuarios', 'package',$inside['destino']]);
             $message->to($inside['email']);
+            $message->cc($inside['email']);
         });
-      
+
         return redirect()->action('PackageController@edit',['package_id'=> $data ])->with('status', 'Información actualizada!');
         //return response()->json($inside);
     }
@@ -167,6 +165,12 @@ class PackageController extends Controller
             ->leftJoin('image','package_image.image_id','=','image.image_id')
             ->where('package.package_id', '=', $id)
             ->get();
+            // $data['images'] =  DB::table('package_image')
+            //     ->select('image.name','image.path')
+            //     ->leftJoin('image','package_image.image_id','=','image.image_id')
+            //     ->where('package_image.package_id', $id)
+            //     ->get();
+
         $data['titulo'] = $data['results']->title;
         Date::setLocale('es');
 
@@ -233,7 +237,7 @@ class PackageController extends Controller
         $data->price = $request->price;
         // $data->status = 0;
         $data->save();
-        
+
         $added = Package::find($id);
         Date::setLocale('es');
         $fecha = Date::now('America/Argentina/Buenos_Aires')->format('l j F Y');
@@ -256,7 +260,7 @@ class PackageController extends Controller
             $message->to($inside['email']);
             $message->cc('info@paqueto.com.ve', 'Seguridad');
         });
-        
+
         return redirect()->action('PackageController@index')->with('status', 'Información actualizada!');
     }
 
@@ -302,6 +306,12 @@ class PackageController extends Controller
         $file->move($destinationPath, $filename);
         $data['uploaded'] = $file;
 
+        if(Auth::check()){
+            $user = Auth::user()->id;
+        } else {
+            $user = 0;
+        }
+
         if(File::exists('pack/'.$filename)){
             \Cloudder::upload('pack/'.$filename,'p_'.$id.'_'.$fecha, array(''), array('paqueto_package', 'uploaded_'.date('Y_m_d'), 'user_'.$id, 'package_'));
             $data['c']=\Cloudder::getResult();
@@ -309,8 +319,8 @@ class PackageController extends Controller
             $data['path']=$destinationPath.'pack/'.$filename;
             $data['img'] = DB::table('image')->insertGetId(['name' => $filename, 'path' => $data['c']['url']]);
             if($data['img']){
-                $data['uim'] = DB::table('user_image')->insertGetId([ 'user_id' => $id, 'image_id' => $data['img'], 'type' => '1' ]);
-                $data['oim'] = DB::table('package_image')->insertGetId([ 'package_id' => $id, 'image_id' => $data['img'], 'type' => '1' ]);
+                $data['uim'] = DB::table('user_image')->insertGetId([ 'user_id' => $user, 'image_id' => $data['img'], 'type' => '1' ]);
+                $data['oim'] = DB::table('package_image')->insertGetId([ 'package_id' => $id, 'image_id' => $data['img']]);
             }
         }
         $data['filename']=$filename;
@@ -321,6 +331,17 @@ class PackageController extends Controller
         $data['titulo'] = "Mis Envios";
         $data['results'] = Package::where('user_id',$id)->paginate(16);
         return view('pages.tables', $data);
+        return response()->json($data);
+    }
+    public function demo()
+    {
+        $id = 16;
+        $data['results'] = Package::find($id);
+        $data['images'] =  DB::table('package_image')
+            ->select('image.name','image.path')
+            ->leftJoin('image','package_image.image_id','=','image.image_id')
+            ->where('package_image.package_id', $id)
+            ->get();
         return response()->json($data);
     }
     //

@@ -39,7 +39,7 @@
                                             @foreach($images as $image)
                                             <div class="col-md-4 col-sm-6 col-lg-3" style="padding-bottom:20px;">
                                                 <a href="#">
-                                                    <img src="/{{$image->name}}" alt="{{ $results->title }}" class="img-fluid rounded">
+                                                    <img src="{{$image->path}}" alt="{{ $results->title }}" class="img-fluid rounded">
                                                 </a>
                                             </div>
                                             @endforeach

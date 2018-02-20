@@ -186,7 +186,7 @@
 							</div>
 							<div class="m-portlet__body">
                                 <div class="m-widget6">
-                                    <div class="m-dropzone dropzone" action="/package/upload/" id="m-dropzone-two" multiple="multiple" @if(preg_match("/package.create/i", Route::currentRouteName() ))  style="pointer-events:none;cursor:default;" @endif>
+                                    <div class="m-dropzone dropzone" action="/package/upload/@if(preg_match("/package.edit/i", Route::currentRouteName() )){{ $_id }}@endif" id="m-dropzone-two" multiple="multiple" @if(preg_match("/package.create/i", Route::currentRouteName() ))  style="pointer-events:none;cursor:default;" @endif>
                                         <div class="m-dropzone__msg dz-message needsclick">
                                             <h3 class="m-dropzone__msg-title">
                                                 Arrastra el archivo o haz clic aqui para subirlo

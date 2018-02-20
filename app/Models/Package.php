@@ -80,6 +80,10 @@ class Package extends Eloquent
     {
         return $this->hasOne('App\Models\Country','country_id','destination');
     }
+    public function image()
+    {
+        return $this->hasMany('App\Models\Image','package_id');
+    }
     public function toSearchableArray()
     {
         $array = $this->toArray();
