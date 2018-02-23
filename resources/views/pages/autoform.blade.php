@@ -189,6 +189,9 @@
                                                 @if ( preg_match("/travel.create/i", Route::currentRouteName()))
                                                     {{ Form::submit('Publicar este viaje por USD $5', ['class'=>'btn btn-info m-btn--pill']) }}
                                                     {!! Form::hidden ('user_id', Auth::user()->id, ['id' => 'user_id']) !!}
+                                                    <p style="margin-top: 20px;">
+                                                        ¿Porque cobramos por publicar un viaje? Porque así comprobamos que eres una persona real.
+                                                    </p>
                                                 @endif
 
 

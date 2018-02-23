@@ -78,8 +78,16 @@
 												Documentación enviada
 											</span>
                                             <span class="m-nav__link-badge">
-                                                <span class="m-badge m-badge--success">
-                                                    1
+                                                @php
+                                                    if(count($results->docs)>1)
+                                                        $badgeColor='success';
+                                                    elseif(count($results->docs)==1)
+                                                        $badgeColor='info';
+                                                    else
+                                                        $badgeColor='info';
+                                                @endphp
+                                                <span class="m-badge m-badge--{{$badgeColor}}">
+                                                    {{ count($results->docs) }}
                                                 </span>
                                             </span>
 										</a>

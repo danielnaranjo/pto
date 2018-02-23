@@ -207,9 +207,9 @@ class UserController extends Controller
 
         Date::setLocale('es');
         $data['results'] = User::where('slug', $slug)->first(); //User::find($id->);
-        $data['comments'] = [];// Comment::where('user_id', $user->id)->get();
-        $data['travel'] = [];// Travel::where('user_id', $user->id)->get();
-        $data['packages'] = [];// Package::where('user_id', $user->id)->get();
+        $data['comments'] = Comment::where('user_id', $data['results']['id'])->get();
+        $data['travel'] = Travel::where('user_id', $data['results']['id'])->get();
+        $data['packages'] = Package::where('user_id', $data['results']['id'])->get();
         if(!$format) {
             $data['titulo'] = $data['results']->name;
             return view('pages.profile', $data);

@@ -23,9 +23,9 @@
 								</div>
 								<div class="m-portlet__head-tools">
                                     <div class="m-widget11__action m--align-right">
-                                        <a href="/package/create" class="btn m-btn--pill btn-secondary m-btn m-btn--custom">
-                                            Nuevo Envio
-                                        </a>
+                                        <a href="/package/create" class="nav-link m-tabs__link active">
+											Crear un Paqueto Envio
+										</a>
                                         {{-- $rutaactual --}}
                                         {{-- Route::currentRouteName() --}}
                                         {{-- url()->current() --}}
@@ -52,7 +52,7 @@
                                                 <thead>
                                                     <tr>
                                                         <td class="mayusculas">
-                                                            fecha
+                                                            Fecha
                                                         </td>
                                                         <td class="mayusculas">
                                                             Origen
@@ -62,9 +62,6 @@
                                                         </td>
                                                         <td class="mayusculas">
                                                             titulo
-                                                        </td>
-                                                        <td class="mayusculas">
-                                                            descripción
                                                         </td>
                                                         <td class="mayusculas">
                                                             Negociable
@@ -95,13 +92,14 @@
                                                             {{$result->title}}
                                                         </td>
                                                         <td class="mayusculas">
-                                                            $result->description
+                                                            @if($result->auction=='Y')
+                                                                SI
+                                                            @else
+                                                                NO
+                                                            @endif
                                                         </td>
                                                         <td class="mayusculas">
-                                                            {{$result->auction}}
-                                                        </td>
-                                                        <td class="mayusculas">
-                                                            {{$result->currency}} {{$result->price}}
+                                                            {{ $result->currency }} {{ $result->price }}
                                                         </td>
 
                                                         <td class="opciones">

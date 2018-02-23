@@ -126,7 +126,7 @@ class PackageController extends Controller
         );
         Mailgun::send('emails.paquete', $inside, function ($message) use ($inside){
             $message->from("no-responder@paqueto.com.ve", "Daniel @ Paqueto");
-            $message->subject("Has publicado un paquete con ".$inside['destino']." en Paqueto");
+            $message->subject("Has publicado un paquete con destino ".$inside['destino']." en Paqueto");
             $message->tag(['usuarios', 'package',$inside['destino']]);
             $message->to($inside['email']);
             $message->cc($inside['email']);
@@ -317,7 +317,7 @@ class PackageController extends Controller
             $data['c']=\Cloudder::getResult();
             $data['uploaded']=true;
             $data['path']=$destinationPath.'pack/'.$filename;
-            $data['img'] = DB::table('image')->insertGetId(['name' => $filename, 'path' => $data['c']['url']]);
+            $data['img'] = DB::table('image')->insertGetId(['name' => $filename, 'path' => $data['c']['url'], 'package_id' => $id]);
             if($data['img']){
                 $data['uim'] = DB::table('user_image')->insertGetId([ 'user_id' => $user, 'image_id' => $data['img'], 'type' => '1' ]);
                 $data['oim'] = DB::table('package_image')->insertGetId([ 'package_id' => $id, 'image_id' => $data['img']]);
@@ -329,6 +329,8 @@ class PackageController extends Controller
     public function usuario($id)
     {
         $data['titulo'] = "Mis Envios";
+        $data['_id'] = $id;
+        $data['ID'] = $id;
         $data['results'] = Package::where('user_id',$id)->paginate(16);
         return view('pages.tables', $data);
         return response()->json($data);

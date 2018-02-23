@@ -90,11 +90,15 @@ class User extends Eloquent implements AuthenticatableContract
     }
     public function message()
     {
-        return $this->hasOne('App\Models\Message','user_id');
+        return $this->hasMany('App\Models\Message','user_id');
     }
     public function package()
     {
-        return $this->hasOne('App\Models\Package','user_id');
+        return $this->hasMany('App\Models\Package','user_id');
+    }
+    public function travel()
+    {
+        return $this->hasMany('App\Models\Travel','user_id');
     }
     public function vote()
     {
@@ -102,7 +106,7 @@ class User extends Eloquent implements AuthenticatableContract
     }
     public function withdraw()
     {
-        return $this->hasOne('App\Models\Withdraw','user_id');
+        return $this->hasMany('App\Models\Withdraw','user_id');
     }
     public function toSearchableArray()
     {

@@ -44,7 +44,7 @@ protected $casts = [
 
 	protected $dates = [
 		'created_at',
-'updated_at',
+        'updated_at',
         'birthdate'
 	];
 

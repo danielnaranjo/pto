@@ -140,7 +140,7 @@
                                     </div>
                                     <div class="m-widget7__button">
                                         <a class="m-btn m-btn--pill btn btn-info" href="/u/{{ $travel->user->slug }}" role="button">
-                                            Contactar a {{ $travel->user->name }}
+                                            Contactar
                                         </a>
                                     </div>
                                 </div>
