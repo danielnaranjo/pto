@@ -56,10 +56,10 @@ class Imagenes extends Command
             'imagenes' => $imagenes
         );
 
-        Mail::send('emails.imagenes', $inside, function ($message) use ($inside){
+        Mailgun::send('emails.imagenes', $inside, function ($message) use ($inside){
             $message->from("no-responder@paqueto.com.ve", "Rob @ Operaciones");
             $message->subject("[paqueto] Imagenes diarias");
-            //$message->tag(['tareas', 'diarias', 'imagenes']);
+            $message->tag(['tareas', 'diarias', 'imagenes']);
             $message->to("info@paqueto.com.ve");
         });
 

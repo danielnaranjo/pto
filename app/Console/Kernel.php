@@ -35,7 +35,7 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('tareas:imagenes')
             ->timezone('America/Argentina/Buenos_Aires')
-            ->cron('* * * * * *');
+            ->dailyAt('23:45');
     }
 
     /**
