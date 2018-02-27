@@ -17,7 +17,7 @@ class Kernel extends ConsoleKernel
 
         //https://stackoverflow.com/a/30704738
         'App\Console\Commands\Actividad',
-        'App\Console\Commands\Bienvenida',
+        'App\Console\Commands\Imagenes',
     ];
 
     /**
@@ -28,15 +28,14 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        
+
         $schedule->command('tareas:actividad')
             ->timezone('America/Argentina/Buenos_Aires')
             ->dailyAt('00:00');
-        /*
-        $schedule->command('tareas:bienvenida')
+
+        $schedule->command('tareas:imagenes')
             ->timezone('America/Argentina/Buenos_Aires')
-            ->everyTenMinutes();
-        */
+            ->cron('* * * * * *');
     }
 
     /**

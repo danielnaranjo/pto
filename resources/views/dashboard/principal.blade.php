@@ -188,13 +188,13 @@
                                     <div class="m-widget7__desc">
                                         Tengo disponible
                                         @if($travel->weight)
-                                            <span class="destacar" data-toggle="tooltip" data-placement="bottom" title="Peso establecido">{{ $travel->weight }}</span>
+                                            <span class="destacar" data-toggle="tooltip" data-placement="bottom" title="Peso establecido">{!! $travel->weight !!}</span>
                                         @endif
                                         @if($travel->dimensions)
-                                            para llevar <span class="destacar" data-toggle="tooltip" data-placement="bottom" title="Tamaño permitido">{{ $travel->dimensions }}</span>
+                                            para llevar <span class="destacar" data-toggle="tooltip" data-placement="bottom" title="Tamaño permitido">{!! $travel->dimensions !!}</span>
                                         @endif
                                         @if($travel->restrictions)
-                                            pero no llevo <span class="destacar" data-toggle="tooltip" data-placement="bottom" title="Articulos prohibidos">{{ $travel->restrictions }}</span>
+                                            pero no llevo <span class="destacar" data-toggle="tooltip" data-placement="bottom" title="Articulos prohibidos">{!! $travel->restrictions !!}</span>
                                         @endif
                                     </div>
                                     <div class="m-widget7__user">

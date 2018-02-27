@@ -27,7 +27,8 @@ class ImageController extends Controller
      */
     public function index()
     {
-        //
+        $data['results'] = Image::where('created','>=', Date::now()->sub('10 days') )->get();
+        return response()->json($data);
     }
 
     /**
