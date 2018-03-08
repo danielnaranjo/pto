@@ -126,7 +126,7 @@ class MessageController extends Controller
     {
         $data['titulo'] = "Mis Conversaciones";
         $data['results'] = Message::where('user_id',$id)->paginate(16);
-        return view('pages.tables', $data);
+        return view('pages.tableMessage', $data);
         return response()->json($data);
     }
 }

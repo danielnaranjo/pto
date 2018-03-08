@@ -89,7 +89,7 @@ class TravelController extends Controller
         // Get ID
         $travel_id = $data->travel_id;
         $added = Travel::find($travel_id);
-        
+
         Date::setLocale('es');
         $fecha = Date::now('America/Argentina/Buenos_Aires')->format('l j F Y');
         $inside = array(
@@ -108,7 +108,7 @@ class TravelController extends Controller
             $message->tag(['usuarios', 'viajero']);
             $message->to($inside['email']);
         });
-        
+
         return redirect()->action('TravelController@edit',['travel_id'=> $data ])->with('status', 'Información actualizada!');
     }
 
@@ -190,7 +190,7 @@ class TravelController extends Controller
     {
         $data['titulo'] = "Mis Viajes";
         $data['results'] = Travel::where('user_id',$id)->paginate(16);
-        return view('pages.tables', $data);
+        return view('pages.tableTravel', $data);
         return response()->json($data);
     }
 }
