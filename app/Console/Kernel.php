@@ -18,6 +18,7 @@ class Kernel extends ConsoleKernel
         //https://stackoverflow.com/a/30704738
         'App\Console\Commands\Actividad',
         'App\Console\Commands\Imagenes',
+        'App\Console\Commands\Informacion',
     ];
 
     /**
@@ -36,6 +37,10 @@ class Kernel extends ConsoleKernel
         $schedule->command('tareas:imagenes')
             ->timezone('America/Argentina/Buenos_Aires')
             ->dailyAt('23:45');
+
+        $schedule->command('tareas:informacion')
+            ->timezone('America/Argentina/Buenos_Aires')
+            ->weekly();
     }
 
     /**
