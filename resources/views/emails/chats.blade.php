@@ -1,5 +1,5 @@
 <p>Hola {{ $usuario }}</p>
-<p>Te enviamos tu actividad diaria en paqueto:</p>
+<p>Te enviamos tus ultimos mensajes compartidos en Paqueto:</p>
 <p>
     Últimos mensajes
 </p>

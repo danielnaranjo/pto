@@ -129,4 +129,8 @@ class MessageController extends Controller
         return view('pages.tableMessage', $data);
         return response()->json($data);
     }
+    public function demo(){
+        $data = Comment::find($id);
+        return view('emails.resumen', $data );
+    }
 }

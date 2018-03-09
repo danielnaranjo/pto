@@ -111,4 +111,8 @@ class CommentController extends Controller
     {
         //
     }
+    public function demo(){
+        $data = Comment::find($id);
+        return view('emails.resumen', $data );
+    }
 }
