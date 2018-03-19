@@ -266,41 +266,4 @@ class UserController extends Controller
         $data['filename']=$filename;
         return response()->json($data);
     }
-    /*
-    public function upload(Request $request, $id, $campo, $tabla){
-
-        function clean($nombre){
-            $replace = array(' '=>'');
-            return strtolower( strtr( $nombre, $replace) );
-        }
-        if($id==''){
-            $id = Session::get('inmobiliaria')->inm_id;
-        }
-        if($tabla=='docmas'){
-            $tabla = 'documentos_masivos';
-        }
-        if($tabla=='inmobiliarias'){
-            $tabla = 'inmobiliaria';
-        }
-
-        //$file = Request::all();
-        $file = $request->file('file');
-        $_id = substr ( $tabla, 0, 3)."_id"; // ej. env_id
-        $destinationPath =  public_path('/uploads');//base_path().'/public/uploads/';
-        $path = $file->path(); // ej.
-        $extension = $file->extension(); // ej.jpg
-
-        $this->validate($request, [
-            'file' => 'required|mimes:jpeg,png,jpg,gif,svg,pdf,doc,docx,xls,xlsx|max:2048',
-        ]);
-        $fecha = time();
-        $nombreArchivo = $id.'_'.$fecha.'.'.$extension; //ej. 300_123456.jpg //$file->getClientOriginalName();
-        $file->move($destinationPath, $nombreArchivo);
-
-        $data = DB::update('update '.$tabla.' set '.$campo.' = "'.clean($nombreArchivo).'" where '.$_id.' = ?', [$id]); // ej. update envios set env_archivo1="300_123456.jpg" where env_id=300
-        $res['filename']=$nombreArchivo;
-        $res['field']=$campo;
-        return $res;
-    }
-    */
 }

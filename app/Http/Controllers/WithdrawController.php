@@ -32,7 +32,6 @@ class WithdrawController extends Controller
             ->select('withdraw.withdraw_id','users.name','service.type','withdraw.amount', 'withdraw.email', 'withdraw.status', 'withdraw.requested','package.destination','package.tracking')
             ->leftJoin('package','package.service_id','=','service.service_id')
             ->leftJoin('users','withdraw.user_id','=','users.id')
-            // ->where('inmobiliaria.inm_id','=',$_id)
             ->orderBy('withdraw.withdraw_id','DESC')
             ->paginate(15);
         return view('pages.general', $data);
@@ -45,16 +44,7 @@ class WithdrawController extends Controller
      */
     public function create()
     {
-        $data['_id'] = '';
-        $data['id'] = 0;
-        $data['_controller'] = 'InmobiliariaController';
-        $data['titulo'] = "Nueva administración";
-        $data['ruta'] = 'inmobiliarias';
-        $data['results'] = DB::table('inmobiliaria')
-            ->select('inm_id','inm_nombre','inm_responsable','inm_telefono as inm_teléfono','inm_direccion as inm_dirección','inm_email','inm_asunto','inm_cuerpo','inm_firma','inm_usuario','inm_password','inm_emailresp','inm_logo','inm_web')
-            ->limit(1)
-            ->get();
-        return view('pages.autoform', $data );
+        //
     }
 
     /**
