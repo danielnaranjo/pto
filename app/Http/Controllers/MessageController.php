@@ -64,7 +64,8 @@ class MessageController extends Controller
     public function store(Request $request)
     {
         $input = Request::all();
-        Message::create($input);
+        $data = Message::create($input);
+        return response()->json($data);
     }
 
     /**
@@ -110,7 +111,8 @@ class MessageController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Message::where('message_id', $id)->update(['status' => 0]);
+        return response()->json($data);
     }
     public function display($id){
         $data = DB::table('message')

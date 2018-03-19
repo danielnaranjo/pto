@@ -272,8 +272,12 @@ class PackageController extends Controller
      */
     public function destroy($id)
     {
-        $data = Package::findOrFail($id);
-        $data->delete();
+        if(Auth::user()->id>10){
+            $data = Package::where('package_id', $id)->update(['user_id' => 0]);
+        } else {
+            $data = Package::findOrFail($id);
+            $data->delete();
+        }
         return redirect()->action('PackageController@index')->with('status', 'Información actualizada!');
     }
 

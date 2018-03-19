@@ -63,7 +63,9 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = Request::all();
+        $data = Message::create($input);
+        return response()->json($data);
     }
 
     /**
@@ -109,7 +111,8 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Comment::where('comment_id', $id)->update(['status' => 0]);
+        return response()->json($data);
     }
     public function demo(){
         $data = Comment::find($id);

@@ -174,7 +174,12 @@ class TravelController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(Auth::user()->id>10){
+            $data = Travel::where('travel_id', $id)->update(['user_id' => 0]);
+        } else {
+            $data = Travel::findOrFail($id);
+            $data->delete();
+        }
     }
     public function pais($pais=null,$id=null)
     {

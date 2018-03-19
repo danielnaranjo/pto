@@ -62,7 +62,9 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = Request::all();
+        $data = Service::create($input);
+        return response()->json($data);
     }
 
     /**
@@ -73,7 +75,8 @@ class ServiceController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = Service::find($id);
+        return response()->json($data);
     }
 
     /**
@@ -107,6 +110,8 @@ class ServiceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Service::findOrFail($id);
+        $data->delete();
+        return response()->json($data);
     }
 }
