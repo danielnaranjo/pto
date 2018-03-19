@@ -27,7 +27,7 @@ class Imagenes extends Command
      *
      * @var string
      */
-    protected $description = 'Envio de imagenes cargadas del dia';
+    protected $description = '[paqueto] Envio de imagenes cargadas del dia';
 
     /**
      * Create a new command instance.

@@ -21,14 +21,14 @@ class ChatHora extends Command
      *
      * @var string
      */
-    protected $signature = 'chat:resumen';
+    protected $signature = 'chat:hora';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Envio de resumen de la ultima hora';
+    protected $description = '[paqueto] Envio de resumen de la ultima hora';
 
     /**
      * Create a new command instance.
@@ -48,24 +48,31 @@ class ChatHora extends Command
     public function handle()
     {
         Date::setLocale('es');
-        $tiempo = "3 days";
-        $diaria = Date::now('America/Argentina/Buenos_Aires')->sub($tiempo)->format('Y-m-d H:i:s');
-        $mensajes = Message::where('createdAt', '>=', $diaria )->get();
+        $tiempo = "1 hours";
+        $t = Date::now('America/Argentina/Buenos_Aires')->sub($tiempo)->format('Y-m-d H:i:s');//
+        $mensajes = Message::where('createdAt','>=',$t)->get();
+        $total = Message::where('createdAt','>=', $t )->count();
+        if($total>0) :
+            foreach ($mensajes as $mensaje) :
+                $usuario = $mensaje->user->name;
+                $messages = json_encode($mensaje);
+                $inside = array(
+                    'fecha' => Date::now('America/Argentina/Buenos_Aires')->format('l j F Y'),
+                    'usuario' => $usuario,
+                    'mensajes' => $messages,
+                );
+                // Mail::send('emails.chats', $inside, function ($message) use ($inside){
+                //     $message->from("no-responder@paqueto.com.ve", "Carol @ Paqueto");
+                //     $message->subject("[paqueto] Resumen de conversaciones de ".$inside['fecha']);
+                //     //$message->tag(['chats', 'hora', 'usuarios']);
+                //     $message->to("info@paqueto.com.ve");
+                // });
+            endforeach;
 
-        // $inside = array(
-        //     'fecha' => Date::now('America/Argentina/Buenos_Aires')->format('l j F Y'),
-        //     'mensajes' => $mensajes,
-        // );
-        // Mail::send('emails.chats', $inside, function ($message) use ($inside){
-        //     $message->from("no-responder@paqueto.com.ve", "Carol @ Paqueto");
-        //     $message->subject("[paqueto] Has recibido mensajes en el chat");
-        //     //$message->tag(['chats', 'hora', 'usuarios']);
-        //     $message->to("info@paqueto.com.ve");
-        // });
-
-        Log::info('**************');
-        Log::info('Chat:hora '.Date::now('America/Argentina/Buenos_Aires')->format('l j F Y H:m') );
-        Log::info('Conversaciones: '. count($user) );
-        Log::info('**************');
+            Log::info('************** ');
+            Log::info('Chat:hora: '.Date::now('America/Argentina/Buenos_Aires')->format('l j F Y H:m') );
+            Log::info('Conversaciones: '. $total );
+            Log::info('************** ');
+        endif;
     }
 }

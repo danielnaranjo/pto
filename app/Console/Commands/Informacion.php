@@ -31,7 +31,7 @@ class Informacion extends Command
      *
      * @var string
      */
-    protected $description = 'Verificacion de usuarios con datos pendientes';
+    protected $description = '[paqueto] Verificacion de usuarios con datos pendientes';
 
     /**
      * Create a new command instance.

@@ -31,7 +31,7 @@ class Actividad extends Command
      *
      * @var string
      */
-    protected $description = 'Envio de actividad diaria';
+    protected $description = '[paqueto] Envio de actividad diaria';
 
     /**
      * Create a new command instance.

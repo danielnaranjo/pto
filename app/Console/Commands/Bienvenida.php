@@ -31,7 +31,7 @@ class Bienvenida extends Command
      *
      * @var string
      */
-    protected $description = 'Envio de bienvenida a usuarios';
+    protected $description = '[paqueto] Envio de bienvenida a usuarios';
 
     /**
      * Create a new command instance.
