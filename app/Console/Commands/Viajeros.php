@@ -58,19 +58,22 @@ class Viajeros extends Command
                         $inside = array(
                             'usuario' => $user->name,
                             'email' => $user->email,
-                            'travel' => $travel,
+                            'travel' => [$travel],
                             'destino' => $travel->to->name,
                         );
+                        //Log::info('************** '. json_encode($inside));
                         Mail::send('emails.viajeros', $inside, function ($message) use ($inside){
                             $message->from("no-responder@paqueto.com.ve", "Carol @ Paqueto");
                             $message->subject("Hemos encontrado algunos viajeros que van a ".$inside['destino']." ".$inside['usuario']);
-                            //$message->tag(['chats', 'hora', 'usuarios']);
+                            $message->tag(['viajeros', 'destinos', 'usuarios']);
                             $message->to($inside['email']);
                         });
-                        Log::info('************** '. json_encode($inside));
                     endforeach;
                 endif;
             endforeach;
+            Log::info('************** ');
+            Log::info('Viajeros:destinos: '.Date::now('America/Argentina/Buenos_Aires')->format('l j F Y H:m') );
+            Log::info('************** ');
         endif;
     }
 }
