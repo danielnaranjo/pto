@@ -82,62 +82,31 @@ export default {
     },
     data() {
         return {
-            list: []
-        };
+            mensajes: [],
+            mensaje: {
+                id: '',
+                body: ''
+            }
+        }
     },
-
     created() {
-        this.getChat();
+        this.getList(this.id);
     },
-
     methods: {
-        getChat() {
-            axios.get('/api/message/1').then((res) => {
-                this.list = res.data;
+        getList(id) {
+            axios.get('/api/message/'+id).then((res) => {
+                //console.log('@ axios.get', JSON.stringify(res) );
+                this.mensajes = res.data;
             });
-        }
-    }
-}
-</script>
-etList(id) {
-                axios.get('/api/message/'+id).then((res) => {
-                    //console.log('@ axios.get', JSON.stringify(res) );
-                    this.list = res.data;
-                });
-            }
-        }
-    }
-</script>
-mber
-            }
         },
-        data() {
-            return {
-                mensajes: [],
-                mensaje: {
-                    id: '',
-                    body: ''
-                }
-            }
-        },
-        created() {
-            this.getList(this.id);
-        },
-        methods: {
-            getList(id) {
-                axios.get('/api/message/'+id).then((res) => {
-                    //console.log('@ axios.get', JSON.stringify(res) );
-                    this.mensajes = res.data;
-                });
-            },
-            enviar() {
-                axios.post('/message', this.mensaje)
-                    .then((res) => {
-                        this.mensaje.body = '';
-                        //this.mensaje.to_id = '';
-                        this.getList(this.id);
-                    })
-                    .catch((err) => console.error(err));
+        enviar() {
+            axios.post('/message', this.mensaje)
+                .then((res) => {
+                    this.mensaje.body = '';
+                    //this.mensaje.to_id = '';
+                    this.getList(this.id);
+                })
+                .catch((err) => console.error(err));
             }
         }
     }
