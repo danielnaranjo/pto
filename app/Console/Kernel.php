@@ -19,6 +19,9 @@ class Kernel extends ConsoleKernel
         'App\Console\Commands\Actividad',
         'App\Console\Commands\Imagenes',
         'App\Console\Commands\Informacion',
+        'App\Console\Commands\ChatDiario',
+        'App\Console\Commands\ChatHora',
+        'App\Console\Commands\Viajeros',
     ];
 
     /**
@@ -38,9 +41,19 @@ class Kernel extends ConsoleKernel
             ->timezone('America/Argentina/Buenos_Aires')
             ->dailyAt('23:45');
 
-        $schedule->command('tareas:informacion')
+        // $schedule->command('tareas:informacion')
+        //     ->timezone('America/Argentina/Buenos_Aires')
+        //     ->weekly();
+
+        $schedule->command('chat:diario')
             ->timezone('America/Argentina/Buenos_Aires')
-            ->weekly();
+            ->everyMinute();
+        $schedule->command('chat:hora')
+            ->timezone('America/Argentina/Buenos_Aires')
+            ->everyMinute();
+        $schedule->command('viajeros:destino')
+            ->timezone('America/Argentina/Buenos_Aires')
+            ->everyMinute();
     }
 
     /**
