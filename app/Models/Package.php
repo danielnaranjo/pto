@@ -45,7 +45,10 @@ class Package extends Eloquent
 	];
 
 	protected $dates = [
-		'created',
+        'created',
+        'taken',
+        'transit',
+		'revision',
 		'delivery'
 	];
 
@@ -58,6 +61,9 @@ class Package extends Eloquent
 		'title',
 		'description',
 		'created',
+        'taken',
+        'transit',
+		'revision',
 		'delivery',
 		'auction',
         'price',

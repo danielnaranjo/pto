@@ -201,24 +201,95 @@
                                 <div class="m-portlet__head-caption">
                                     <div class="m-portlet__head-title">
                                         <h3 class="m-portlet__head-text">
-                                            Enviar un mensaje a {{ $results->user->name }}
+                                            <!-- Enviar un mensaje a {{ $results->user->name }} -->
+                                            Estado del paquete
                                         </h3>
                                     </div>
                                 </div>
                             </div>
                             <div class="m-portlet__body">
-                                {!! Form::open(['url' => '', 'id'=>'message']) !!}
+                                <!-- {!! Form::open(['url' => '', 'id'=>'message']) !!}
                                 {!! Form::hidden('_id', '0', ['id' => '_id']) !!}
-                                <div class='form-group'>
-                                    <!-- {!! Form::label('comentarios', 'comentarios') !!} -->
                                     {!! Form::textarea('email', null, ['class' => 'form-control', 'id' => 'email', 'placeholder'=>'Quisiera saber...', 'rows'=>'10']) !!}
                                     <p class="help-block">
                                         Por tu seguridad, No envies datos personales o información de contacto.
                                     </p>
                                 </div>
                                 {{ Form::submit('Enviar mensaje', ['class'=>'btn btn-info btn-block m-btn--pill', 'id'=>'btnMessage']) }}
-                                {!! Form::close() !!}
-
+                                {!! Form::close() !!} -->
+                                <div class="m-list-timeline">
+									<div class="m-list-timeline__items">
+										<div class="m-list-timeline__item">
+											<span class="m-list-timeline__badge m-list-timeline__badge--success"></span>
+											<span class="m-list-timeline__icon flaticon-user"></span>
+											<span class="m-list-timeline__text">
+												Publicado
+											</span>
+											<span class="m-list-timeline__time">
+												{{ Date::parse($results->created)->diffForHumans() }}
+											</span>
+										</div>
+										<div class="m-list-timeline__item">
+											<span class="m-list-timeline__badge m-list-timeline__badge--danger"></span>
+											<span class="m-list-timeline__icon flaticon-map-location"></span>
+											<span class="m-list-timeline__text">
+												Disponible
+												<!-- <span class="m-badge m-badge--success m-badge--wide">
+													completed
+												</span> -->
+											</span>
+											<span class="m-list-timeline__time">
+												{{ Date::parse($results->taken)->diffForHumans() }}
+											</span>
+										</div>
+										<div class="m-list-timeline__item" style="height:100px">
+											<span class="m-list-timeline__badge m-list-timeline__badge--warning"></span>
+											<span class="m-list-timeline__icon flaticon-truck"></span>
+											<span class="m-list-timeline__text">
+												En transito
+											</span>
+											<span class="m-list-timeline__time">
+												{{ Date::parse($results->transit)->diffForHumans() }}
+											</span>
+										</div>
+										<div class="m-list-timeline__item" style="height:70px">
+											<span class="m-list-timeline__badge m-list-timeline__badge--primary"></span>
+											<span class="m-list-timeline__icon flaticon-open-box"></span>
+											<span class="m-list-timeline__text">
+												En revisión
+												<span class="m-badge m-badge--info m-badge--wide">
+													OK
+												</span>
+											</span>
+											<span class="m-list-timeline__time">
+												{{ Date::parse($results->revision)->diffForHumans() }}
+											</span>
+										</div>
+										<!-- <div class="m-list-timeline__item">
+											<span class="m-list-timeline__badge m-list-timeline__badge--brand"></span>
+											<span class="m-list-timeline__icon flaticon-exclamation-1"></span>
+											<span class="m-list-timeline__text">
+												Entregado
+												<a href="#" class="m-link">
+													Check
+												</a>
+											</span>
+											<span class="m-list-timeline__time">
+												2 hrs
+											</span>
+										</div> -->
+                                        <div class="m-list-timeline__item">
+											<span class="m-list-timeline__badge m-list-timeline__badge--success"></span>
+											<span class="m-list-timeline__icon flaticon-user-ok"></span>
+											<span class="m-list-timeline__text">
+												Entregado
+											</span>
+											<span class="m-list-timeline__time">
+												{{ Date::parse($results->delivery)->diffForHumans() }}
+											</span>
+										</div>
+									</div>
+								</div>
                             </div>
                         </div>
                         @endif

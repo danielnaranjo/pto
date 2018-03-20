@@ -177,7 +177,7 @@
                                                         </a>
     												</h4>
     												<span class="m-widget5__desc">
-    			                                        {{ $pack->description }}
+    			                                        {!! $pack->description !!}
     												</span>
     												<div class="m-widget5__info">
     													<!-- <span class="m-widget5__author">
