@@ -36,24 +36,21 @@ class Kernel extends ConsoleKernel
         $schedule->command('tareas:actividad')
             ->timezone('America/Argentina/Buenos_Aires')
             ->dailyAt('00:00');
-
         $schedule->command('tareas:imagenes')
             ->timezone('America/Argentina/Buenos_Aires')
             ->dailyAt('23:45');
-
-        // $schedule->command('tareas:informacion')
-        //     ->timezone('America/Argentina/Buenos_Aires')
-        //     ->weekly();
-
+        $schedule->command('tareas:informacion')
+            ->timezone('America/Argentina/Buenos_Aires')
+            ->weekly();
         $schedule->command('chat:diario')
             ->timezone('America/Argentina/Buenos_Aires')
-            ->everyMinute();
+            ->dailyAt('22:00');
         $schedule->command('chat:hora')
             ->timezone('America/Argentina/Buenos_Aires')
-            ->everyMinute();
+            ->hourly();
         $schedule->command('viajeros:destino')
             ->timezone('America/Argentina/Buenos_Aires')
-            ->everyMinute();
+            ->weekly();
     }
 
     /**
