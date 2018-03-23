@@ -229,19 +229,19 @@
 												{{ Date::parse($results->created)->diffForHumans() }}
 											</span>
 										</div>
+                                        @if(Date::parse($results->taken)->format('Y') > 0 )
 										<div class="m-list-timeline__item">
 											<span class="m-list-timeline__badge m-list-timeline__badge--danger"></span>
 											<span class="m-list-timeline__icon flaticon-map-location"></span>
 											<span class="m-list-timeline__text">
-												Disponible
-												<!-- <span class="m-badge m-badge--success m-badge--wide">
-													completed
-												</span> -->
+												Tomado
 											</span>
 											<span class="m-list-timeline__time">
 												{{ Date::parse($results->taken)->diffForHumans() }}
 											</span>
 										</div>
+                                        @endif
+                                        @if(Date::parse($results->transit)->format('Y') > 0)
 										<div class="m-list-timeline__item" style="height:100px">
 											<span class="m-list-timeline__badge m-list-timeline__badge--warning"></span>
 											<span class="m-list-timeline__icon flaticon-truck"></span>
@@ -252,6 +252,8 @@
 												{{ Date::parse($results->transit)->diffForHumans() }}
 											</span>
 										</div>
+                                        @endif
+                                        @if(Date::parse($results->revision)->format('Y') > 0)
 										<div class="m-list-timeline__item" style="height:70px">
 											<span class="m-list-timeline__badge m-list-timeline__badge--primary"></span>
 											<span class="m-list-timeline__icon flaticon-open-box"></span>
@@ -265,19 +267,8 @@
 												{{ Date::parse($results->revision)->diffForHumans() }}
 											</span>
 										</div>
-										<!-- <div class="m-list-timeline__item">
-											<span class="m-list-timeline__badge m-list-timeline__badge--brand"></span>
-											<span class="m-list-timeline__icon flaticon-exclamation-1"></span>
-											<span class="m-list-timeline__text">
-												Entregado
-												<a href="#" class="m-link">
-													Check
-												</a>
-											</span>
-											<span class="m-list-timeline__time">
-												2 hrs
-											</span>
-										</div> -->
+                                        @endif
+                                        @if(Date::parse($results->delivery)->format('Y') > 0)
                                         <div class="m-list-timeline__item">
 											<span class="m-list-timeline__badge m-list-timeline__badge--success"></span>
 											<span class="m-list-timeline__icon flaticon-user-ok"></span>
@@ -288,6 +279,7 @@
 												{{ Date::parse($results->delivery)->diffForHumans() }}
 											</span>
 										</div>
+                                        @endif
 									</div>
 								</div>
                             </div>
