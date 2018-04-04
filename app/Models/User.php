@@ -108,6 +108,10 @@ class User extends Eloquent implements AuthenticatableContract
     {
         return $this->hasMany('App\Models\Withdraw','user_id');
     }
+    public function location()
+    {
+        return $this->hasOne('App\Models\Country','country_id','country');
+    }
     public function toSearchableArray()
     {
         $array = $this->toArray();

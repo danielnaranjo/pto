@@ -45,6 +45,10 @@ class Travel extends Eloquent
     {
         return $this->hasOne('App\Models\Country','country_id','destination');
     }
+    public function related()
+    {
+        return $this->hasMany('App\Models\User','country','destination');
+    }
     public function toSearchableArray()
     {
         $array = $this->toArray();
