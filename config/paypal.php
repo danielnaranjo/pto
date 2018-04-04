@@ -11,7 +11,7 @@ return [
         'password'    => env('PAYPAL_SANDBOX_API_PASSWORD', ''),
         'secret'      => env('PAYPAL_SANDBOX_API_SECRET', ''),
         'certificate' => env('PAYPAL_SANDBOX_API_CERTIFICATE', ''),
-        'app_id'      => '', // Used for testing Adaptive Payments API in sandbox mode
+        'app_id'      => 'APP-80W284485P519543T', // Used for testing Adaptive Payments API in sandbox mode
     ],
     'live' => [
         'username'    => env('PAYPAL_LIVE_API_USERNAME', ''),
@@ -25,5 +25,6 @@ return [
     'currency'       => 'USD',
     'notify_url'     => '', // Change this accordingly for your application.
     'locale'         => 'es_ES', // force gateway language  i.e. it_IT, es_ES, en_US ... (for express checkout only)
-    'validate_ssl'   => true, // Validate SSL when creating api client.
+    'invoice_prefix' => env('PAYPAL_INVOICE_PREFIX', 'PAYPALDEMOAPP'),
+    //'validate_ssl'   => true, // Validate SSL when creating api client.
 ];

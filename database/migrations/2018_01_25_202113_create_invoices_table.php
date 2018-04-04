@@ -14,11 +14,12 @@ class CreateInvoicesTable extends Migration
     public function up()
     {
         Schema::create('invoices', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('title');
-            $table->double('price', 2);
-            $table->boolean('paid');
-            $table->timestamps();
+             $table->increments('id');
+             $table->string('title');
+             $table->float('price', 2);
+             $table->string('payment_status')->nullable();
+             $table->string('recurring_id')->nullable();
+             $table->timestamps();
         });
     }
 

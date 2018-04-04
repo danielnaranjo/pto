@@ -78,10 +78,9 @@ Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider');
 Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
 
 // PayPal
-// Route::get('paypal', 'PayPalController@index');
-// Route::get('paypal/ec-checkout', 'PayPalController@getExpressCheckout');
-// Route::get('paypal/ec-checkout-success', 'PayPalController@getExpressCheckoutSuccess');
-// Route::post('paypal/notify', 'PayPalController@notify');
+Route::get('paypal/express-checkout', 'PaypalController@expressCheckout')->name('paypal.express-checkout');
+Route::get('paypal/express-checkout-success', 'PaypalController@expressCheckoutSuccess');
+Route::post('paypal/notify', 'PaypalController@notify');
 
 Route::get('demo', 'PublicController@demo');
 Route::get('paquete', 'PackageController@demo');
