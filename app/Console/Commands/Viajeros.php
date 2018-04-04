@@ -47,33 +47,35 @@ class Viajeros extends Command
     {
         Date::setLocale('es');
         $viaje = Date::now('America/Argentina/Buenos_Aires')->format('Y-m-d H:i:s');//
-        $travellers = Travel::where('date','>=', $viaje)->groupBy('destination')->get();
-
-        if(count($travellers)>0) :
-            foreach ($travellers as $travel) :
-                $users = User::select('name','email')->where('country', $travel->destination)->get();
-                if(count($users)>0):
-                    //$data['travel'][] = array('destino'=>$travel, 'users'=> $users);
-                    foreach ($users as $user) :
-                        $inside = array(
-                            'usuario' => $user->name,
-                            'email' => $user->email,
-                            'travel' => [$travel],
-                            'destino' => $travel->to->name,
-                        );
-                        //Log::info('************** '. json_encode($inside));
-                        Mail::send('emails.viajeros', $inside, function ($message) use ($inside){
-                            $message->from("no-responder@paqueto.com.ve", "Carol @ Paqueto");
-                            $message->subject("Hemos encontrado algunos viajeros que van a ".$inside['destino']." ".$inside['usuario']);
-                            $message->tag(['viajeros', 'destinos', 'usuarios']);
-                            $message->to($inside['email']);
-                        });
-                    endforeach;
+        $users = User::all();
+        if(count($users)>0):
+            foreach ($users as $user) :
+                //Log::info(' @ '. $user->id);
+                $viajeros = Travel::where('date','>=', $viaje)
+                    ->where('destination', $user->country)
+                    ->where('user_id', '!=', $user->id)
+                    ->where('status', 0)
+                    ->get();
+                if(count($viajeros)>0):
+                    //Log::info(' @@ '. $user->id .'@@'. $user->country .'@@'. $viajeros[0]->destination);
+                    $inside = array(
+                        'usuario' => $user->name,
+                        'email' => $user->email,
+                        'viajeros' => $viajeros,
+                        'destino' => $user->location->name,
+                    );
+                    Mailgun::send('emails.viajeros', $inside, function ($message) use ($inside){
+                        $message->from("no-responder@paqueto.com.ve", "Daniel @ Paqueto");
+                        $message->subject($inside['usuario']." hemos encontrado algunos viajeros que van a ".$inside['destino']);
+                        $message->tag(['viajeros', 'destinos', 'usuarios',$inside['destino']]);
+                        $message->to($inside['email']);
+                    });
+                    //Log::info(' @ '. json_encode($inside) );
                 endif;
             endforeach;
-            Log::info('************** ');
-            Log::info('Viajeros:destinos: '.Date::now('America/Argentina/Buenos_Aires')->format('l j F Y H:m') );
-            Log::info('************** ');
         endif;
+        Log::info('************** ');
+        Log::info('Viajeros:destinos: '.Date::now('America/Argentina/Buenos_Aires')->format('l j F Y H:m') );
+        Log::info('************** ');
     }
 }

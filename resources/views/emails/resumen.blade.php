@@ -4,7 +4,7 @@
     Últimos mensajes
 </p>
 <ul>
-    @forelse($mensajes as $m)
+    @forelse($comentarios as $m)
     <li>A: <a href="/u/{{$m->from->slug}}">{{ $m->from->name }}</a>, le enviaste: {!! $m->comment !!}</li>
     @empty
     <li>No tienes mensajes</li>
