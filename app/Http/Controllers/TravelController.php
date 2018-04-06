@@ -79,12 +79,13 @@ class TravelController extends Controller
         $data->type = 'No especificado';
         $data->origin = $request->origin;
         $data->destination = $request->destination;
-        $data->date = Date::parse($request->delivery)->format('Y-m-d H:s:i');
+        $data->date = Date::parse($request->date)->format('Y-m-d H:s:i');
         $data->title = $request->title;
         $data->dimensions = $request->dimensions;
         $data->weight = $request->weight;
         $data->restrictions = $request->restrictions;
         $data->transportation = $request->transportation;
+        $data->created_at = Date::now()->format('Y-m-d H:s:i');
         $data->save();
         // Get ID
         $travel_id = $data->travel_id;
@@ -102,14 +103,15 @@ class TravelController extends Controller
             'dimensiones' => $added->dimensions,
             'restricciones' => $added->restrictions,
         );
-        Mailgun::send('emails.viaje', $inside, function ($message) use ($inside){
+        Mail::send('emails.viaje', $inside, function ($message) use ($inside){
             $message->from("info@paqueto.com.ve", "Daniel @ Paqueto");
             $message->subject("Has publicado un viaje a ".$inside['destino']." en Paqueto");
-            $message->tag(['usuarios', 'viajero']);
+            //$message->tag(['usuarios', 'viajero']);
             $message->to($inside['email']);
         });
 
-        return redirect()->action('TravelController@edit',['travel_id'=> $data ])->with('status', 'Información actualizada!');
+        //return redirect()->action('TravelController@edit',['travel_id'=> $data ])->with('status', 'Información actualizada!');
+        return redirect('/paypal/express-checkout?travel_id='.$data);
     }
 
     /**

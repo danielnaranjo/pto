@@ -32,12 +32,12 @@ class PayPalController extends Controller
         $this->provider = new ExpressCheckout();
     }
 
-    public function expressCheckout(Request $request) {
+    public function expressCheckout(Request $request, $travel_id=null) {
       // check if payment is recurring
       $recurring = $request->input('recurring', false) ? true : false;
 
       // get new invoice id
-      $invoice_id = Invoice::count() + 1;
+      $invoice_id = $travel_id; //Invoice::count() + 1;
 
       // Get the cart data
       $cart = $this->getCart($recurring, $invoice_id);
@@ -76,22 +76,22 @@ class PayPalController extends Controller
                 // with name, price and quantity
                 'items' => [
                     [
-                        'name' => 'Monthly Subscription ' . config('paypal.invoice_prefix') . ' #' . $invoice_id,
-                        'price' => 20,
+                        'name' => 'Suscripción mensual ' . config('paypal.invoice_prefix') . ' #' . $invoice_id,
+                        'price' => 25,
                         'qty' => 1,
                     ],
                 ],
 
                 // return url is the url where PayPal returns after user confirmed the payment
                 'return_url' => url('/paypal/express-checkout-success?recurring=1'),
-                'subscription_desc' => 'Monthly Subscription ' . config('paypal.invoice_prefix') . ' #' . $invoice_id,
+                'subscription_desc' => 'Plan Mensual ' . config('paypal.invoice_prefix') . ' #' . $invoice_id,
                 // every invoice id must be unique, else you'll get an error from paypal
                 'invoice_id' => config('paypal.invoice_prefix') . '_' . $invoice_id,
-                'invoice_description' => "Order #". $invoice_id ." Invoice",
-                'cancel_url' => url('/'),
+                'invoice_description' => "Plan Mensual #". $invoice_id ." Recibo",
+                'cancel_url' => url('/travel/create'),
                 // total is calculated by multiplying price with quantity of all cart items and then adding them up
                 // in this case total is 20 because price is 20 and quantity is 1
-                'total' => 20, // Total price of the cart
+                'total' => 25, // Total price of the cart
             ];
         }
 
@@ -100,14 +100,14 @@ class PayPalController extends Controller
             // with name, price and quantity
             'items' => [
                 [
-                    'name' => 'Product 1',
-                    'price' => 10,
+                    'name' => 'Paqueto Viajero',
+                    'price' => 4,
                     'qty' => 1,
                 ],
                 [
-                    'name' => 'Product 2',
-                    'price' => 5,
-                    'qty' => 2,
+                    'name' => 'Verificación de Seguridad',
+                    'price' => 1,
+                    'qty' => 1,
                 ],
             ],
 
@@ -115,11 +115,11 @@ class PayPalController extends Controller
             'return_url' => url('/paypal/express-checkout-success'),
             // every invoice id must be unique, else you'll get an error from paypal
             'invoice_id' => config('paypal.invoice_prefix') . '_' . $invoice_id,
-            'invoice_description' => "Order #" . $invoice_id . " Invoice",
-            'cancel_url' => url('/'),
+            'invoice_description' => "Paqueto viajero #" . $invoice_id . " Recibo",
+            'cancel_url' => url('/travel/create'),
             // total is calculated by multiplying price with quantity of all cart items and then adding them up
             // in this case total is 20 because Product 1 costs 10 (price 10 * quantity 1) and Product 2 costs 10 (price 5 * quantity 2)
-            'total' => 20,
+            'total' => 10,
         ];
     }
 
