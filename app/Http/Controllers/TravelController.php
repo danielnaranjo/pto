@@ -107,11 +107,16 @@ class TravelController extends Controller
             $message->from("info@paqueto.com.ve", "Daniel @ Paqueto");
             $message->subject("Has publicado un viaje a ".$inside['destino']." en Paqueto");
             //$message->tag(['usuarios', 'viajero']);
-            $message->to($inside['email']);
+            $message->to($inside['email'], $inside['usuario']);
         });
 
         //return redirect()->action('TravelController@edit',['travel_id'=> $data ])->with('status', 'Información actualizada!');
-        return redirect('/paypal/express-checkout?travel_id='.$data);
+        if($travel_id){
+            return redirect('/paypal/checkout/'.$travel_id);
+        } else {
+            Log::error('TravelController > store');
+            return back()->withErrors(['Ha ocurrido un error inesperado', 'codigo'=> 'TRAVELERROR#118'])->withInput();
+        }
     }
 
     /**

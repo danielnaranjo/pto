@@ -9,7 +9,8 @@ class Invoice extends Model
     protected $fillable = [
         'title',
         'price',
-        'payment_status'
+        'payment_status',
+        'travel_id',
     ];
 
     public function items()
