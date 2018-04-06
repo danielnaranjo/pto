@@ -103,10 +103,10 @@ class TravelController extends Controller
             'dimensiones' => $added->dimensions,
             'restricciones' => $added->restrictions,
         );
-        Mail::send('emails.viaje', $inside, function ($message) use ($inside){
+        Mailgun::send('emails.viaje', $inside, function ($message) use ($inside){
             $message->from("info@paqueto.com.ve", "Daniel @ Paqueto");
             $message->subject("Has publicado un viaje a ".$inside['destino']." en Paqueto");
-            //$message->tag(['usuarios', 'viajero']);
+            $message->tag(['usuarios', 'viajero']);
             $message->to($inside['email'], $inside['usuario']);
         });
 

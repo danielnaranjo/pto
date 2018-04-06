@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', '$titulo')
+@section('title', $titulo)
 
 @section('content')
 <div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body">

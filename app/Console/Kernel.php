@@ -44,16 +44,13 @@ class Kernel extends ConsoleKernel
             ->weekly();
         $schedule->command('chat:diario')
             ->timezone('America/Argentina/Buenos_Aires')
-            // ->dailyAt('22:00');
-            ->everyMinute();
+            ->dailyAt('22:00');
         $schedule->command('chat:hora')
             ->timezone('America/Argentina/Buenos_Aires')
-            // ->hourly();
-            ->everyMinute();
+            ->hourly();
         $schedule->command('viajeros:destino')
             ->timezone('America/Argentina/Buenos_Aires')
-            // ->weekly();
-            ->everyMinute();
+            ->weekly();
     }
 
     /**
