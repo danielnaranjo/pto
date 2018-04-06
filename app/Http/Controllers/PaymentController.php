@@ -24,9 +24,8 @@ use File;
 use Srmklive\PayPal\Services\ExpressCheckout;
 //https://quickadminpanel.com/blog/paypal-payments-in-laravel-the-ultimate-guide/
 
-
-class PayPalController extends Controller {
-
+class PaymentController extends Controller
+{
     protected $provider;
 
     public function __construct() {
@@ -200,11 +199,8 @@ class PayPalController extends Controller {
             }
             // I leave this code here so you can log IPN data if you want
             // PayPal provides a lot of IPN data that you should save in real world scenarios
-            /*
-                $logFile = 'ipn_log_'.Carbon::now()->format('Ymd_His').'.txt';
+            $logFile = 'ipn_log_'.Carbon::now()->format('Ymd_His').'.txt';
                 Storage::disk('local')->put($logFile, print_r($post, true));
-            */
         }
     }
-
 }
