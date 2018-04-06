@@ -32,15 +32,6 @@
 										</h3>
 									</div>
 								</div>
-								<div class="m-portlet__head-tools" style="display:none;">
-                                    <div class="m-widget11__action m--align-right">
-                                        @if(Session::get('nivel')<3)
-                                            <button type="button" class="btn m-btn--pill btn-secondary m-btn m-btn--custom m-btn--hover-brand">
-                                                Generar Reporte
-                                            </button>
-                                        @endif
-                                    </div>
-								</div>
 							</div>
 							<div class="m-portlet__body">
 								<div class="tab-content">
