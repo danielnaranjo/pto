@@ -9,6 +9,7 @@ use App\Models\Message;
 use App\Models\Package;
 use App\Models\Travel;
 use App\Models\Image;
+use App\Models\Social;
 use App\Models\UserImage;
 
 use Illuminate\Http\Request;
@@ -115,6 +116,7 @@ class UserController extends Controller
         $data['comments'] = Comment::where('user_id', $user->id)->get();
         $data['travel'] = Travel::where('user_id', $user->id)->get();
         $data['packages'] = Package::where('user_id', $user->id)->get();
+        $data['redes'] = Social::where('user_id', $user->id)->get();
         $data['titulo'] = $data['results'][0]->name;
         return view('pages.profile', $data);
         //return response()->json($data);
@@ -134,6 +136,7 @@ class UserController extends Controller
         $data['ruta'] = 'users';
         $data['countries'] = Country::select('country_id','name')->get();
         $data['results'] = User::findOrFail($user->id);
+        $data['socials'] = Social::where('user_id', $user->id)->get();
         $data['titulo'] = "Editando ".$data['results']->name;
         Date::setLocale('es');
         return view('forms.profile', $data );

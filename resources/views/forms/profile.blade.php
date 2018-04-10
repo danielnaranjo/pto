@@ -118,7 +118,7 @@
 
                                 {!! Form::model($results, ['method' => 'PATCH', 'action' => [$_controller.'@update', $_id], 'class'=>'m-form m-form--fit m-form--label-align-right']) !!}
                                     {!! Form::hidden ('id', $results->id, ['id' => 'id']) !!}
-                                    <div class="m-portlet__body">
+                                    <!-- <div class="m-portlet__body"> -->
                                         <div class="form-group m-form__group row">
                                             <div class="col-10 ml-auto">
                                                 <h3 class="m-form__section">
@@ -130,7 +130,7 @@
                                             <label for="example-text-input" class="col-2 col-form-label">
                                                 Nombre
                                             </label>
-                                            <div class="col-7">
+                                            <div class="col-10">
                                                 <!-- <input class="form-control m-input" type="text" name="name" value="{{ $results->name }}"> -->
                                                 {!! Form::text('name', $results->name, ['class' => 'form-control m-input',  'placeholder'=>'Nombre completo', 'required' => true]) !!}
                                             </div>
@@ -139,7 +139,7 @@
                                             <label for="example-text-input" class="col-2 col-form-label">
                                                 E-mail
                                             </label>
-                                            <div class="col-7">
+                                            <div class="col-10">
                                                 <!-- <input class="form-control m-input" type="email" name="email" value="{{ $results->email }}"> -->
                                                 {!! Form::email('email', $results->email, ['class' => 'form-control m-input',  'placeholder'=>'E-mail', 'required' => true]) !!}
                                             </div>
@@ -148,7 +148,7 @@
                                             <label for="example-text-input" class="col-2 col-form-label">
                                                 Teléfono
                                             </label>
-                                            <div class="col-7">
+                                            <div class="col-10">
                                                 <!-- <input class="form-control m-input" type="text" name="phone" value="{{ $results->phone }}"> -->
                                                 {!! Form::text('phone', $results->phone, ['class' => 'form-control m-input',  'placeholder'=>'Teléfono', 'required' => true]) !!}
                                             </div>
@@ -157,7 +157,7 @@
                                             <label for="example-text-input" class="col-2 col-form-label">
                                                 Cédula
                                             </label>
-                                            <div class="col-7">
+                                            <div class="col-10">
                                                 <!-- <input class="form-control m-input" type="text" name="dni" value="{{ $results->dni }}"> -->
                                                 {!! Form::text('dni', $results->dni, ['class' => 'form-control m-input',  'placeholder'=>'Cédula / Pasaporte / DNI', 'required' => true]) !!}
                                             </div>
@@ -166,7 +166,7 @@
                                             <label for="example-text-input" class="col-2 col-form-label">
                                                 Nacimiento
                                             </label>
-                                            <div class="col-7">
+                                            <div class="col-10">
                                                 <!-- <input class="form-control m-input m_datetimepicker_2" type="text" name="birthdate" value="{{ $results->birthdate }}"> -->
                                                 {!! Form::date('birthdate', $results->birthdate, ['class' => 'form-control m-input m_datetimepicker_2',  'placeholder'=>'Fecha de nacimiento', 'required' => true]) !!}
                                             </div>
@@ -175,7 +175,7 @@
                                             <label for="example-text-input" class="col-2 col-form-label">
                                                 Genero
                                             </label>
-                                            <div class="col-7">
+                                            <div class="col-10">
                                                 <select class="form-control m-input" name="gender">
                                                     <option value="NA" @if($results->gender=='NA') selected @endif>No Especificado</option>
                                                     <option value="F" @if($results->gender=='F') selected @endif>Femenino</option>
@@ -195,7 +195,7 @@
                                             <label for="example-text-input" class="col-2 col-form-label">
                                                 Dirección
                                             </label>
-                                            <div class="col-7">
+                                            <div class="col-10">
                                                 <!-- <input class="form-control m-input" type="text" name="address" value="{{ $results->address }}"> -->
                                                 {!! Form::text('address', $results->address, ['class' => 'form-control m-input',  'placeholder'=>'Dirección', 'required' => true]) !!}
                                             </div>
@@ -204,7 +204,7 @@
                                             <label for="example-text-input" class="col-2 col-form-label">
                                                 Ciudad
                                             </label>
-                                            <div class="col-7">
+                                            <div class="col-10">
                                                 <!-- <input class="form-control m-input" type="text" name="city" value="{{ $results->city }}"> -->
                                                 {!! Form::text('city', $results->city, ['class' => 'form-control m-input',  'placeholder'=>'Ciudad', 'required' => true]) !!}
                                             </div>
@@ -213,7 +213,7 @@
                                             <label for="example-text-input" class="col-2 col-form-label">
                                                 Estado
                                             </label>
-                                            <div class="col-7">
+                                            <div class="col-10">
                                                 <!-- <input class="form-control m-input" type="text" name="province" value="{{ $results->province }}"> -->
                                                 {!! Form::text('province', $results->province, ['class' => 'form-control m-input',  'placeholder'=>'Estado / Provincia', 'required' => true]) !!}
                                             </div>
@@ -222,7 +222,7 @@
                                             <label for="example-text-input" class="col-2 col-form-label">
                                                 País
                                             </label>
-                                            <div class="col-7">
+                                            <div class="col-10">
                                                 <select class="form-control m-input" name="country">
                                                     @foreach ($countries as $country)
                                                         <option value="{{$country->country_id}}" @if($results->country==$country->country_id) selected @endif>{{$country->name}}</option>
@@ -242,7 +242,7 @@
                                             <label for="example-text-input" class="col-2 col-form-label">
                                                 Principal
                                             </label>
-                                            <div class="col-7">
+                                            <div class="col-10">
                                                 <div class="m-dropzone dropzone" action="/upload/{{ $_id }}" id="m-dropzone-one" multiple="multiple">
                                                     <div class="m-dropzone__msg dz-message needsclick">
                                                         <h3 class="m-dropzone__msg-title">
@@ -259,7 +259,7 @@
                                             <label for="example-text-input" class="col-2 col-form-label">
                                                 Secundaria
                                             </label>
-                                            <div class="col-7">
+                                            <div class="col-10">
                                                 <div class="m-dropzone dropzone" action="/upload/{{ $_id }}" id="m-dropzone-one" multiple="multiple">
                                                     <div class="m-dropzone__msg dz-message needsclick">
                                                         <h3 class="m-dropzone__msg-title">
@@ -284,16 +284,16 @@
                                             <label for="example-text-input" class="col-2 col-form-label">
                                                 URL
                                             </label>
-                                            <div class="col-7">
+                                            <div class="col-10">
                                                 <input class="form-control m-input" type="text" name="slug" value="{{ $results->slug }}">
                                             </div>
                                         </div>
-                                    </div>
+                                    <!-- </div> -->
                                     <div class="m-portlet__foot m-portlet__foot--fit">
                                         <div class="m-form__actions">
                                             <div class="row">
                                                 <div class="col-2"></div>
-                                                <div class="col-7">
+                                                <div class="col-10">
                                                     {{ Form::submit('Actualizar', ['class'=>'btn btn-info m-btn--pill']) }}
                                                 </div>
                                             </div>
@@ -317,38 +317,30 @@
 							<div class="m-portlet__body">
                                 {!! Form::model($results, ['method' => 'PATCH', 'action' => [$_controller.'@create', $_id], 'class'=>'m-form m-form--fit m-form--label-align-right']) !!}
                                     {!! Form::hidden ('id', $results->id, ['id' => 'id']) !!}
-                                <div class="form-group m-form__group row">
-                                    <label for="example-text-input" class="col-2 col-form-label">
-                                        Linkedin
-                                    </label>
-                                    <div class="col-7">
-                                        <input class="form-control m-input" type="text" value="www.linkedin.com/">
+
+                                    @foreach ($socials as $so)
+                                    <div class="form-group m-form__group row">
+                                        <label for="example-text-input" class="col-2 col-form-label">
+                                            {{ $so->name }}
+                                        </label>
+                                        <div class="col-10">
+                                            <input class="form-control m-input" type="text" name="{{ $so->name }}" value="{{ $so->url }}">
+                                        </div>
+                                    </div>
+                                    @endforeach
+
+
+                                <div class="m-portlet__foot m-portlet__foot--fit">
+                                    <div class="m-form__actions">
+                                        <div class="row">
+                                            <div class="col-2"></div>
+                                            <div class="col-10">
+                                                {{ Form::submit('Guardar', ['class'=>'btn btn-info m-btn--pill']) }}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="form-group m-form__group row">
-                                    <label for="example-text-input" class="col-2 col-form-label">
-                                        Facebook
-                                    </label>
-                                    <div class="col-7">
-                                        <input class="form-control m-input" type="text" value="www.facebook.com/">
-                                    </div>
-                                </div>
-                                <div class="form-group m-form__group row">
-                                    <label for="example-text-input" class="col-2 col-form-label">
-                                        Twitter
-                                    </label>
-                                    <div class="col-7">
-                                        <input class="form-control m-input" type="text" value="www.twitter.com/">
-                                    </div>
-                                </div>
-                                <div class="form-group m-form__group row">
-                                    <label for="example-text-input" class="col-2 col-form-label">
-                                        Instagram
-                                    </label>
-                                    <div class="col-7">
-                                        <input class="form-control m-input" type="text" value="www.instagram.com/">
-                                    </div>
-                                </div>
+
                                 {!! Form::close() !!}
 							</div>
 						</div>
@@ -366,4 +358,26 @@
 		</div>
 	</div>
 </div>
+
+@component('components.modal', ['id' => 'nuevo'])
+    @slot('title')
+        Nueva
+    @endslot
+    @slot('form')
+        {!! Form::open(['url' => '', 'id'=>'alertas_masivas']) !!}
+        {!! Form::hidden('user_id', '0', ['id' => 'user_id']) !!}
+        <div class='form-group'>
+            {!! Form::label('redsocial', 'Red Social') !!}
+            {!! Form::text('name', '', ['class' => 'form-control', 'id' => 'name', 'required'=>'required']) !!}
+        </div>
+        <div class='form-group'>
+            {!! Form::label('redsocial', 'Red Social') !!}
+            {!! Form::text('url', '', ['class' => 'form-control', 'id' => 'url', 'required'=>'required']) !!}
+        </div>
+        {{ Form::submit('Agregar', ['class'=>'btn btn-info btn-block m-btn--pill', 'id'=>'btnNuevRRSS']) }}
+        {!! Form::close() !!}
+    @endslot
+@endcomponent
+
+
 @endsection

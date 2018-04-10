@@ -40,6 +40,7 @@ Route::resource('user', 'UserController');
 Route::resource('vote', 'VoteController');
 Route::resource('travel', 'TravelController');
 Route::resource('withdraw', 'WithdrawController');
+Route::resource('social', 'SocialController');
 
 // Eliminar
 Route::get('/balance/{id}/delete', ['as' => 'balance.destroy', 'uses' => 'BalanceController@destroy']);
