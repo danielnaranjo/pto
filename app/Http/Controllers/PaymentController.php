@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Invoice;
 use App\Models\Package;
 use App\Models\Travel;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
@@ -38,7 +40,7 @@ class PaymentController extends Controller
       // get new invoice id
       $invoice_id = Invoice::count() + 1;
       // Get the cart data
-      $cart = $this->getCart($recurring, $invoice_id);
+      $cart = $this->getCart($recurring, $invoice_id, $travel_id);
       // create new invoice
       $invoice = new Invoice();
       $invoice->title = $cart['invoice_description'];
@@ -61,7 +63,7 @@ class PaymentController extends Controller
       return redirect($response['paypal_link']);
     }
 
-    private function getCart($recurring, $invoice_id){
+    private function getCart($recurring, $invoice_id, $travel_id){
         if ($recurring) {
             return [
                 // if payment is recurring cart needs only one item
@@ -101,10 +103,10 @@ class PaymentController extends Controller
                 ],
             ],
             // return url is the url where PayPal returns after user confirmed the payment
-            'return_url' => url('/paypal/success'),
+            'return_url' => url('/paypal/success/'.$travel_id),
             // every invoice id must be unique, else you'll get an error from paypal
             'invoice_id' => config('paypal.invoice_prefix') . '_' . $invoice_id,
-            'invoice_description' => "Paqueto viajero #" . $invoice_id . " Recibo",
+            'invoice_description' => "Paqueto viajero #" . $travel_id . '-' . $invoice_id . " Recibo",
             'cancel_url' => url('/travel/create'),
             // total is calculated by multiplying price with quantity of all cart items and then adding them up
             // in this case total is 20 because Product 1 costs 10 (price 10 * quantity 1) and Product 2 costs 10 (price 5 * quantity 2)
@@ -112,11 +114,13 @@ class PaymentController extends Controller
         ];
     }
 
-    public function expressCheckoutSuccess(Request $request) {
+    public function expressCheckoutSuccess(Request $request, $travel_id) {
         // check if payment is recurring
         $recurring = $request->input('recurring', false) ? true : false;
         $token = $request->get('token');
         $PayerID = $request->get('PayerID');
+        $invoice_id = $request->input('invoice_id');
+        //$travel_id = $request->input('travel_id');
         // initaly we paypal redirects us back with a token
         // but doesn't provice us any additional data
         // so we use getExpressCheckoutDetails($token)
@@ -134,7 +138,7 @@ class PaymentController extends Controller
         // witch will be the id of the invoice
         $invoice_id = explode('_', $response['INVNUM'])[1];
         // get cart data
-        $cart = $this->getCart($recurring, $invoice_id);
+        $cart = $this->getCart($recurring, $invoice_id, $travel_id);
         // check if our payment is recurring
         if ($recurring === true) {
             // if recurring then we need to create the subscription
@@ -151,9 +155,12 @@ class PaymentController extends Controller
             // and get the payment status
             $payment_status = $this->provider->doExpressCheckoutPayment($cart, $token, $PayerID);
             $status = $payment_status['PAYMENTINFO_0_PAYMENTSTATUS'];
-        }
+        } 
+        //Log::debug('159 : $payment_status: '. json_encode($status));
         // find invoice by id
-        $invoice = Invoice::find($invoice_id);
+        $factura = Invoice::select('id')->where('travel_id','=',$travel_id)->first();
+        $invoice = Invoice::find($factura->id);
+        Log::debug('162 : $invoices: '.$factura->id.' > '. json_encode($invoice));
         // set invoice status
         $invoice->payment_status = $status;
         // if payment is recurring lets set a recurring id for latter use

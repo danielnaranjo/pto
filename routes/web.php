@@ -79,7 +79,7 @@ Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallb
 
 // PayPal
 Route::get('paypal/checkout/{travel_id}', 'PaymentController@expressCheckout')->name('paypal.express-checkout');
-Route::get('paypal/success', 'PaymentController@expressCheckoutSuccess');
+Route::get('paypal/success/{travel_id}', 'PaymentController@expressCheckoutSuccess');
 Route::post('paypal/notify', 'PaymentController@notify');
 
 // Route::get('demo', 'PublicController@demo');
