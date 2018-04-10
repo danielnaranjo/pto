@@ -41,6 +41,7 @@ Route::resource('vote', 'VoteController');
 Route::resource('travel', 'TravelController');
 Route::resource('withdraw', 'WithdrawController');
 Route::resource('social', 'SocialController');
+Route::resource('referral', 'ReferralController');
 
 // Eliminar
 Route::get('/balance/{id}/delete', ['as' => 'balance.destroy', 'uses' => 'BalanceController@destroy']);
