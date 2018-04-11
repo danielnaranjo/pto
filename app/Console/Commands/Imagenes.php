@@ -47,22 +47,22 @@ class Imagenes extends Command
     public function handle(){
 
         Date::setLocale('es');
-        $tiempo = "10 days";
+        $tiempo = "1 days";
         $diaria = Date::now('America/Argentina/Buenos_Aires')->sub($tiempo)->format('Y-m-d H:i:s');
         $imagenes = Image::where('created', '>=', $diaria )->get();
+        if(count($imagenes)>0):
+            $inside = array(
+                'fecha' => Date::now('America/Argentina/Buenos_Aires')->format('l j F Y'),
+                'imagenes' => $imagenes
+            );
 
-        $inside = array(
-            'fecha' => Date::now('America/Argentina/Buenos_Aires')->format('l j F Y'),
-            'imagenes' => $imagenes
-        );
-
-        Mailgun::send('emails.imagenes', $inside, function ($message) use ($inside){
-            $message->from("no-responder@paqueto.com.ve", "Rob @ Operaciones");
-            $message->subject("[paqueto] Imagenes diarias");
-            $message->tag(['tareas', 'diarias', 'imagenes']);
-            $message->to("info@paqueto.com.ve");
-        });
-
-        $this->info('[tasks] tareas:imagenes');
+            Mailgun::send('emails.imagenes', $inside, function ($message) use ($inside){
+                $message->from("no-responder@paqueto.com.ve", "Rob @ Operaciones");
+                $message->subject("[paqueto] Imagenes diarias");
+                $message->tag(['tareas', 'diarias', 'imagenes']);
+                $message->to("info@paqueto.com.ve");
+            });
+            $this->info('[tasks] tareas:imagenes');
+        endif;
     }
 }
