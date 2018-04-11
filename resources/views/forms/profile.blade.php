@@ -328,8 +328,6 @@
                                         </div>
                                     </div>
                                     @endforeach
-
-
                                 <div class="m-portlet__foot m-portlet__foot--fit">
                                     <div class="m-form__actions">
                                         <div class="row">
@@ -342,6 +340,8 @@
                                 </div>
 
                                 {!! Form::close() !!}
+
+
 							</div>
 						</div>
                     </div>
@@ -364,7 +364,7 @@
         Nueva
     @endslot
     @slot('form')
-        {!! Form::open(['url' => '', 'id'=>'alertas_masivas']) !!}
+        {!! Form::open(['url' => '', 'id'=>'rrss']) !!}
         {!! Form::hidden('user_id', '0', ['id' => 'user_id']) !!}
         <div class='form-group'>
             {!! Form::label('redsocial', 'Red Social') !!}
@@ -375,6 +375,25 @@
             {!! Form::text('url', '', ['class' => 'form-control', 'id' => 'url', 'required'=>'required']) !!}
         </div>
         {{ Form::submit('Agregar', ['class'=>'btn btn-info btn-block m-btn--pill', 'id'=>'btnNuevRRSS']) }}
+        {!! Form::close() !!}
+    @endslot
+@endcomponent
+
+@component('components.modal', ['id' => 'referir'])
+    @slot('title')
+        Referidos
+    @endslot
+    @slot('form')
+        {!! Form::open(['url' => '', 'id'=>'referidos']) !!}
+        {!! Form::hidden('user_id', '0', ['id' => 'user_id']) !!}
+        <div class='form-group'>
+            {!! Form::label('email', 'Destinatarios ') !!}
+            {!! Form::textarea('email', null, ['class' => 'form-control', 'id' => 'email', 'placeholder'=>'daniel@correo.com.ve, esteban@hotmail.com, pepe@gmail.com', 'rows'=>'3']) !!}
+            <p class="help-block">
+                Si desea enviarle a uno o varios destinatarios en particular, ingrese los mails separados por coma
+            </p>
+        </div>
+        {{ Form::submit('Enviar', ['class'=>'btn btn-info btn-block m-btn--pill', 'id'=>'btnNuevRRSS']) }}
         {!! Form::close() !!}
     @endslot
 @endcomponent
