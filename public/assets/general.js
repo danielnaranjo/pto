@@ -230,6 +230,12 @@ var toSelect = function(container,value,data,keyTag,labelTag,disabled){
     }
 }
 
+var referir = function(id){
+    $('#referir').modal('show');
+    $('#referir form #_id').val(id);
+    console.log('referir > _id', id);
+};
+
 ////////////////////////////////////////////////////////////////////////////////
 $(function(){
     // tooltips
@@ -443,6 +449,17 @@ $(function(){
     //     //getAll.init();
     //     getAll();
     // }, cadaXminutos) // cada 5 minutoss
+
+    $('#btnReferir').on('click', function (event) {
+        event.preventDefault();
+        var params = {
+            _token : $('input[name="_token"]').val(),
+            _id : $('#_id').val(),
+            emails : $('#emails').val(),
+        }
+        var cUrl = "/api/referral/send";
+        requestPost('referidos', cUrl, params);
+    });
 
 });// End
 

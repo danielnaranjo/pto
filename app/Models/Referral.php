@@ -16,7 +16,7 @@ class Referral extends Eloquent
 
 	protected $fillable = [
 		'name',
-		'url'
+		'email'
 
 	];
     public function referer()

@@ -24,3 +24,6 @@ Route::prefix('tasks')->group(function() {
 Route::get('message/{id}', 'MessageController@display');
 Route::get('users/thismonth', 'UserController@mes');
 Route::get('users/today', 'UserController@semana');
+
+// modals y vuejs
+Route::post('/referral/send', 'ReferralController@enviar');

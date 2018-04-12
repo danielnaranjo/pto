@@ -310,6 +310,7 @@
 									<div class="m-portlet__head-title">
 										<h3 class="m-portlet__head-text">
 											Redes Sociales
+                                            <a href="javascript:referir({{$results->id}})" class="btn btn-info m-btn--pill">Referir a un amigo</a>
 										</h3>
 									</div>
 								</div>
@@ -338,10 +339,7 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 {!! Form::close() !!}
-
-
 							</div>
 						</div>
                     </div>
@@ -385,15 +383,15 @@
     @endslot
     @slot('form')
         {!! Form::open(['url' => '', 'id'=>'referidos']) !!}
-        {!! Form::hidden('user_id', '0', ['id' => 'user_id']) !!}
+        {!! Form::hidden('_id', $results->id, ['id' => '_id']) !!}
         <div class='form-group'>
             {!! Form::label('email', 'Destinatarios ') !!}
-            {!! Form::textarea('email', null, ['class' => 'form-control', 'id' => 'email', 'placeholder'=>'daniel@correo.com.ve, esteban@hotmail.com, pepe@gmail.com', 'rows'=>'3']) !!}
+            {!! Form::textarea('emails', null, ['class' => 'form-control', 'id' => 'emails', 'placeholder'=>'daniel@correo.com.ve, esteban@hotmail.com, pepe@gmail.com', 'rows'=>'3']) !!}
             <p class="help-block">
                 Si desea enviarle a uno o varios destinatarios en particular, ingrese los mails separados por coma
             </p>
         </div>
-        {{ Form::submit('Enviar', ['class'=>'btn btn-info btn-block m-btn--pill', 'id'=>'btnNuevRRSS']) }}
+        {{ Form::submit('Enviar', ['class'=>'btn btn-info btn-block m-btn--pill', 'id'=>'btnReferir']) }}
         {!! Form::close() !!}
     @endslot
 @endcomponent
