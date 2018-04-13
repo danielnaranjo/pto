@@ -86,3 +86,6 @@ Route::post('paypal/notify', 'PaymentController@notify');
 
 // Route::get('demo', 'PublicController@demo');
 // Route::get('paquete', 'PackageController@demo');
+
+Route::resource('groups', 'GroupController');
+Route::resource('conversations', 'ConversationController');

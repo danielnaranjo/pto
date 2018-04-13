@@ -112,6 +112,10 @@ class User extends Eloquent implements AuthenticatableContract
     {
         return $this->hasOne('App\Models\Country','country_id','country');
     }
+    public function groups()
+    {
+        return $this->belongsToMany('App\Models\Group')->withTimestamps();
+    }
     public function toSearchableArray()
     {
         $array = $this->toArray();

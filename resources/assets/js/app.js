@@ -21,6 +21,10 @@ Vue.component('ultimos', require('./components/Ultimos.vue'));
 Vue.component('usuarios', require('./components/Usuarios.vue'));
 Vue.component('mensajes', require('./components/Mensajes.vue'));
 Vue.component('chat', require('./components/Chat.vue'));
+//https://github.com/viraj-khatavkar/group-chat-app-laravel-pusher/blob/master/resources/assets/js/app.js
+Vue.component('groups', require('./components/Groups.vue'));
+Vue.component('create-group', require('./components/CreateGroup.vue'));
+Vue.component('group-chat', require('./components/GroupChat.vue'));
 
 const app = new Vue({
     el: '#app'
