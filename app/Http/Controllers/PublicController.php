@@ -129,62 +129,7 @@ class PublicController extends Controller
         $data['travellers'] = Travel::search( $query )->get();
         return view('pages.quick_search', $data);
     }
-    public function actividad(){
-        Date::setLocale('es');
-        $tiempo = "7 days";
-        $diaria = Date::now('America/Argentina/Buenos_Aires')->sub($tiempo)->format('Y-m-d H:i:s');
-        // $data['comentarios'] = Comment::where('createdAt', '>=', $diaria )->get();
-        // $data['mensajes'] = Message::where('createdAt', '>=', $diaria )->get();
-        // $data['usuarios'] = User::where('created_at', '>=', $diaria )->get();
-        // $data['paquetes'] = Package::where('created', '>=', $diaria )->get();
-        // $data['viajeros'] = Travel::where('created_at', '>=', $diaria )->get();
-        // $data['fecha'] = Date::now('America/Argentina/Buenos_Aires')->format('l j F Y');
-        $comentarios = Comment::where('createdAt', '>=', $diaria )->get();
-        $mensajes = Message::where('createdAt', '>=', $diaria )->get();
-        $usuarios = User::where('created_at', '>=', $diaria )->get();
-        $paquetes = Package::where('created', '>=', $diaria )->get();
-        $viajeros = Travel::where('created_at', '>=', $diaria )->get();
-        $fecha = Date::now('America/Argentina/Buenos_Aires')->format('l j F Y');
-        $inside = array(
-            'fecha' => $fecha,
-            'comentarios' => $comentarios,
-            'mensajes' => $mensajes,
-            'usuarios' =>  $usuarios,
-            'paquetes' =>  $paquetes,
-            'viajeros' =>  $viajeros,
-        );
-        $data['inside'] = $inside;
-
-        Mailgun::send('emails.actividad', $inside, function ($message) use ($inside){
-            $message->from("info@paqueto.com.ve", "Mr. Pepper @ Operaciones");
-            $message->subject("[paqueto] Actividad diaria: ".$inside['fecha']);
-            $message->tag(['tareas', 'diarias', 'administrativas']);
-            $message->to("daniel@loultimoenlaweb.com");
-        });
-        //return view('emails.actividad', $data);
-        //return response()->json($data);
-    }
     public function demo(){
-        $usuarios = DB::table('users')
-            ->select('id','email','name as nombre', 'address as dirección','phone as teléfono','slug as url','dni as documento','birthdate as cumpleaños', 'gender as genero', 'city as ciudad', 'province as estado', 'country as país', 'avatar')
-            ->get();
-        foreach ($usuarios[0] as $key => $value) :
-            $fields[] = $key;
-        endforeach;
-        $user = [];
-        foreach ($usuarios as $usuario) :
-            //$user[$usuario->id] = array();
-            $user[$usuario->id] = array('id'=>$usuario->id, 'name'=>$usuario->nombre, 'email'=>$usuario->email, 'faltante'=>array());
-            foreach ($fields as $f) :
-                if(!$usuario->$f) {
-                    array_push($user[$usuario->id]['faltante'],$f);
-                }
-            endforeach;
-            if(count($user[$usuario->id]['faltante'])==0){
-                 unset($user[$usuario->id]);
-            }
-        endforeach;
-        return response()->json($user);
-        //return view('emails.informacion', $user);
+
     }
 }
