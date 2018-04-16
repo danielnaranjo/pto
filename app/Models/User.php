@@ -12,6 +12,7 @@ use Laravel\Scout\Searchable;
 // /https://es.stackoverflow.com/questions/8491/argument-1-passed-to-illuminate-auth-eloquentuserprovidervalidatecredentials
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Auth\Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * Class User
@@ -35,6 +36,7 @@ class User extends Eloquent implements AuthenticatableContract
 	public $timestamps = false;
     use Searchable;
     use Authenticatable;
+    use Notifiable;
 
     protected $casts = [
 		'dni' => 'int',

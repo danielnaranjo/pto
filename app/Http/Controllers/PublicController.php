@@ -129,7 +129,13 @@ class PublicController extends Controller
         $data['travellers'] = Travel::search( $query )->get();
         return view('pages.quick_search', $data);
     }
-    public function demo(){
-
+    public function home()
+    {
+        $data['groups'] = auth()->user()->groups;
+        $data['users'] = User::where('id', '<>', auth()->user()->id)->get();
+        $data['user'] = auth()->user();
+        $data['results'] = [];
+        $data['titulo'] = "Conversaciones";
+        return view('pages.chats', $data);//['groups' => $groups, 'users' => $users, 'user' => $user]
     }
 }

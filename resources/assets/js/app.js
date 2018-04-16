@@ -8,6 +8,7 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+window.Bus = new Vue();
 Vue.use(require('vue-moment'));
 Vue.use(require('moment/locale/es'));
 /**
