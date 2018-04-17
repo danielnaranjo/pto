@@ -38,12 +38,12 @@
                 <!--End::Main Portlet-->
 				<!--Begin::Main Portlet-->
 				<div class="row">
-
                     <create-group :initial-users="{{ $users }}"></create-group>
-                    <!-- <groups :initial-groups="{{ $groups }}" :user="{{ $user }}"></groups> -->
+                    <groups :initial-groups="{{ $groups }}" :user="{{ $user}}"></groups>
                 </div>
                 <!--End::Main Portlet-->
                 <div class="col-xl-12">
+                    {{-- json_encode($groups) --}}
                 </div>
             </div>
         </div>
