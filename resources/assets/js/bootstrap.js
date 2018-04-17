@@ -54,7 +54,7 @@ window.Echo = new Echo({
     encrypted: true
 });
 
-window.Echo.channel('paqueto_online')
-    .listen('logged', (e) => {
-        console.log('logged', e);
-    });
+// window.Echo.channel('paqueto_online')
+//     .listen('logged', (e) => {
+//         console.log('logged', e);
+//     });
