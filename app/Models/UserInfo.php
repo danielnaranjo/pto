@@ -47,7 +47,7 @@ class UserInfo extends Eloquent
 	];
     public function info()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\User');
     }
     public function country()
     {

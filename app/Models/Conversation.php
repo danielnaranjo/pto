@@ -1,8 +1,8 @@
 <?php
 
 namespace App;
-use App\Models\Group;
-use App\Models\User;
+use App\Group;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 class Conversation extends Model
 {

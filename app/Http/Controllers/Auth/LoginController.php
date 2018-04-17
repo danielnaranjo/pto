@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
+use App\User;
 use App\Models\Image;
 use App\Models\UserImage;
 use App\Http\Controllers\Controller;

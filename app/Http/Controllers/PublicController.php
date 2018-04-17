@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Country;
-use App\Models\User;
+use App\User;
+use App\Group;
 use App\Models\Package;
 use App\Models\Service;
 use App\Models\Travel;
+use App\Models\Comment;
+use App\Models\Message;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
@@ -24,11 +28,17 @@ use Date;
 use Mail;
 use Mailgun;
 
-use App\Models\Comment;
-use App\Models\Message;
-
 class PublicController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -131,11 +141,19 @@ class PublicController extends Controller
     }
     public function home()
     {
-        $data['groups'] = auth()->user()->groups;
-        $data['users'] = User::where('id', '<>', auth()->user()->id)->get();
-        $data['user'] = auth()->user();
+        //https://pusher.com/tutorials/group-chat-laravel/
+        //https://github.com/viraj-khatavkar/group-chat-app-laravel-pusher/
+        $data['user'] = Auth::user();
+        Log::info('user > '. $data['user']->id);
+        $data['groups'] = auth()->user()->groups; ///Group::where('user_id','=',Auth::user()->id);
+        Log::info('groups > '. json_encode( $data['groups'] ));
+        $data['users'] = User::where('id', '<>', Auth::user()->id)->get();
+        //Log::info('users > '. json_encode($data['users']));
         $data['results'] = [];
         $data['titulo'] = "Conversaciones";
         return view('pages.chats', $data);//['groups' => $groups, 'users' => $users, 'user' => $user]
+    }
+    public function salir() {
+        Auth::logout();
     }
 }

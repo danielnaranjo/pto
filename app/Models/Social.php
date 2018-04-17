@@ -21,6 +21,6 @@ class Social extends Eloquent
 	];
     public function rrss()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\User');
     }
 }

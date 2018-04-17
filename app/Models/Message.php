@@ -47,10 +47,10 @@ class Message extends Eloquent
 	];
     public function user()
     {
-        return $this->belongsTo('App\Models\User','user_id','id');
+        return $this->belongsTo('App\User','user_id','id');
     }
     public function from()
     {
-        return $this->belongsTo('App\Models\User','to_id','id');
+        return $this->belongsTo('App\User','to_id','id');
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Referral;
-use App\Models\User;
+use App\User;
 use Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;

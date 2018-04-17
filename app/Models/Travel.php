@@ -35,7 +35,7 @@ class Travel extends Eloquent
 	];
     public function user()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\User');
     }
     public function from()
     {
@@ -47,7 +47,7 @@ class Travel extends Eloquent
     }
     public function related()
     {
-        return $this->hasMany('App\Models\User','country','destination');
+        return $this->hasMany('App\User','country','destination');
     }
     public function toSearchableArray()
     {
