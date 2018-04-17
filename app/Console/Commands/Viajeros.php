@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Console\Commands;
-use App\Models\User;
+use App\User;
 use App\Models\Travel;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;

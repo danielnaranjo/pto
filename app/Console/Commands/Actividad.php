@@ -5,7 +5,7 @@ use App\Models\Comment;
 use App\Models\Message;
 use App\Models\Package;
 use App\Models\Travel;
-use App\Models\User;
+use App\User;
 
 #namespace App\Http\Controllers;
 use Illuminate\Console\Command;
