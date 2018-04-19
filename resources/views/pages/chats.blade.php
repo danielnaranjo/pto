@@ -38,8 +38,12 @@
                 <!--End::Main Portlet-->
 				<!--Begin::Main Portlet-->
 				<div class="row">
-                    <create-group :initial-users="{{ $users }}"></create-group>
-                    <groups :initial-groups="{{ $groups }}" :user="{{ $user}}"></groups>
+                    <div class="col-xl-3">
+                        <create-group :initial-users="{{ $users }}"></create-group>
+                    </div>
+                    <div class="col-xl-9">
+                        <groups :initial-groups="{{ $groups }}" :user="{{ $user}}"></groups>
+                    </div>
                 </div>
                 <!--End::Main Portlet-->
                 <div class="col-xl-12">

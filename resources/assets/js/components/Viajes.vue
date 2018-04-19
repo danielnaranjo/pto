@@ -106,7 +106,7 @@
 <script>
     export default {
         mounted() {
-            console.log('viajes mounted.')
+            console.log('Viajes.vue')
         },
         data() {
             return {

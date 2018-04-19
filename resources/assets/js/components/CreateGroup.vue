@@ -1,7 +1,7 @@
 <template>
-    <div class="panel panel-default">
-        <div class="panel-heading">Create Group</div>
-        <div class="panel-body">
+    <div class="">
+        <div class="">Create Group</div>
+        <div class="">
             <form>
                 <div class="form-group">
                     <input class="form-control" type="text" v-model="name" placeholder="Group Name">
@@ -15,7 +15,7 @@
                 </div>
             </form>
         </div>
-        <div class="panel-footer text-center">
+        <div class="text-center">
             <button type="submit" @click.prevent="createGroup" class="btn btn-primary">Create Group</button>
         </div>
     </div>

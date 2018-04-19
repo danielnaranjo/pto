@@ -27,3 +27,4 @@ Route::get('users/today', 'UserController@semana');
 
 // modals y vuejs
 Route::post('/referral/send', 'ReferralController@enviar');
+Route::get('people', 'PublicController@home');

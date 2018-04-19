@@ -141,11 +141,7 @@
         </script>
         @endif
 
-        @if(preg_match( "/localhost/i", $_SERVER['SERVER_NAME']) || preg_match( "/127.0.0.1/i", $_SERVER['SERVER_NAME']))
-        <script type="text/javascript">
-            console.log('@result@', '{{ $results }}', '{{$_SERVER['SERVER_NAME']}}');
-        </script>
-        @endif
+        
 
 
 	</body>

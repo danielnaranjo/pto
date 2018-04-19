@@ -144,16 +144,18 @@ class PublicController extends Controller
         //https://pusher.com/tutorials/group-chat-laravel/
         //https://github.com/viraj-khatavkar/group-chat-app-laravel-pusher/
         $data['user'] = Auth::user();
-        Log::info('user > '. $data['user']->id);
+        // Log::info('user > '. $data['user']->id);
         $data['groups'] = auth()->user()->groups; ///Group::where('user_id','=',Auth::user()->id);
-        Log::info('groups > '. json_encode( $data['groups'] ));
+        // Log::info('groups > '. json_encode( $data['groups'] ));
         $data['users'] = User::where('id', '<>', Auth::user()->id)->get();
         //Log::info('users > '. json_encode($data['users']));
         $data['results'] = [];
         $data['titulo'] = "Conversaciones";
-        return view('pages.chats', $data);//['groups' => $groups, 'users' => $users, 'user' => $user]
+        return view('pages.chats', $data);
+        return response()->json($data);
     }
     public function salir() {
         Auth::logout();
+        redirect('/login');
     }
 }

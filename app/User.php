@@ -5,7 +5,6 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 //use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Scout\Searchable;
-use App\Group;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
 // /https://es.stackoverflow.com/questions/8491/argument-1-passed-to-illuminate-auth-eloquentuserprovidervalidatecredentials

@@ -32,7 +32,7 @@
 <script>
     export default {
         mounted() {
-            console.log('Ultimos mounted.')
+            console.log('Ultimos.vue')
         },
         data() {
             return {

@@ -18,7 +18,7 @@
 <script>
 export default {
     mounted() {
-        console.log('Component mounted.')
+        console.log('Mensajes.vue')
     },
     data() {
         return {
@@ -38,13 +38,4 @@ export default {
         }
     }
 }
-</script>
-t(id) {
-                axios.get('/api/message/'+id).then((res) => {
-                    //console.log('@ axios.get', JSON.stringify(res) );
-                    this.list = res.data;
-                });
-            }
-        }
-    }
 </script>

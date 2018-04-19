@@ -17023,8 +17023,7 @@ return zhTw;
 /* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(133);
-module.exports = __webpack_require__(175);
+module.exports = __webpack_require__(133);
 
 
 /***/ }),
@@ -17041,6 +17040,7 @@ module.exports = __webpack_require__(175);
 __webpack_require__(134);
 
 window.Vue = __webpack_require__(13);
+window.Bus = new Vue();
 Vue.use(__webpack_require__(161));
 Vue.use(__webpack_require__(5));
 /**
@@ -17054,6 +17054,10 @@ Vue.component('ultimos', __webpack_require__(163));
 Vue.component('usuarios', __webpack_require__(166));
 Vue.component('mensajes', __webpack_require__(169));
 Vue.component('chat', __webpack_require__(172));
+//https://github.com/viraj-khatavkar/group-chat-app-laravel-pusher/blob/master/resources/assets/js/app.js
+Vue.component('groups', __webpack_require__(175));
+Vue.component('create-group', __webpack_require__(178));
+Vue.component('group-chat', __webpack_require__(181));
 
 var app = new Vue({
   el: '#app'
@@ -17077,9 +17081,9 @@ window._ = __webpack_require__(135);
  */
 
 try {
-    window.$ = window.jQuery = __webpack_require__(136);
+  window.$ = window.jQuery = __webpack_require__(136);
 
-    __webpack_require__(137);
+  __webpack_require__(137);
 } catch (e) {}
 
 /**
@@ -17101,9 +17105,9 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 var token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
-    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 } else {
-    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+  console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
 /**
@@ -17117,15 +17121,16 @@ if (token) {
 window.Pusher = __webpack_require__(158);
 
 window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
-    broadcaster: 'pusher',
-    key: '9494a97e796d153cd2b7',
-    cluster: 'us2',
-    encrypted: true
+  broadcaster: 'pusher',
+  key: '9494a97e796d153cd2b7',
+  cluster: 'us2',
+  encrypted: true
 });
 
-window.Echo.channel('paqueto_online').listen('logged', function (e) {
-    console.log('logged', e);
-});
+// window.Echo.channel('paqueto_online')
+//     .listen('logged', (e) => {
+//         console.log('logged', e);
+//     });
 
 /***/ }),
 /* 135 */
@@ -53237,7 +53242,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
-        console.log('Ultimos mounted.');
+        console.log('Ultimos.vue');
     },
     data: function data() {
         return {
@@ -53275,21 +53280,14 @@ var render = function() {
       _vm._l(_vm.list, function(result) {
         return _c("div", { staticClass: "m-widget4__item" }, [
           _c("div", { staticClass: "m-widget4__img m-widget4__img--pic" }, [
-            _c(
-              "a",
-              {
-                staticClass: "conectado",
-                attrs: { href: "/u/" + result.slug, "data-badge": "0" }
-              },
-              [
-                _c("img", {
-                  attrs: {
-                    src: "assets/app/media/img/users/100_4.jpg",
-                    alt: result.name
-                  }
-                })
-              ]
-            )
+            _c("a", { attrs: { href: "/u/" + result.slug } }, [
+              _c("img", {
+                attrs: {
+                  src: "assets/app/media/img/users/100_4.jpg",
+                  alt: result.name
+                }
+              })
+            ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "m-widget4__info" }, [
@@ -53428,10 +53426,88 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
-        console.log('Usuarios mounted.');
+        console.log('Usuarios.vue');
     },
     data: function data() {
         return {
@@ -53447,7 +53523,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         fetchTaskList: function fetchTaskList() {
             var _this = this;
 
-            axios.get('/api/users/thismonth').then(function (res) {
+            axios.get('api/message/1').then(function (res) {
                 _this.list = res.data;
             });
         }
@@ -53462,64 +53538,184 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "m-widget4" },
-    [
-      _vm._l(_vm.list, function(result) {
-        return _c("div", { staticClass: "m-widget4__item" }, [
-          _c("div", { staticClass: "m-widget4__img m-widget4__img--pic" }, [
-            _c("a", { attrs: { href: "/u/" + result.slug } }, [
-              result.avatar
-                ? _c("img", { attrs: { src: result.avatar, alt: result.name } })
-                : _c("img", {
-                    attrs: { src: "/pic/avatar.png", alt: result.name }
-                  })
-            ])
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "m-widget4" }, [
+      _c("div", { staticClass: "m-widget4__item" }, [
+        _c("div", { staticClass: "m-widget4__img m-widget4__img--pic" }, [
+          _c("img", {
+            attrs: { src: "assets/app/media/img/users/100_4.jpg", alt: "" }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "m-widget4__info" }, [
+          _c("span", { staticClass: "m-widget4__title" }, [
+            _vm._v("\n                Anna Strong\n            ")
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "m-widget4__info" }, [
-            _c("span", { staticClass: "m-widget4__title" }, [
-              _vm._v(
-                "\n                " + _vm._s(result.name) + "\n            "
-              )
-            ]),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c("span", { staticClass: "m-widget4__sub" }, [
-              _vm._v(
-                "\n                " +
-                  _vm._s(result.city) +
-                  " " +
-                  _vm._s(result.country) +
-                  "\n            "
-              )
-            ])
+          _c("br"),
+          _vm._v(" "),
+          _c("span", { staticClass: "m-widget4__sub" }, [
+            _vm._v("\n                Visual Designer,Google Inc\n            ")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "m-widget4__ext" }, [
+          _c(
+            "a",
+            {
+              staticClass:
+                "m-btn m-btn--pill m-btn--hover-brand btn btn-sm btn-secondary",
+              attrs: { href: "#" }
+            },
+            [_vm._v("\n                Follow\n            ")]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "m-widget4__item" }, [
+        _c("div", { staticClass: "m-widget4__img m-widget4__img--pic" }, [
+          _c("img", {
+            attrs: { src: "assets/app/media/img/users/100_14.jpg", alt: "" }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "m-widget4__info" }, [
+          _c("span", { staticClass: "m-widget4__title" }, [
+            _vm._v("\n                Milano Esco\n            ")
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "m-widget4__ext" }, [
-            _c(
-              "a",
-              {
-                staticClass:
-                  "m-btn m-btn--pill m-btn--hover-brand btn btn-sm btn-secondary",
-                attrs: { href: "/u/" + result.slug }
-              },
-              [_vm._v("\n                Seguir\n            ")]
+          _c("br"),
+          _vm._v(" "),
+          _c("span", { staticClass: "m-widget4__sub" }, [
+            _vm._v(
+              "\n                Product Designer, Apple Inc\n            "
             )
           ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "m-widget4__ext" }, [
+          _c(
+            "a",
+            {
+              staticClass:
+                "m-btn m-btn--pill m-btn--hover-brand btn btn-sm btn-secondary",
+              attrs: { href: "#" }
+            },
+            [_vm._v("\n                Follow\n            ")]
+          )
         ])
-      }),
+      ]),
       _vm._v(" "),
-      _vm.list.length === 0
-        ? _c("h4", [_vm._v("\n        No hay viajeros disponibles\n    ")])
-        : _vm._e()
-    ],
-    2
-  )
-}
-var staticRenderFns = []
+      _c("div", { staticClass: "m-widget4__item" }, [
+        _c("div", { staticClass: "m-widget4__img m-widget4__img--pic" }, [
+          _c("img", {
+            attrs: { src: "assets/app/media/img/users/100_11.jpg", alt: "" }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "m-widget4__info" }, [
+          _c("span", { staticClass: "m-widget4__title" }, [
+            _vm._v("\n                Nick Bold\n            ")
+          ]),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _c("span", { staticClass: "m-widget4__sub" }, [
+            _vm._v(
+              "\n                Web Developer, Facebook Inc\n            "
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "m-widget4__ext" }, [
+          _c(
+            "a",
+            {
+              staticClass:
+                "m-btn m-btn--pill m-btn--hover-brand btn btn-sm btn-secondary",
+              attrs: { href: "#" }
+            },
+            [_vm._v("\n                Follow\n            ")]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "m-widget4__item" }, [
+        _c("div", { staticClass: "m-widget4__img m-widget4__img--pic" }, [
+          _c("img", {
+            attrs: { src: "assets/app/media/img/users/100_1.jpg", alt: "" }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "m-widget4__info" }, [
+          _c("span", { staticClass: "m-widget4__title" }, [
+            _vm._v("\n                Wiltor Delton\n            ")
+          ]),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _c("span", { staticClass: "m-widget4__sub" }, [
+            _vm._v(
+              "\n                Project Manager, Amazon Inc\n            "
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "m-widget4__ext" }, [
+          _c(
+            "a",
+            {
+              staticClass:
+                "m-btn m-btn--pill m-btn--hover-brand btn btn-sm btn-secondary",
+              attrs: { href: "#" }
+            },
+            [_vm._v("\n                Follow\n            ")]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "m-widget4__item" }, [
+        _c("div", { staticClass: "m-widget4__img m-widget4__img--pic" }, [
+          _c("img", {
+            attrs: { src: "assets/app/media/img/users/100_5.jpg", alt: "" }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "m-widget4__info" }, [
+          _c("span", { staticClass: "m-widget4__title" }, [
+            _vm._v("\n                Nick Stone\n            ")
+          ]),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _c("span", { staticClass: "m-widget4__sub" }, [
+            _vm._v(
+              "\n                Visual Designer, Github Inc\n            "
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "m-widget4__ext" }, [
+          _c(
+            "a",
+            {
+              staticClass:
+                "m-btn m-btn--pill m-btn--hover-brand btn btn-sm btn-secondary",
+              attrs: { href: "#" }
+            },
+            [_vm._v("\n                Follow\n            ")]
+          )
+        ])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -53602,13 +53798,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
-        console.log('Mensajes mounted.');
-    },
-
-    props: {
-        id: {
-            type: Number
-        }
+        console.log('Mensajes.vue');
     },
     data: function data() {
         return {
@@ -53616,15 +53806,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     created: function created() {
-        this.getList(this.id);
+        this.getList();
     },
 
+
     methods: {
-        getList: function getList(id) {
+        getList: function getList() {
             var _this = this;
 
-            axios.get('/api/message/' + id).then(function (res) {
-                //console.log('@ axios.get', JSON.stringify(res) );
+            axios.get('/api/message/1').then(function (res) {
                 _this.list = res.data;
             });
         }
@@ -53808,28 +53998,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
-        console.log('Mensajes mounted.');
+        console.log('Chat.vue');
     },
 
     props: {
         id: {
-            type: Number
+            type: Number,
+            default: 0
         }
     },
     data: function data() {
         return {
             mensajes: [],
+            grupos: [],
             mensaje: {
                 id: '',
                 body: ''
@@ -53838,6 +54022,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     created: function created() {
         this.getList(this.id);
+        this.getPeople();
     },
 
     methods: {
@@ -53849,13 +54034,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.mensajes = res.data;
             });
         },
-        enviar: function enviar() {
+        getPeople: function getPeople() {
             var _this2 = this;
 
+            axios.get('/chats').then(function (res) {
+                //console.log('@ axios.get', JSON.stringify(res) );
+                _this2.grupos = res.data.groups;
+            });
+        },
+        enviar: function enviar() {
+            var _this3 = this;
+
             axios.post('/message', this.mensaje).then(function (res) {
-                _this2.mensaje.body = '';
+                _this3.mensaje.body = '';
                 //this.mensaje.to_id = '';
-                _this2.getList(_this2.id);
+                _this3.getList(_this3.id);
             }).catch(function (err) {
                 return console.error(err);
             });
@@ -53874,17 +54067,67 @@ var render = function() {
   return _c("div", { staticClass: "m-quick-sidebar__content m--hide" }, [
     _vm._m(0),
     _vm._v(" "),
-    _vm._m(1),
+    _c(
+      "ul",
+      {
+        staticClass: "nav nav-tabs m-tabs m-tabs-line m-tabs-line--brand",
+        attrs: { id: "m_quick_sidebar_tabs", role: "tablist" }
+      },
+      _vm._l(_vm.grupos, function(g, index) {
+        return index < 3
+          ? _c("li", { staticClass: "nav-item m-tabs__item" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "nav-link m-tabs__link",
+                  attrs: {
+                    "data-toggle": "tab",
+                    href: "#m_quick_sidebar_tabs_messenger",
+                    role: "tab",
+                    "aria-expanded": "false"
+                  }
+                },
+                [
+                  _vm._v(
+                    "\n                " + _vm._s(g.name) + "\n            "
+                  )
+                ]
+              )
+            ])
+          : _vm._e()
+      })
+    ),
     _vm._v(" "),
-    _c("div", { staticClass: "tab-content" }, [
+    _vm._m(1)
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "span",
+      {
+        staticClass: "m-quick-sidebar__close",
+        attrs: { id: "m_quick_sidebar_close" }
+      },
+      [_c("i", { staticClass: "la la-close" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "tab-content" }, [
       _c(
         "div",
         {
           staticClass: "tab-pane active m-scrollable",
           attrs: { id: "m_quick_sidebar_tabs_messenger", role: "tabpanel" }
         },
-        _vm._l(_vm.mensajes, function(mensaje) {
-          return _c(
+        [
+          _c(
             "div",
             {
               staticClass:
@@ -53954,9 +54197,7 @@ var render = function() {
                                         },
                                         [
                                           _vm._v(
-                                            "\n                                            " +
-                                              _vm._s(mensaje.comment) +
-                                              "\n                                        "
+                                            "\n                                            Hi Megan. It's at 2.30PM\n                                        "
                                           )
                                         ]
                                       )
@@ -53967,7 +54208,74 @@ var render = function() {
                             ]
                           ),
                           _vm._v(" "),
-                          _vm._m(2, true),
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "m-messenger__message m-messenger__message--in"
+                            },
+                            [
+                              _c(
+                                "div",
+                                { staticClass: "m-messenger__message-pic" },
+                                [
+                                  _c("img", {
+                                    staticClass: "mCS_img_loaded",
+                                    attrs: {
+                                      src:
+                                        "/assets/app/media/img//users/user3.jpg",
+                                      alt: ""
+                                    }
+                                  })
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "m-messenger__message-body" },
+                                [
+                                  _c("div", {
+                                    staticClass: "m-messenger__message-arrow"
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass:
+                                        "m-messenger__message-content"
+                                    },
+                                    [
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "m-messenger__message-username"
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                            Megan wrote\n                                        "
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "m-messenger__message-text"
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                            Will the development team be joining ?\n                                        "
+                                          )
+                                        ]
+                                      )
+                                    ]
+                                  )
+                                ]
+                              )
+                            ]
+                          ),
                           _vm._v(" "),
                           _c("div", { staticClass: "m-messenger__datetime" }, [
                             _vm._v("2:30PM")
@@ -53981,162 +54289,32 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "m-messenger__seperator" }),
               _vm._v(" "),
-              _c(
-                "form",
-                {
-                  attrs: { action: "#" },
-                  on: {
-                    submit: function($event) {
-                      $event.preventDefault()
-                      _vm.enviar()
+              _c("div", { staticClass: "m-messenger__form" }, [
+                _c("div", { staticClass: "m-messenger__form-controls" }, [
+                  _c("input", {
+                    staticClass: "m-messenger__form-input",
+                    attrs: {
+                      type: "text",
+                      name: "",
+                      placeholder: "Escribe aquí..."
                     }
-                  }
-                },
-                [
-                  _c("div", { staticClass: "m-messenger__form" }, [
-                    _c("div", { staticClass: "m-messenger__form-controls" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: mensaje.body,
-                            expression: "mensaje.body"
-                          }
-                        ],
-                        staticClass: "m-messenger__form-input",
-                        attrs: { type: "text", placeholder: "Escribe aquí..." },
-                        domProps: { value: mensaje.body },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(mensaje, "body", $event.target.value)
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: mensaje.to_id,
-                            expression: "mensaje.to_id"
-                          }
-                        ],
-                        attrs: { type: "hidden" },
-                        domProps: { value: mensaje.to_id },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(mensaje, "to_id", $event.target.value)
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _vm._m(3, true)
-                  ])
-                ]
-              )
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "m-messenger__form-tools" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "m-messenger__form-attachment",
+                      attrs: { href: "" }
+                    },
+                    [_c("i", { staticClass: "fa fa-paper-plane-o" })]
+                  )
+                ])
+              ])
             ]
           )
-        })
-      )
-    ])
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "span",
-      {
-        staticClass: "m-quick-sidebar__close",
-        attrs: { id: "m_quick_sidebar_close" }
-      },
-      [_c("i", { staticClass: "la la-close" })]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "ul",
-      {
-        staticClass: "nav nav-tabs m-tabs m-tabs-line m-tabs-line--brand",
-        attrs: { id: "m_quick_sidebar_tabs", role: "tablist" }
-      },
-      [
-        _c("li", { staticClass: "nav-item m-tabs__item" }, [
-          _c(
-            "a",
-            {
-              staticClass: "nav-link m-tabs__link",
-              attrs: {
-                "data-toggle": "tab",
-                href: "#paquetochat",
-                role: "tab",
-                "aria-expanded": "false"
-              }
-            },
-            [_vm._v("\n                Paqueto Chat\n            ")]
-          )
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "m-messenger__message m-messenger__message--in" },
-      [
-        _c("div", { staticClass: "m-messenger__message-pic" }, [
-          _c("img", {
-            staticClass: "mCS_img_loaded",
-            attrs: { src: "/assets/app/media/img//users/user3.jpg", alt: "" }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "m-messenger__message-body" }, [
-          _c("div", { staticClass: "m-messenger__message-arrow" }),
-          _vm._v(" "),
-          _c("div", { staticClass: "m-messenger__message-content" }, [
-            _c("div", { staticClass: "m-messenger__message-username" }, [
-              _vm._v(
-                "\n                                            Megan wrote\n                                        "
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "m-messenger__message-text" }, [
-              _vm._v(
-                "\n                                            Will the development team be joining ?\n                                        "
-              )
-            ])
-          ])
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "m-messenger__form-tools" }, [
-      _c(
-        "a",
-        { staticClass: "m-messenger__form-attachment", attrs: { href: "" } },
-        [_c("i", { staticClass: "fa fa-paper-plane-o" })]
+        ]
       )
     ])
   }
@@ -54152,9 +54330,584 @@ if (false) {
 
 /***/ }),
 /* 175 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-// removed by extract-text-webpack-plugin
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(176)
+/* template */
+var __vue_template__ = __webpack_require__(177)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\Groups.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-19433bea", Component.options)
+  } else {
+    hotAPI.reload("data-v-19433bea", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 176 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['initialGroups', 'user'],
+
+    data: function data() {
+        return {
+            groups: []
+        };
+    },
+    mounted: function mounted() {
+        var _this = this;
+
+        this.groups = this.initialGroups;
+
+        Bus.$on('groupCreated', function (group) {
+            _this.groups.push(group);
+        });
+
+        this.listenForNewGroups();
+    },
+
+
+    methods: {
+        listenForNewGroups: function listenForNewGroups() {
+            var _this2 = this;
+
+            Echo.private('users.' + this.user.id).listen('GroupCreated', function (e) {
+                _this2.groups.push(e.group);
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 177 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    _vm._l(_vm.groups, function(group) {
+      return _c("group-chat", { key: group.id, attrs: { group: group } })
+    })
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-19433bea", module.exports)
+  }
+}
+
+/***/ }),
+/* 178 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(179)
+/* template */
+var __vue_template__ = __webpack_require__(180)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\CreateGroup.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-298937bc", Component.options)
+  } else {
+    hotAPI.reload("data-v-298937bc", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 179 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['initialUsers'],
+
+    data: function data() {
+        return {
+            name: '',
+            users: []
+        };
+    },
+
+
+    methods: {
+        createGroup: function createGroup() {
+            var _this = this;
+
+            axios.post('/groups', { name: this.name, users: this.users }).then(function (response) {
+                _this.name = '';
+                _this.users = [];
+                Bus.$emit('groupCreated', response.data);
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 180 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", {}, [
+    _c("div", {}, [_vm._v("Create Group")]),
+    _vm._v(" "),
+    _c("div", {}, [
+      _c("form", [
+        _c("div", { staticClass: "form-group" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.name,
+                expression: "name"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", placeholder: "Group Name" },
+            domProps: { value: _vm.name },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.name = $event.target.value
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.users,
+                  expression: "users"
+                }
+              ],
+              attrs: { multiple: "", id: "friends" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.users = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                }
+              }
+            },
+            _vm._l(_vm.initialUsers, function(user) {
+              return _c("option", { domProps: { value: user.id } }, [
+                _vm._v(
+                  "\n                        " +
+                    _vm._s(user.name) +
+                    "\n                    "
+                )
+              ])
+            })
+          )
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "text-center" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-primary",
+          attrs: { type: "submit" },
+          on: {
+            click: function($event) {
+              $event.preventDefault()
+              _vm.createGroup($event)
+            }
+          }
+        },
+        [_vm._v("Create Group")]
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-298937bc", module.exports)
+  }
+}
+
+/***/ }),
+/* 181 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(182)
+/* template */
+var __vue_template__ = __webpack_require__(183)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\GroupChat.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-72694d90", Component.options)
+  } else {
+    hotAPI.reload("data-v-72694d90", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 182 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['group'],
+
+    data: function data() {
+        return {
+            conversations: [],
+            message: '',
+            group_id: this.group.id
+        };
+    },
+    mounted: function mounted() {
+        this.listenForNewMessage();
+    },
+
+
+    methods: {
+        store: function store() {
+            var _this = this;
+
+            console.log('store', this);
+            axios.post('/conversations', { message: this.message, group_id: this.group.id }).then(function (response) {
+                console.log('store', response);
+                _this.message = '';
+                _this.conversations.push(response.data);
+            });
+        },
+        listenForNewMessage: function listenForNewMessage() {
+            var _this2 = this;
+
+            Echo.private('groups.' + this.group.id).listen('NewMessage', function (e) {
+                console.log('listenForNewMessage', e);
+                _this2.conversations.push(e);
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 183 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", {}, [
+      _c("div", { attrs: { id: "accordion" } }, [
+        _vm._v("\n            " + _vm._s(_vm.group.name) + "\n            "),
+        _c("div", { staticClass: "btn-group pull-right" }, [
+          _c(
+            "a",
+            {
+              staticClass: "btn btn-default btn-xs",
+              attrs: { type: "button", href: "#collapseOne-" + _vm.group.id }
+            },
+            [_c("span", { staticClass: "glyphicon glyphicon-chevron-down" })]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { attrs: { id: "collapseOne-" + _vm.group.id } }, [
+        _c("div", { staticClass: "chat-panel" }, [
+          _c(
+            "ul",
+            { staticClass: "chat" },
+            _vm._l(_vm.conversations, function(conversation) {
+              return _c("li", [
+                _c("div", { staticClass: "chat-body clearfix" }, [
+                  _c("div", { staticClass: "header" }, [
+                    _c("strong", { staticClass: "primary-font" }, [
+                      _vm._v(_vm._s(conversation.user.name))
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("p", [
+                    _vm._v(
+                      "\n                                " +
+                        _vm._s(conversation.message) +
+                        "\n                            "
+                    )
+                  ])
+                ])
+              ])
+            })
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", {}, [
+          _c("div", { staticClass: "input-group" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.message,
+                  expression: "message"
+                }
+              ],
+              staticClass: "form-control input-sm",
+              attrs: {
+                id: "btn-input",
+                type: "text",
+                placeholder: "Type your message here...",
+                autofocus: ""
+              },
+              domProps: { value: _vm.message },
+              on: {
+                keyup: function($event) {
+                  if (
+                    !("button" in $event) &&
+                    _vm._k($event.keyCode, "enter", 13, $event.key)
+                  ) {
+                    return null
+                  }
+                  _vm.store()
+                },
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.message = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("span", { staticClass: "input-group-btn" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-warning btn-sm",
+                  attrs: { id: "btn-chat" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      _vm.store()
+                    }
+                  }
+                },
+                [_vm._v("\n                            Send")]
+              )
+            ])
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-72694d90", module.exports)
+  }
+}
 
 /***/ })
 ],[132]);

@@ -5,9 +5,9 @@
     </span>
     <!-- component -->
     <ul id="m_quick_sidebar_tabs" class="nav nav-tabs m-tabs m-tabs-line m-tabs-line--brand" role="tablist">
-        <li class="nav-item m-tabs__item">
+        <li class="nav-item m-tabs__item" v-for="(g, index) in grupos" v-if="index < 3">
             <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_quick_sidebar_tabs_messenger" role="tab" aria-expanded="false">
-                Daniel N.
+                {{ g.name }}
             </a>
         </li>
     </ul>
@@ -78,11 +78,18 @@
 <script>
 export default {
     mounted() {
-        console.log('Chat mounted.')
+        console.log('Chat.vue')
     },
+    props: {
+            id:{
+                type: Number,
+                default: 0,
+            }
+        },
     data() {
         return {
             mensajes: [],
+            grupos: [],
             mensaje: {
                 id: '',
                 body: ''
@@ -91,12 +98,19 @@ export default {
     },
     created() {
         this.getList(this.id);
+        this.getPeople();
     },
     methods: {
         getList(id) {
             axios.get('/api/message/'+id).then((res) => {
                 //console.log('@ axios.get', JSON.stringify(res) );
                 this.mensajes = res.data;
+            });
+        },
+        getPeople() {
+            axios.get('/chats').then((res) => {
+                //console.log('@ axios.get', JSON.stringify(res) );
+                this.grupos = res.data.groups;
             });
         },
         enviar() {
